@@ -26,7 +26,7 @@ public class Battlefield {
 		this.height = ((Long) jo.get("height")).intValue();
 		this.width = ((Long) jo.get("width")).intValue();
 		
-		int[][] battlefield = new int [this.height][this.width];
+		this.battlefield = new int [this.height][this.width];
 
 		JSONArray jsonArray = (JSONArray) jo.get("data");
 		Iterator<?> iterator = jsonArray.iterator();
@@ -38,7 +38,18 @@ public class Battlefield {
 				}
 			}
 		}
-		this.battlefield = battlefield;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int[][] getBattlefield() {
+		return battlefield;
 	}
 
 }
