@@ -1,14 +1,11 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Iterator;
 
+import java.io.FileReader;
+import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class Battlefield {
 	
@@ -16,12 +13,17 @@ public class Battlefield {
 	private int height;
 	private int[][] battlefield;
 	
-	public Battlefield(String path) throws FileNotFoundException, IOException, ParseException {
+	public Battlefield(String path) {
 		parseTerrainFromFile(path);
 	}
 	
-	public void parseTerrainFromFile(String path) throws FileNotFoundException, IOException, ParseException {
-		Object obj = new JSONParser().parse(new FileReader(path)); 
+	public void parseTerrainFromFile(String path) {
+		Object obj = null;
+		try {
+			obj = new JSONParser().parse(new FileReader(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		JSONObject jo = (JSONObject) obj;
 		this.height = ((Long) jo.get("height")).intValue();
 		this.width = ((Long) jo.get("width")).intValue();
