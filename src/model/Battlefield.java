@@ -28,13 +28,13 @@ public class Battlefield {
 		this.height = ((Long) jo.get("height")).intValue();
 		this.width = ((Long) jo.get("width")).intValue();
 		
-		this.battlefield = new int [this.height][this.width];
+		this.battlefield = new int [this.width][this.height];
 
 		JSONArray jsonArray = (JSONArray) jo.get("data");
 		Iterator<?> iterator = jsonArray.iterator();
 
-		for (int line = 0; line < this.width; line++) {
-			for (int column = 0; column < this.height; column++) {
+		for (int line = 0; line < this.height; line++) {
+			for (int column = 0; column < this.width; column++) {
 				if(iterator.hasNext()) {
 					battlefield[column][line] = ( (Long) iterator.next()).intValue();
 				}
