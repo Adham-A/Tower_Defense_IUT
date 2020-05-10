@@ -1,6 +1,8 @@
 package model;
 
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.util.Iterator;
 import org.json.simple.JSONArray;
@@ -40,7 +42,16 @@ public class Battlefield {
 				}
 			}
 		}
+		
 	}
+	
+	/*private BufferedImage cropImage(BufferedImage src, int number) {
+	      BufferedImage dest = src.getSubimage(0, 0, (number-((number%15)*15))*16,(number%15)*16);
+	      BufferedImage copyOfImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
+	      Graphics g = copyOfImage.createGraphics();
+	      g.drawImage(src, 0, 0, null);
+	      return dest; 
+	}*/
 	
 	public int getWidth() {
 		return width;

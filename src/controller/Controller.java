@@ -35,7 +35,7 @@ public class Controller implements Initializable{
 	}
 	
 	private BufferedImage cropImage(BufferedImage src, int number) {
-	      BufferedImage dest = src.getSubimage(number%160,number/10*16, 16,16);
+	      BufferedImage dest = src.getSubimage((number%10)*16,number/10*16, 16,16);
 	      BufferedImage copyOfImage = new BufferedImage(src.getWidth(), src.getHeight(), BufferedImage.TYPE_INT_RGB);
 	      Graphics g = copyOfImage.createGraphics();
 	      g.drawImage(src, 0, 0, null);
@@ -45,10 +45,10 @@ public class Controller implements Initializable{
 	//private WritableImage cropImage()
 	
 	void createView(int[][] array) throws IOException {
-		for ( int i = 0; i < array.length; i++) {
-			for(int j = 0; j < array[0].length ; j++) {
+		for ( int i = 0; i < array[0].length; i++) {
+			for(int j = 0; j < array.length ; j++) {
 				ImageView image = new ImageView();
-				Image src = SwingFXUtils.toFXImage(cropImage(ImageIO.read(new File("tileset/tileset.png")),array[i][j]), null );
+				Image src = SwingFXUtils.toFXImage(cropImage(ImageIO.read(new File("tileset/tileset.png")),array[j][i]-1), null );
 				image.setImage(src);
 				this.pane.getChildren().add(image);
 			}
