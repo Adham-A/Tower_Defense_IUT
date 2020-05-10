@@ -14,19 +14,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import model.Battlefield;
 
 public class Controller implements Initializable{
 	
 	@FXML
-    private Pane pane;
+    private TilePane pane;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		Battlefield battlefield = new Battlefield("battlefields/battlefield1.json");
 		int[][] battlefieldArray = battlefield.getBattlefield();
-		pane = new Pane();
 		try {
 			createView(battlefieldArray);
 		} catch (IOException e) {
@@ -54,6 +53,5 @@ public class Controller implements Initializable{
 				this.pane.getChildren().add(image);
 			}
 		}
-		System.out.println(this.pane.getChildren());
 	}
 }
