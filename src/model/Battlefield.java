@@ -26,5 +26,16 @@ public class Battlefield {
 	public int getBattlefieldTile(int x,int y) { 
 		return this.battlefield[x][y]; 
 	}
+	
+	public int[] getStartCoordinates(){
+		for (int i = 0; i < battlefield.length; i++) {
+			for (int j = 0; j < battlefield[0].length; j++) {
+				if(this.battlefield[i][j]>0 && this.battlefield[i][j]<21) {
+					return new int[] {i,j};
+				}
+			}
+		}
+		return null;
+	}
 
 }

@@ -18,6 +18,7 @@ public class Controller implements Initializable{
     	battlefield = new Battlefield("battlefields/battlefield1.json");
     	battlefieldView = new BattlefieldView(battlefield, tilepane);
     	battlefieldView.createView();
+    	battlefieldView.test();
     }
 
 }
