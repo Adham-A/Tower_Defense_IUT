@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,9 +45,13 @@ public class BattlefieldView {
 		g1.getChildren().add(image);
 		
 	}
-	
-	public void testAvancer() {
-		
+
+	public void moveTest() {
+		for ( int i = 0 ; i < tilepane.getChildren().size() ; i++) {
+			if ( ((Group)tilepane.getChildren().get(i)).getChildren().size()>1) {
+				((Group)tilepane.getChildren().get(i-15)).getChildren().add(((Group)tilepane.getChildren().get(i)).getChildren().get(1));
+			}
+		}
 	}
 	
 	private BufferedImage cropImage(BufferedImage src, int number) {

@@ -2,6 +2,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
@@ -19,6 +21,18 @@ public class Controller implements Initializable{
     	battlefieldView = new BattlefieldView(battlefield, tilepane);
     	battlefieldView.createView();
     	battlefieldView.test();
+    	battlefieldView.moveTest();
+    }
+    
+    public void waveLoop() {
+    	while(true) {
+    		for (int i = 0 ; i < battlefield.getListEnemy().size() ; i++) {
+    			battlefield.getListEnemy().get(i).action();
+    		}
+    		for (int i = 0 ; i < battlefield.getListTurret().size() ; i++) {
+    			battlefield.getListTurret().get(i).action();
+    		}
+    	}
     }
 
 }
