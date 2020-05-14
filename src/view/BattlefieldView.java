@@ -3,8 +3,6 @@ package view;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,31 +28,9 @@ public class BattlefieldView {
 		this.battlefield = battlefield;
 		this.tilepane = tilepane;
 	}
-	
-	public void test() {
-		Image quartz = null;
-		try {
-			quartz = new Image(new FileInputStream("tileset/quartz_1.png"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		ImageView image = new ImageView(quartz);
-		int[] startCoordinates = battlefield.getStartCoordinates();
-		Group g1 = (Group) tilepane.getChildren().get(startCoordinates[1]*battlefield.getWidth()+startCoordinates[0]);
-		g1.getChildren().add(image);
 		
-	}
-
-	public void moveTest() {
-		for ( int i = 0 ; i < tilepane.getChildren().size() ; i++) {
-			if ( ((Group)tilepane.getChildren().get(i)).getChildren().size()>1) {
-				((Group)tilepane.getChildren().get(i-15)).getChildren().add(((Group)tilepane.getChildren().get(i)).getChildren().get(1));
-			}
-		}
-	}
-	
 	private BufferedImage cropImage(BufferedImage src, int number) {
-		return src.getSubimage(((number-1)%10)*16,(number-1)/10*16, 16,16);
+		return src.getSubimage(((number-1)%10)*32,(number-1)/10*32, 32,32);
 	}
 	
 	public void createView() {

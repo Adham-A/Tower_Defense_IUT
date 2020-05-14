@@ -2,7 +2,6 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,8 +19,6 @@ public class Controller implements Initializable{
     	battlefield = new Battlefield("battlefields/battlefield1.json");
     	battlefieldView = new BattlefieldView(battlefield, tilepane);
     	battlefieldView.createView();
-    	battlefieldView.test();
-    	battlefieldView.moveTest();
     }
     
     public void waveLoop() {
