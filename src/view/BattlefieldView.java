@@ -7,14 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -79,19 +78,19 @@ public class BattlefieldView {
 			group.setBlendMode(BlendMode.MULTIPLY);
 		}
 		
+		Map<Integer, Image> hashmap = new HashMap<Integer, Image>();
 		for ( int i = 0; i < heigth; i++) {
 			for(int j = 0; j < width ; j++) {			
-				if( ( (ImageView) Groups.get((i)*width+j).getChildren().get(0)).getImage() ==null) {
-					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getBattlefieldTile(j, i)),null);					
-					for (int k = 0; k < heigth; k++) { //this loop fills every tile with the corresponding image
-						for (int l = 0; l < width; l++) {
-							if(battlefield.getBattlefieldTile(j, i) == battlefield.getBattlefieldTile(l, k)) {
-								((ImageView)Groups.get((k)*width+l).getChildren().get(0) ).setImage(src); 
-							}
-						}
-					}
-					
+				if(! hashmap.containsKey( (Integer) battlefield.getBattlefieldTile(j, i) )) {
+					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getBattlefieldTile(j, i)),null);
+					hashmap.put(battlefield.getBattlefieldTile(j, i), src);
 				}
+			}
+		}
+
+		for (int k = 0; k < heigth; k++) { //this loop fills every tile with the corresponding image
+			for (int l = 0; l < width; l++) {
+				((ImageView)Groups.get((k)*width+l).getChildren().get(0) ).setImage(hashmap.get(battlefield.getBattlefieldTile(l, k))); 
 			}
 		}
 	}
