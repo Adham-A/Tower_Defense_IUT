@@ -12,16 +12,16 @@ public class Battlefield {
 	private int height;
 	private int[][] battlefield;
 	private BattlefieldLoader battlefieldLoader;
-	private ArrayList<Enemy> listEnemy;
-	private ArrayList<Turret> listTurret;
+	private ArrayList<Enemy> enemyList;
+	private ArrayList<Turret> turretList;
 	
 	public Battlefield(String path) {
 		this.battlefieldLoader = new BattlefieldLoader(path);
 		this.height = battlefieldLoader.parseBattlefieldHeight();
 		this.width = battlefieldLoader.parseBattlefieldWidth();
 		this.battlefield = battlefieldLoader.parseBattlefieldFromFile();
-		listEnemy = new ArrayList<Enemy>();
-		listTurret = new ArrayList<Turret>();
+		enemyList = new ArrayList<Enemy>();
+		turretList = new ArrayList<Turret>();
 	}
 	
 	public int getWidth() {
@@ -47,12 +47,12 @@ public class Battlefield {
 		return null;
 	}
 	
-	public ArrayList<Enemy> getListEnemy(){
-		return this.listEnemy;
+	public ArrayList<Enemy> getEnemyList(){
+		return this.enemyList;
 	}
 	
-	public ArrayList<Turret> getListTurret(){
-		return this.listTurret;
+	public ArrayList<Turret> getTurretList(){
+		return this.turretList;
 	}
 
 }

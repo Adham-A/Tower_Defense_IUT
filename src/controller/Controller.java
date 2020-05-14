@@ -23,11 +23,11 @@ public class Controller implements Initializable{
     
     public void waveLoop() {
     	while(true) {
-    		for (int i = 0 ; i < battlefield.getListEnemy().size() ; i++) {
-    			battlefield.getListEnemy().get(i).action();
+    		for (int i = 0; i < battlefield.getEnemyList().size() ; i++) {
+    			battlefield.getEnemyList().get(i).action();
     		}
-    		for (int i = 0 ; i < battlefield.getListTurret().size() ; i++) {
-    			battlefield.getListTurret().get(i).action();
+    		for (int i = 0; i < battlefield.getTurretList().size() ; i++) {
+    			battlefield.getTurretList().get(i).action();
     		}
     	}
     }
