@@ -1,6 +1,9 @@
 // This  class represents the battlefield with the IDs of the tiles used
 package model;
 
+import model.enemy.Enemy;
+import model.turret.Turret;
+
 import java.util.ArrayList;
 
 public class Battlefield {
