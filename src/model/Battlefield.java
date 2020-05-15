@@ -14,7 +14,7 @@ public class Battlefield {
 	private BattlefieldLoader battlefieldLoader;
 	private ObservableList<Enemy> enemyList;
 	private ObservableList<Turret> turretList;
-	
+
 	public Battlefield(String path) {
 		this.battlefieldLoader = new BattlefieldLoader(path);
 		this.height = battlefieldLoader.parseBattlefieldHeight();
@@ -58,7 +58,6 @@ public class Battlefield {
 	public ObservableList<Enemy> getEnemyList(){
 		return this.enemyList;
 	}
-	
 	public ObservableList<Turret> getTurretList(){
 		return this.turretList;
 	}

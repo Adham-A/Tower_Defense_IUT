@@ -10,6 +10,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			TilePane root = FXMLLoader.load(getClass().getResource("/view/view.fxml"));
+
 			Scene scene = new Scene(root,480,864);
 			primaryStage.setScene(scene);
 			primaryStage.show();
