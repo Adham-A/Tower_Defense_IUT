@@ -1,8 +1,5 @@
 package model.turret;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
 public abstract class Turret {
 
 	private String id;

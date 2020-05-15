@@ -3,8 +3,8 @@ package model;
 
 import model.enemy.Enemy;
 import model.turret.Turret;
-
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Battlefield {
 	
@@ -12,16 +12,16 @@ public class Battlefield {
 	private int height;
 	private int[][] battlefield;
 	private BattlefieldLoader battlefieldLoader;
-	private ArrayList<Enemy> enemyList;
-	private ArrayList<Turret> turretList;
+	private ObservableList<Enemy> enemyList;
+	private ObservableList<Turret> turretList;
 	
 	public Battlefield(String path) {
 		this.battlefieldLoader = new BattlefieldLoader(path);
 		this.height = battlefieldLoader.parseBattlefieldHeight();
 		this.width = battlefieldLoader.parseBattlefieldWidth();
 		this.battlefield = battlefieldLoader.parseBattlefieldFromFile();
-		this.enemyList = new ArrayList<Enemy>();
-		this.turretList = new ArrayList<Turret>();
+		this.enemyList = FXCollections.observableArrayList();
+		this.turretList = FXCollections.observableArrayList();
 	}
 	
 	public int getWidth() {
@@ -47,11 +47,11 @@ public class Battlefield {
 		return null;
 	}
 	
-	public ArrayList<Enemy> getEnemyList(){
+	public ObservableList<Enemy> getEnemyList(){
 		return this.enemyList;
 	}
 	
-	public ArrayList<Turret> getTurretList(){
+	public ObservableList<Turret> getTurretList(){
 		return this.turretList;
 	}
 
