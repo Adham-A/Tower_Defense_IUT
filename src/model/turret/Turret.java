@@ -7,15 +7,14 @@ public abstract class Turret {
 
 	private String id;
 	private int hp;
-
-	IntegerProperty x, y;
+	private int x, y;
 
 	public Turret(int hp, int x, int y) {
 
 		this.hp = hp;
 
-		this.x = new SimpleIntegerProperty(x);
-		this.y = new SimpleIntegerProperty(y);
+		this.x = x;
+		this.y = y;
 	}
 
 	public abstract void action();
@@ -35,28 +34,22 @@ public abstract class Turret {
 	}
 
 // x
-	IntegerProperty getXProperty() {
+
+	int getX() {
 		return this.x;
 	}
 
-	int getX() {
-		return this.x.getValue();
-	}
-
 	void setX(int n) {
-		this.x.setValue(n);
+		this.x = n;
 	}
 
 // y
-	IntegerProperty getYProperty() {
+
+	int getY() {
 		return this.y;
 	}
 
-	int getY() {
-		return this.y.getValue();
-	}
-
 	void setY(int n) {
-		this.y.setValue(n);
+		this.y = n;
 	}
 }
