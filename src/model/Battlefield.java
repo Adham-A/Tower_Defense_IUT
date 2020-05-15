@@ -24,6 +24,14 @@ public class Battlefield {
 		this.turretList = FXCollections.observableArrayList();
 	}
 	
+	public void addEnemy(Enemy enemy) {
+		this.enemyList.add(enemy);
+	}
+	
+	public void addTurret(Turret t) {
+		this.turretList.add(t);
+	}
+	
 	public int getWidth() {
 		return this.width;
 	}

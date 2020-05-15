@@ -2,6 +2,7 @@ package model.enemy;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import model.Battlefield;
 
 public abstract class Enemy {
 
@@ -20,7 +21,11 @@ public abstract class Enemy {
 	}
 	
 	public abstract void action();
-
+	
+	public void add(Battlefield battlefield) {
+		battlefield.addEnemy(this);
+	}
+	
 // id
 	String getId() {
 		return this.id;

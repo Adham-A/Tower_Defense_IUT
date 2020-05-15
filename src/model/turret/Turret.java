@@ -1,5 +1,7 @@
 package model.turret;
 
+import model.Battlefield;
+
 public abstract class Turret {
 
 	private String id;
@@ -15,6 +17,10 @@ public abstract class Turret {
 	}
 
 	public abstract void action();
+	
+	public void add(Battlefield battlefield) {
+		battlefield.addTurret(this);
+	}
 
 // id
 	String getId() {
