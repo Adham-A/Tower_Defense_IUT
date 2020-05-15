@@ -43,11 +43,34 @@ public class Battlefield {
 	public int getBattlefieldTile(int x,int y) { 
 		return this.battlefield[x][y]; 
 	}
+
+	public boolean isEnd(int id) {
+		return id>20 && id<40 ;
+	}
+	
+	public boolean isStart(int id) {
+		return id>0 && id<21 ;
+	}
+	
+	public boolean isRoad(int id) {
+		return id>40 && id<101 ;
+	}
 	
 	public int[] getStartCoordinates(){
 		for (int i = 0; i < battlefield.length; i++) {
 			for (int j = 0; j < battlefield[0].length; j++) {
-				if(this.battlefield[i][j]>0 && this.battlefield[i][j]<21) {
+				if( isStart(this.battlefield[i][j] ) ) {
+					return new int[] {i,j};
+				}
+			}
+		}
+		return null;
+	}
+	
+	public int[] getEndCoordinates() {
+		for (int i = 0; i < battlefield.length; i++) {
+			for (int j = 0; j < battlefield[0].length; j++) {
+				if(isEnd(getBattlefieldTile(i, j))) {
 					return new int[] {i,j};
 				}
 			}
@@ -58,6 +81,7 @@ public class Battlefield {
 	public ObservableList<Enemy> getEnemyList(){
 		return this.enemyList;
 	}
+	
 	public ObservableList<Turret> getTurretList(){
 		return this.turretList;
 	}

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.TilePane;
 import model.Battlefield;
+import model.Graph;
 import view.BattlefieldView;
 
 public class Controller implements Initializable{	
@@ -19,6 +20,8 @@ public class Controller implements Initializable{
     	battlefield = new Battlefield("battlefields/battlefield1.json");
     	battlefieldView = new BattlefieldView(battlefield, tilepane);
     	battlefieldView.createView();
+    	Graph g = new Graph(battlefield);
+    	g.createGraph();
     }
     
     public void waveLoop() {
