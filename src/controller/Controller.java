@@ -24,6 +24,7 @@ public class Controller implements Initializable{
     	battlefield.getEnemyList().addListener(new EnemyListListener(tilepane,battlefield,battlefieldView));
     	Graph g = new Graph(battlefield);
     	g.createGraph();
+    	g.BFS();
     }
     
     public void waveLoop() {

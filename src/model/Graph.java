@@ -8,6 +8,7 @@ import java.util.Queue;
 public class Graph {
 	private Battlefield battlefield;
 	private HashMap<Edge, ArrayList<Edge>> adjacencyMap;
+	private ArrayList<Edge> edges;
 	
 	public Graph(Battlefield battlefield) {
 	 this.battlefield = battlefield;	
@@ -70,16 +71,15 @@ public class Graph {
 		bfsQueue.add(end);
 		while(!bfsQueue.isEmpty()) {
 			edge = bfsQueue.peek();
-			
-			for (Edge e : adjacencyMap.get(edge)) {
-				if(! removedEdges.contains(e)) {
-					e.setParent(edge);
-					bfsQueue.add(e);
+			for (int i = 0; i<adjacencyMap.get(edge).size();i++ ) {
+				if(! removedEdges.contains(adjacencyMap.get(edge).get(i))) {
+					adjacencyMap.get(edge).get(i).setParent(edge);
+					bfsQueue.add(adjacencyMap.get(edge).get(i));
 				}
 			}
 			removedEdges.add(edge);
 			bfsQueue.remove();
 		}
-
+		this.edges = removedEdges;
 	}
 }
