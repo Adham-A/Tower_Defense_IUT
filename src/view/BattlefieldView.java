@@ -17,16 +17,24 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import model.Battlefield;
+import model.enemy.Enemy;
+import model.enemy.Quartz;
 
 public class BattlefieldView {
 	
 	private Battlefield battlefield;
 	private TilePane tilepane;
+	private BufferedImage tileset;
 	
 	public BattlefieldView(Battlefield battlefield, TilePane tilepane) {
 		super();
 		this.battlefield = battlefield;
 		this.tilepane = tilepane;
+		try {
+			this.tileset = ImageIO.read(new File("tileset/tileset.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 		
 	private BufferedImage cropImage(BufferedImage src, int number) {
@@ -34,20 +42,13 @@ public class BattlefieldView {
 	}
 	
 	public void createView() {
-		BufferedImage tileset = null;
 		int width = this.battlefield.getWidth();
 		int heigth= this.battlefield.getHeight();
-		
-		try {
-			tileset = ImageIO.read(new File("tileset/tileset.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		ArrayList<Group> Groups = new ArrayList<Group>();
 		for (int i = 0; i < width*heigth; i++) { //fills the tilepane with empty image views
 			Groups.add(new Group(new ImageView()));
-			tilepane.getChildren().add(Groups.get(i));
+			this.tilepane.getChildren().add(Groups.get(i));
 		}
 		
 		for (Group group : Groups) {
@@ -69,6 +70,19 @@ public class BattlefieldView {
 				((ImageView)Groups.get((k)*width+l).getChildren().get(0) ).setImage(hashmap.get(battlefield.getBattlefieldTile(l, k))); 
 			}
 		}
+	}
+	
+	public void createEnemy(Enemy enemy) {
+		int id = 0;
+		if( enemy instanceof Quartz) {
+			id = 201;
+		}
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+		Group g = ((Group) tilepane.getChildren().get(battlefield.getWidth()*battlefield.getStartCoordinates()[1]+battlefield.getStartCoordinates()[0]));
+		ImageView imageView = new ImageView();
+		imageView.setId(enemy.getId() + "");
+		imageView.setImage(image);
+		g.getChildren().add(imageView);
 	}
 	
 }
