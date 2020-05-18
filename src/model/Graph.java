@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
 	private Battlefield battlefield;
@@ -28,16 +30,16 @@ public class Graph {
 		end = new Edge(battlefield.getEndCoordinates()[0], battlefield.getEndCoordinates()[1]);
 		adjacencyMap.put(end,getAllAdjacentEdges(end));
 		
-		System.out.println(adjacencyMap);
 	}
 	
 	public ArrayList<Edge> getAllAdjacentEdges(Edge e) {
+		
 		ArrayList<Edge> adjacentEdges = new ArrayList<Edge>();
 		int x,y;
 		x = e.getX()+1;
 		y = e.getY();
 		
-		if(x<15 && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(x<battlefield.getWidth() && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		x = e.getX()-1;
@@ -52,10 +54,32 @@ public class Graph {
 		}
 		
 		y = e.getY()+1;
-		if(y<27 && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(y<battlefield.getHeight() && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		return adjacentEdges;
+	}
+	
+	public void BFS() {
+		Edge end = new Edge(battlefield.getEndCoordinates()[0], battlefield.getEndCoordinates()[1]);
+		Queue<Edge> bfsQueue = new LinkedList<Edge>();
+		ArrayList<Edge> removedEdges = new ArrayList<Edge>();
+		Edge edge;		
+		
+		bfsQueue.add(end);
+		while(!bfsQueue.isEmpty()) {
+			edge = bfsQueue.peek();
+			
+			for (Edge e : adjacencyMap.get(edge)) {
+				if(! removedEdges.contains(e)) {
+					e.setParent(edge);
+					bfsQueue.add(e);
+				}
+			}
+			removedEdges.add(edge);
+			bfsQueue.remove();
+		}
+
 	}
 }
