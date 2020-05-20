@@ -71,4 +71,5 @@ public class Edge {
 	public String toString() {
 		return " X : "+this.getX()+" Y : "+this.getY();
 	}
+	
 }

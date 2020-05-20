@@ -40,22 +40,23 @@ public class Graph {
 		x = e.getX()+1;
 		y = e.getY();
 		
-		if(x<battlefield.getWidth() && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(x<battlefield.getWidth() && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) )
+		{
 			adjacentEdges.add(new Edge(x, y));
 		}
 		x = e.getX()-1;
-		if(x>-1 && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(x>-1 && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		x = e.getX();
 		y = e.getY()-1;
-		if(y >-1  && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(y >-1  && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		y = e.getY()+1;
-		if(y<battlefield.getHeight() && this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y))){
+		if(y<battlefield.getHeight() && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
@@ -82,4 +83,5 @@ public class Graph {
 		}
 		this.edges = removedEdges;
 	}
+	
 }
