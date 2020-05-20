@@ -6,15 +6,17 @@ import model.Battlefield;
 
 public abstract class Enemy {
 
-	private String id;
+	private int id;
 	private int hp;
 	private int speed;
+	private static int ids = 0;
 
 	private IntegerProperty x, y;
 
 	public Enemy(int hp, int x, int y) {
-
+		++ids;
 		this.hp = hp;
+		this.id = ids;
 
 		this.x = new SimpleIntegerProperty(x);
 		this.y = new SimpleIntegerProperty(y);
@@ -27,50 +29,50 @@ public abstract class Enemy {
 	}
 	
 // id
-	String getId() {
+	public int getId() {
 		return this.id;
 	}
 
 // hp
-	int getHp() {
+	public int getHp() {
 		return this.hp;
 	}
 
-	void setHp(int n) {
+	public void setHp(int n) {
 		this.hp = n;
 	}
 
 // speed
-	int getSpeed() {
+	public int getSpeed() {
 		return this.speed;
 	}
 
-	void setSpeed(int n) {
+	public void setSpeed(int n) {
 		this.speed = n;
 	}
 
 // x
-	IntegerProperty getXProperty() {
+	public IntegerProperty getXProperty() {
 		return this.x;
 	}
 
-	int getX() {
+	public int getX() {
 		return this.x.getValue();
 	}
 
-	void setX(int n) {
+	public void setX(int n) {
 		this.x.setValue(n);
 	}
 // y
-	IntegerProperty getYProperty() {
+	public IntegerProperty getYProperty() {
 		return this.y;
 	}
 
-	int getY() {
+	public int getY() {
 		return this.y.getValue();
 	}
 
-	void setY(int n) {
+	public void setY(int n) {
 		this.y.setValue(n);
 	}
 

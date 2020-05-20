@@ -13,7 +13,7 @@ public class Edge {
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 11;
 		int result = 1;
 		result = prime * result + x;
 		result = prime * result + y;
@@ -45,8 +45,14 @@ public class Edge {
 		return y;
 	}
 
-	public void addParent(Edge parent) {
-		this.parent = parent;
+	public void setParent(Edge parent) {
+		if(this.parent==null) {
+			this.parent = parent;
+		}
+	}
+	
+	public Edge getParent() {
+		return this.parent;
 	}
 	
 	public boolean isAdjacentTo(Edge e) {
@@ -63,6 +69,6 @@ public class Edge {
 	}
 	
 	public String toString() {
-		return this.getX()+"   "+this.getY();
+		return " X : "+this.getX()+" Y : "+this.getY();
 	}
 }
