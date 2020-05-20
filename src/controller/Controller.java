@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import model.*;
 import model.enemy.Enemy;
@@ -14,8 +15,11 @@ import view.BattlefieldView;
 public class Controller implements Initializable{	
 	@FXML
 	private TilePane tilepane;
+	@FXML
+    private Pane pane;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
+    
 
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");

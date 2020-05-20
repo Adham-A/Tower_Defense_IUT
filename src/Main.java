@@ -12,7 +12,7 @@ public class Main extends Application {
 		try {
 			Pane root = FXMLLoader.load(getClass().getResource("/view/view.fxml"));
 
-			Scene scene = new Scene(root,480,864);
+			Scene scene = new Scene(root,560,864);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
