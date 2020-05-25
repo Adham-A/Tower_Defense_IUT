@@ -16,8 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import model.Battlefield;
-import model.enemy.Enemy;
-import model.enemy.Quartz;
+import model.enemy.*;
+import model.turret.*;
 
 public class BattlefieldView {
 	
@@ -82,6 +82,23 @@ public class BattlefieldView {
 
 		imageView.translateXProperty().bind(enemy.getXProperty().multiply(32));
 		imageView.translateYProperty().bind(enemy.getYProperty().multiply(32));
+	}
+
+	public void createTurret(Turret turret) {
+		int id = 0;
+
+		if(turret instanceof DwarfMiner) {
+			id = 101;
+		}
+
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+		ImageView imageView = new ImageView();
+		imageView.setId(turret.getId() + "");
+		imageView.setImage(image);
+		this.pane.getChildren().add(imageView);
+
+		imageView.setX(turret.getX()*32);
+		imageView.setY(turret.getY()*32);
 	}
 	
 }

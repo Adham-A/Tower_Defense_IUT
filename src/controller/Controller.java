@@ -9,7 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import model.*;
-import model.enemy.Quartz;
+import model.enemy.*;
+import model.turret.*;
 import view.BattlefieldView;
 
 public class Controller implements Initializable{	
@@ -27,6 +28,9 @@ public class Controller implements Initializable{
     	battlefield.getEnemyList().addListener(new EnemyListListener(tilepane,battlefield,battlefieldView));
     	battlefield.addGraph();
     	Quartz q1 = new Quartz(battlefield.getStartCoordinates()[0],battlefield.getStartCoordinates()[1],this.battlefield);
+    	DwarfMiner d = new DwarfMiner(7,19);
+    	battlefield.addTurret(d);
+    	battlefieldView.createTurret(d);
     	battlefield.addEnemy(q1);
     }
     

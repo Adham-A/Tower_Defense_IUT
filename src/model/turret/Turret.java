@@ -4,12 +4,17 @@ import model.Battlefield;
 
 public abstract class Turret {
 
-	private String id;
+	private int id;
 	private int hp;
 	private int x, y;
 
+	private static int ids = 0;
+
 	public Turret(int hp, int x, int y) {
 
+		++ids;
+		this.hp = hp;
+		this.id = ids;
 		this.hp = hp;
 
 		this.x = x;
@@ -23,36 +28,34 @@ public abstract class Turret {
 	}
 
 // id
-	String getId() {
+	public int getId() {
 		return this.id;
 	}
 
 // hp
-	int getHp() {
+	public int getHp() {
 		return this.hp;
 	}
 
-	void setHp(int n) {
+	public void setHp(int n) {
 		this.hp = n;
 	}
 
 // x
-
-	int getX() {
+	public int getX() {
 		return this.x;
 	}
 
-	void setX(int n) {
+	public void setX(int n) {
 		this.x = n;
 	}
 
 // y
-
-	int getY() {
+	public int getY() {
 		return this.y;
 	}
 
-	void setY(int n) {
+	public void setY(int n) {
 		this.y = n;
 	}
 }
