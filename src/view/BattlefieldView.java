@@ -79,8 +79,9 @@ public class BattlefieldView {
 		imageView.setId(enemy.getId() + "");
 		imageView.setImage(image);
 		this.pane.getChildren().add(imageView);
-		imageView.translateXProperty().bind(enemy.getXProperty());
-		imageView.translateYProperty().bind(enemy.getYProperty());;
+
+		imageView.translateXProperty().bind(enemy.getXProperty().multiply(32));
+		imageView.translateYProperty().bind(enemy.getYProperty().multiply(32));
 	}
 	
 }

@@ -84,4 +84,8 @@ public class Graph {
 		this.edges = removedEdges;
 	}
 	
+	public ArrayList<Edge> getArrayListEdges(){
+		return this.edges;
+	}
+	
 }

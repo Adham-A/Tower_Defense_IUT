@@ -14,6 +14,7 @@ public class Battlefield {
 	private BattlefieldLoader battlefieldLoader;
 	private ObservableList<Enemy> enemyList;
 	private ObservableList<Turret> turretList;
+	private Graph graph;
 
 	public Battlefield(String path) {
 		this.battlefieldLoader = new BattlefieldLoader(path);
@@ -22,6 +23,13 @@ public class Battlefield {
 		this.battlefield = battlefieldLoader.parseBattlefieldFromFile();
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
+		this.graph = null;
+	}
+	
+	public void addGraph() {
+		this.graph = new Graph(this);
+		graph.createGraph();
+		graph.BFS();
 	}
 	
 	public void addEnemy(Enemy enemy) {
@@ -84,6 +92,10 @@ public class Battlefield {
 	
 	public ObservableList<Turret> getTurretList(){
 		return this.turretList;
+	}
+	
+	public Graph getGraph() {
+		return this.graph;
 	}
 
 }
