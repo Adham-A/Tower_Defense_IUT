@@ -25,8 +25,10 @@ public class EnemyListListener implements ListChangeListener<Enemy>{
 	
 	@Override
 	public void onChanged(Change<? extends Enemy> c) {
+		while(c.next()) {
 		Enemy enemy = c.getAddedSubList().get(c.getAddedSize()-1);
 		battlefieldView.createEnemy(enemy);
+		}
 	}
 	
 	

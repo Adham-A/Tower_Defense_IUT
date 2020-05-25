@@ -20,16 +20,18 @@ import model.enemy.Enemy;
 import model.enemy.Quartz;
 
 public class BattlefieldView {
+	
 	@FXML
     private Pane pane;
-	private Battlefield battlefield;
 	@FXML
 	private TilePane tilepane;
 	private BufferedImage tileset;
+	private Battlefield battlefield;
 	
-	public BattlefieldView(Battlefield battlefield, TilePane tilepane) {
+	public BattlefieldView(Battlefield battlefield, TilePane tilepane,Pane pane) {
 		this.battlefield = battlefield;
 		this.tilepane = tilepane;
+		this.pane = pane;
 		try {
 			this.tileset = ImageIO.read(new File("tileset/tileset.png"));
 		} catch (IOException e) {
@@ -76,6 +78,9 @@ public class BattlefieldView {
 		ImageView imageView = new ImageView();
 		imageView.setId(enemy.getId() + "");
 		imageView.setImage(image);
+		this.pane.getChildren().add(imageView);
+		imageView.translateXProperty().bind(enemy.getXProperty());
+		imageView.translateYProperty().bind(enemy.getYProperty());;
 	}
 	
 }

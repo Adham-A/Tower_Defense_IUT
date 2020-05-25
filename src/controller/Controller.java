@@ -23,12 +23,14 @@ public class Controller implements Initializable{
 
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");
-    	battlefieldView = new BattlefieldView(battlefield, tilepane);
+    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane);
     	battlefieldView.createView();
     	battlefield.getEnemyList().addListener(new EnemyListListener(tilepane,battlefield,battlefieldView));
     	Graph g = new Graph(battlefield);
     	g.createGraph();
     	g.BFS();
+    	Quartz q1 = new Quartz(battlefield.getStartCoordinates()[0],battlefield.getStartCoordinates()[1]);
+    	battlefield.addEnemy(q1);
     }
     
     public void waveLoop() {
