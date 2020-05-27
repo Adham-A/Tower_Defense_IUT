@@ -1,12 +1,12 @@
-package model;
+package view;
 
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import model.Battlefield;
 import model.enemy.Enemy;
-import view.BattlefieldView;
 
 public class EnemyListListener implements ListChangeListener<Enemy>{ 
 	
