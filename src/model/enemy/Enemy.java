@@ -16,6 +16,7 @@ public abstract class Enemy {
 
 	private IntegerProperty x, y;
 	private Edge edge;
+	//PIXEL
 
 	public Enemy(int hp, int x, int y, Battlefield battlefield) {
 		++ids;
@@ -34,9 +35,14 @@ public abstract class Enemy {
 	public abstract void action();
 	
 	public void move() {
-		this.y.set(this.edge.getParent().getY());
-		this.x.set(this.edge.getParent().getX());
-		this.edge = this.edge.getParent();
+		if(this.edge.getParent()!=null) {
+			this.y.set(this.edge.getParent().getY());
+			this.x.set(this.edge.getParent().getX());
+			this.edge = this.edge.getParent();
+		}
+		else {
+			System.out.println("Vous êtes à la fin du chemin ");
+		}
 	}
 	
 	public Edge fetchEdge() {
