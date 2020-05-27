@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<TilePane fx:id="tilepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="240.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller" />
+<Pane fx:id="not_a_pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+   <children>
+      <HBox>
+         <children>
+            <Pane fx:id="pane">
+               <children>
+                  <TilePane fx:id="tilepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.00" prefWidth="480.0" />
+               </children>
+            </Pane>
+            <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="MOVE " />
+         </children>
+      </HBox>
+   </children>
+</Pane>
