@@ -1,7 +1,9 @@
 package model.enemy;
 
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Battlefield;
 import model.Edge;
@@ -16,7 +18,7 @@ public abstract class Enemy {
 
 	private IntegerProperty x, y;
 	private Edge edge;
-	//PIXEL
+	private DoubleProperty x_pixel,y_pixel;
 
 	public Enemy(int hp, int x, int y, Battlefield battlefield) {
 		++ids;
@@ -28,6 +30,8 @@ public abstract class Enemy {
 		this.x.set(x);
 		this.y = new SimpleIntegerProperty(y);
 		this.y.set(y);
+		this.x_pixel = new SimpleDoubleProperty(x);
+		this.y_pixel = new SimpleDoubleProperty(y);
 		
 		this.edge = fetchEdge();
 	}
@@ -104,6 +108,31 @@ public abstract class Enemy {
 
 	public void setY(int n) {
 		this.y.setValue(n);
+	}
+// x_pixel
+
+	public DoubleProperty getX_pixelProperty() {
+		return this.x_pixel;
+	}
+	
+	public double getX_pixel() {
+		return this.x_pixel.getValue();
+	}
+
+	public void setX_pixel(double x_pixel) {
+		this.x_pixel.set(x_pixel);;
+	}
+// y_pixel
+	public DoubleProperty getY_pixelProperty() {
+		return this.y_pixel;
+	}
+	
+	public double getY_pixel() {
+		return this.y_pixel.getValue();
+	}
+
+	public void setY_pixel(double y_pixel) {
+		this.y_pixel.set(y_pixel);
 	}
 
 }
