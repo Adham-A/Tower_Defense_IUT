@@ -8,28 +8,17 @@ import javafx.collections.ObservableList;
 
 public class Battlefield {
 	
-	private int width;
-	private int height;
-	private int[][] battlefield;
-	private TerrainLoader terrainLoader;
+	private Terrain terrain;
 	private ObservableList<Enemy> enemyList;
 	private ObservableList<Turret> turretList;
 	private Graph graph;
 
 	public Battlefield(String path) {
-		this.terrainLoader = new TerrainLoader(path);
-		this.height = terrainLoader.parseBattlefieldHeight();
-		this.width = terrainLoader.parseBattlefieldWidth();
-		this.battlefield = terrainLoader.parseBattlefieldFromFile();
+		this.terrain = new Terrain(path);
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
-		this.graph = null;
-	}
-	
-	public void addGraph() {
-		this.graph = new Graph(this);
-		graph.createGraph();
-		graph.BFS();
+		this.graph = new Graph(this.terrain);
+		this.graph.createBFS();
 	}
 	
 	public void addEnemy(Enemy enemy) {
@@ -40,52 +29,10 @@ public class Battlefield {
 		this.turretList.add(t);
 	}
 	
-	public int getWidth() {
-		return this.width;
+	public Terrain getTerrain() {
+		return this.terrain;
 	}
-
-	public int getHeight() {
-		return this.height;
-	}
-
-	public int getBattlefieldTile(int x,int y) { 
-		return this.battlefield[x][y]; 
-	}
-
-	public boolean isEnd(int id) {
-		return id>20 && id<40 ;
-	}
-	
-	public boolean isStart(int id) {
-		return id>0 && id<21 ;
-	}
-	
-	public boolean isRoad(int id) {
-		return id>40 && id<101 ;
-	}
-	
-	public int[] getStartCoordinates(){
-		for (int i = 0; i < battlefield.length; i++) {
-			for (int j = 0; j < battlefield[0].length; j++) {
-				if( isStart(this.battlefield[i][j] ) ) {
-					return new int[] {i,j};
-				}
-			}
-		}
-		return null;
-	}
-	
-	public int[] getEndCoordinates() {
-		for (int i = 0; i < battlefield.length; i++) {
-			for (int j = 0; j < battlefield[0].length; j++) {
-				if(isEnd(getBattlefieldTile(i, j))) {
-					return new int[] {i,j};
-				}
-			}
-		}
-		return null;
-	}
-	
+		
 	public ObservableList<Enemy> getEnemyList(){
 		return this.enemyList;
 	}

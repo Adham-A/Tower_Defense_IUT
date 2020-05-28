@@ -6,29 +6,30 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Graph {
-	private Battlefield battlefield;
+	private Terrain terrain;
 	private HashMap<Edge, ArrayList<Edge>> adjacencyMap;
 	private ArrayList<Edge> edges;
 	
-	public Graph(Battlefield battlefield) {
-	 this.battlefield = battlefield;	
+	public Graph(Terrain terrain) {
+	 this.terrain = terrain;	
 	 adjacencyMap = new HashMap<Edge, ArrayList<Edge>>();
+	 this.createGraph();
 	}
 	
 	public void createGraph() {
 		Edge edge,start,end;
-		for (int i = 0; i < battlefield.getWidth(); i++) {
-			for (int j = 0; j < battlefield.getHeight(); j++) {
-				if(battlefield.isRoad(battlefield.getBattlefieldTile(i, j))) {
+		for (int i = 0; i < terrain.getWidth(); i++) {
+			for (int j = 0; j < terrain.getHeight(); j++) {
+				if(terrain.isRoad(terrain.getTerrainTile(i, j))) {
 					edge = new Edge(i,j);
 					adjacencyMap.put(edge, getAllAdjacentEdges(edge));
 				}
 			}
 		}
-		start = new Edge(battlefield.getStartCoordinates()[0],battlefield.getStartCoordinates()[1]);
+		start = new Edge(terrain.getStartCoordinates()[0],terrain.getStartCoordinates()[1]);
 		adjacencyMap.put(start,getAllAdjacentEdges(start));
 		
-		end = new Edge(battlefield.getEndCoordinates()[0], battlefield.getEndCoordinates()[1]);
+		end = new Edge(terrain.getEndCoordinates()[0], terrain.getEndCoordinates()[1]);
 		adjacencyMap.put(end,getAllAdjacentEdges(end));
 		
 	}
@@ -40,35 +41,35 @@ public class Graph {
 		x = e.getX()+1;
 		y = e.getY();
 		
-		if(x<battlefield.getWidth() && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) )
+		if(x<terrain.getWidth() && ( (this.terrain.isRoad(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isStart(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isEnd(terrain.getTerrainTile(x,y))) ) )
 		{
 			adjacentEdges.add(new Edge(x, y));
 		}
 		x = e.getX()-1;
-		if(x>-1 && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
+		if(x>-1 && ( (this.terrain.isRoad(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isStart(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isEnd(terrain.getTerrainTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		x = e.getX();
 		y = e.getY()-1;
-		if(y >-1  && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
+		if(y >-1  && ( (this.terrain.isRoad(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isStart(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isEnd(terrain.getTerrainTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		y = e.getY()+1;
-		if(y<battlefield.getHeight() && ( (this.battlefield.isRoad(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isStart(battlefield.getBattlefieldTile(x,y)) ) ||( this.battlefield.isEnd(battlefield.getBattlefieldTile(x,y))) ) ){
+		if(y<terrain.getHeight() && ( (this.terrain.isRoad(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isStart(terrain.getTerrainTile(x,y)) ) ||( this.terrain.isEnd(terrain.getTerrainTile(x,y))) ) ){
 			adjacentEdges.add(new Edge(x, y));
 		}
 		
 		return adjacentEdges;
 	}
 	
-	public void BFS() {
-		Edge end = new Edge(battlefield.getEndCoordinates()[0], battlefield.getEndCoordinates()[1]);
+	public void createBFS() {
+		Edge end = new Edge(terrain.getEndCoordinates()[0], terrain.getEndCoordinates()[1]);
 		Queue<Edge> bfsQueue = new LinkedList<Edge>();
 		ArrayList<Edge> removedEdges = new ArrayList<Edge>();
-		Edge edge;		
-		
+		Edge edge;
+
 		bfsQueue.add(end);
 		while(!bfsQueue.isEmpty()) {
 			edge = bfsQueue.peek();

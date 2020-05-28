@@ -44,8 +44,8 @@ public class BattlefieldView {
 	}
 	
 	public void createView() {
-		int width = this.battlefield.getWidth();
-		int heigth= this.battlefield.getHeight();
+		int width = this.battlefield.getTerrain().getWidth();
+		int heigth= this.battlefield.getTerrain().getHeight();
 
 		for (int i = 0; i < width*heigth; i++) { //fills the tilepane with empty image views
 			this.tilepane.getChildren().add(new ImageView());
@@ -54,16 +54,16 @@ public class BattlefieldView {
 		Map<Integer, Image> hashmap = new HashMap<Integer, Image>();
 		for ( int i = 0; i < heigth; i++) {
 			for(int j = 0; j < width ; j++) {			
-				if(! hashmap.containsKey( (Integer) battlefield.getBattlefieldTile(j, i) )) {
-					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getBattlefieldTile(j, i)),null);
-					hashmap.put(battlefield.getBattlefieldTile(j, i), src);
+				if(! hashmap.containsKey( (Integer) battlefield.getTerrain().getTerrainTile(j, i) )) {
+					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getTerrain().getTerrainTile(j, i)),null);
+					hashmap.put(battlefield.getTerrain().getTerrainTile(j, i), src);
 				}
 			}
 		}
 
 		for (int k = 0; k < heigth; k++) { //this loop fills every tile with the corresponding image
 			for (int l = 0; l < width; l++) {
-				((ImageView)tilepane.getChildren().get((k)*width+l)).setImage(hashmap.get(battlefield.getBattlefieldTile(l, k))); 
+				((ImageView)tilepane.getChildren().get((k)*width+l)).setImage(hashmap.get(battlefield.getTerrain().getTerrainTile(l, k))); 
 			}
 		}
 		

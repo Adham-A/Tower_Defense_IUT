@@ -12,7 +12,6 @@ import model.*;
 import model.enemy.*;
 import model.turret.*;
 import view.BattlefieldView;
-import view.EnemyListListener;
 
 public class Controller implements Initializable{	
 	@FXML
@@ -26,9 +25,10 @@ public class Controller implements Initializable{
     	battlefield = new Battlefield("battlefields/battlefield1.json");
     	battlefieldView = new BattlefieldView(battlefield, tilepane,pane);
     	battlefieldView.createView();
-    	battlefield.getEnemyList().addListener(new EnemyListListener(tilepane,battlefield,battlefieldView));
-    	battlefield.addGraph();
-    	Quartz q1 = new Quartz(battlefield.getStartCoordinates()[0],battlefield.getStartCoordinates()[1],this.battlefield);
+    	
+    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
+    	
+    	Quartz q1 = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
     	DwarfMiner d = new DwarfMiner(7,19);
     	battlefield.addTurret(d);
     	battlefieldView.createTurret(d);
