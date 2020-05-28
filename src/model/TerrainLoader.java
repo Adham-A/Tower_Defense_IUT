@@ -7,11 +7,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class BattlefieldLoader {
+public class TerrainLoader {
 	
 	private JSONObject jo;
 	
-	public BattlefieldLoader(String path) {
+	public TerrainLoader(String path) {
 		Object obj = null;
 		try {
 			obj = new JSONParser().parse(new FileReader(path));

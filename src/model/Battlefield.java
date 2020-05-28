@@ -11,16 +11,16 @@ public class Battlefield {
 	private int width;
 	private int height;
 	private int[][] battlefield;
-	private BattlefieldLoader battlefieldLoader;
+	private TerrainLoader terrainLoader;
 	private ObservableList<Enemy> enemyList;
 	private ObservableList<Turret> turretList;
 	private Graph graph;
 
 	public Battlefield(String path) {
-		this.battlefieldLoader = new BattlefieldLoader(path);
-		this.height = battlefieldLoader.parseBattlefieldHeight();
-		this.width = battlefieldLoader.parseBattlefieldWidth();
-		this.battlefield = battlefieldLoader.parseBattlefieldFromFile();
+		this.terrainLoader = new TerrainLoader(path);
+		this.height = terrainLoader.parseBattlefieldHeight();
+		this.width = terrainLoader.parseBattlefieldWidth();
+		this.battlefield = terrainLoader.parseBattlefieldFromFile();
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
 		this.graph = null;
