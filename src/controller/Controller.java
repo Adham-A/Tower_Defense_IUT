@@ -12,6 +12,7 @@ import model.*;
 import model.enemy.*;
 import model.turret.*;
 import view.BattlefieldView;
+import view.EnemyListListener;
 
 public class Controller implements Initializable{	
 	@FXML
