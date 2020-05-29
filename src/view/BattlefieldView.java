@@ -9,12 +9,18 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Duration;
 import model.Battlefield;
 import model.enemy.*;
 import model.turret.*;
@@ -25,6 +31,7 @@ public class BattlefieldView {
     private Pane pane;
 	@FXML
 	private TilePane tilepane;
+	private Timeline timeline;
 	private BufferedImage tileset;
 	private Battlefield battlefield;
 	
@@ -79,9 +86,23 @@ public class BattlefieldView {
 		imageView.setId(enemy.getId() + "");
 		imageView.setImage(image);
 		this.pane.getChildren().add(imageView);
+		
+		imageView.translateXProperty().set(enemy.getX_pixelProperty().multiply(32).getValue());
+		imageView.translateYProperty().set(enemy.getY_pixelProperty().multiply(32).getValue());
 
-		imageView.translateXProperty().bind(enemy.getXProperty().multiply(32));
-		imageView.translateYProperty().bind(enemy.getYProperty().multiply(32));
+		 enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
+	                );
+		 			this.timeline.play();
+	      });
+	     enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))
+	                );
+	     			this.timeline.play();
+	     });
+
 	}
 
 	public void createTurret(Turret turret) {
@@ -99,6 +120,12 @@ public class BattlefieldView {
 
 		imageView.setX(turret.getX()*32);
 		imageView.setY(turret.getY()*32);
+		
+		
+	}
+	
+	public Timeline getTimeline() {
+		return this.timeline;
 	}
 	
 }

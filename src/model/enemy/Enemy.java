@@ -27,12 +27,9 @@ public abstract class Enemy {
 		this.id = ids;
 
 		this.x = new SimpleIntegerProperty(x);
-		this.x.set(x);
 		this.y = new SimpleIntegerProperty(y);
-		this.y.set(y);
 		this.x_pixel = new SimpleDoubleProperty(x);
 		this.y_pixel = new SimpleDoubleProperty(y);
-		
 		this.edge = fetchEdge();
 	}
 	
@@ -47,7 +44,27 @@ public abstract class Enemy {
 		else {
 			System.out.println("Vous êtes à la fin du chemin ");
 		}
+//		Pixel_Move();
 	}
+	
+//	public void Pixel_Move() {
+//		if( this.x_pixel.intValue() > this.x.getValue()) {
+//			while( this.x_pixel.intValue() != this.x.getValue()) {
+//				this.x_pixel.set(x_pixel.getValue()-0.1);
+//			}
+//		}
+//		else {
+//			while( this.x_pixel.intValue() != this.x.getValue()) {
+//				this.x_pixel.set(x_pixel.getValue()+0.1);
+//				try {
+//					Thread.sleep(100l);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	}
+//	
 	
 	public Edge fetchEdge() {
 		for ( int i = this.battlefield.getGraph().getArrayListEdges().size()-1 ; i > 0 ; i-- ) {

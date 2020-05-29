@@ -3,11 +3,14 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.util.Duration;
 import model.*;
 import model.enemy.*;
 import model.turret.*;
@@ -32,7 +35,7 @@ public class Controller implements Initializable{
     	DwarfMiner d = new DwarfMiner(7,19);
     	battlefield.addTurret(d);
     	battlefieldView.createTurret(d);
-    	battlefield.addEnemy(q1);
+    	battlefield.addEnemy(q1);	
     }
     
     @FXML
@@ -41,14 +44,26 @@ public class Controller implements Initializable{
     }
     
     public void waveLoop() {
-    		for (int i = 0 ; i < battlefield.getEnemyList().size() ; i++) {
-    			battlefield.getEnemyList().get(i).move();
-    			System.out.println(battlefield.getEnemyList().get(i).getX());
-    			System.out.println(battlefield.getEnemyList().get(i).getY());
-    		}
-    		for (int i = 0 ; i < battlefield.getTurretList().size() ; i++) {
-    			battlefield.getTurretList().get(i).action();
-    		}
+            Timeline gameLoop = new Timeline();
+            gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+            KeyFrame kf = new KeyFrame(
+                    Duration.seconds(0.5),
+                    (ev ->{
+                        int time=0;
+                        if(time==1000){
+                            gameLoop.stop();
+                        }
+                        else{
+                    	   for (int i = 0 ; i < battlefield.getEnemyList().size() ; i++) {
+                    		   battlefield.getEnemyList().get(i).move();
+                    	   }
+                       }
+                       time++;
+                    })
+           );
+           gameLoop.getKeyFrames().add(kf);
+           gameLoop.play();
     }
 
 }
