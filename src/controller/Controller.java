@@ -23,7 +23,7 @@ import model.enemy.*;
 import model.turret.*;
 import view.BattlefieldView;
 
-public class Controller implements Initializable{	
+public class Controller implements Initializable{
 	@FXML
 	private TilePane tilepane;
 	@FXML
@@ -32,65 +32,75 @@ public class Controller implements Initializable{
     private ImageView dwarfImage;
 	@FXML
     private VBox boardBox;
+
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");
-    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane,boardBox);
+    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
     	battlefieldView.createView();
     	
     	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
     	
-    	Quartz q1 = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-    	DwarfMiner d = new DwarfMiner(7,19);
-    	battlefield.addTurret(d);
-    	battlefieldView.createTurret(d);
+        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
     	battlefieldView.createTurretBoard(dwarfImage);
-    	battlefield.addEnemy(q1);
+    	battlefield.addEnemy(q);
+    	battlefield.addEnemy(e1);
     	dwarfImage.setId(101 + "");
     }
     
     @FXML
     void move_button(ActionEvent event) {
-    	waveLoop();
+    	startLoop();
     }
-    
-    public void waveLoop() {
-            Timeline gameLoop = new Timeline();
-            gameLoop.setCycleCount(Timeline.INDEFINITE);
+    static int counter = 0;
 
-            KeyFrame kf = new KeyFrame(
-                    Duration.seconds(0.5),
-                    (ev ->{
-                        int time=0;
-                        if(time==1000){
-                            gameLoop.stop();
+    public void startLoop() {
+        Timeline gameLoop = new Timeline();
+        gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame kf = new KeyFrame(
+            Duration.seconds(0.5),
+                (ev ->{
+                    int time=0;
+                    if(time==1000){
+                        gameLoop.stop();
+                    }
+                    else{
+                        battlefield.turnLoop();
+
+                        // to kill emeralds
+                        if(counter == 5) {
+                            for (Enemy e : battlefield.getEnemyList()) {
+                                if (e instanceof Emerald) {
+                                    e.setHp(0);
+                                }
+                            }
                         }
-                        else{
-                    	   for (int i = 0 ; i < battlefield.getEnemyList().size() ; i++) {
-                    		   battlefield.getEnemyList().get(i).move();
-                    	   }
-                       }
-                       time++;
-                    })
-           );
+                        counter ++;
+                    }
+                    time++;
+                })
+
+        );
            gameLoop.getKeyFrames().add(kf);
            gameLoop.play();
     }
-    
+
     @FXML
     void handleDragDetection(MouseEvent event) {
     	Dragboard db = dwarfImage.startDragAndDrop(TransferMode.ANY);
-    	
+
     	ClipboardContent cb = new ClipboardContent();
     	cb.putImage(dwarfImage.getImage());
     	cb.putString("101");
-    	
+
     	db.setContent(cb);
     	event.consume();
     }
-    
+
     @FXML
     void handleImageDrop(DragEvent event) {
     	int x = ((int)event.getX())/32;
