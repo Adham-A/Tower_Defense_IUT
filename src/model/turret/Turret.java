@@ -28,8 +28,8 @@ public abstract class Turret {
 	}
 
 // id
-	public int getId() {
-		return this.id;
+	public String getId() {
+		return "T" + this.id ;
 	}
 
 // hp

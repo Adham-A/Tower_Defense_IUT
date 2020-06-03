@@ -5,7 +5,7 @@ import model.Battlefield;
 public class Quartz extends Mineral {
 	
 	public Quartz(int x, int y, Battlefield battlefield) {
-		super(x, y, battlefield);
+		super(20, x, y, battlefield);
 	}
 
 	@Override
