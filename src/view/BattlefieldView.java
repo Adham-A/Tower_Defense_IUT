@@ -85,6 +85,10 @@ public class BattlefieldView {
 		if( enemy instanceof Quartz) {
 			id = 201;
 		}
+		else if (enemy instanceof Emerald) {
+			id = 211;
+		}
+
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
 		imageView.setId(enemy.getId() + "");
@@ -138,5 +142,8 @@ public class BattlefieldView {
 	public Timeline getTimeline() {
 		return this.timeline;
 	}
-	
+
+    public Pane getPane() {
+		return this.pane;
+    }
 }

@@ -20,9 +20,24 @@ public class Battlefield {
 		this.graph = new Graph(this.terrain);
 		this.graph.createBFS();
 	}
-	
+
+	public void turnLoop() {
+
+		for (int i = getEnemyList().size() - 1 ; i >= 0 ; i--) {
+			this.enemyList.get(i).action();
+		}
+
+		for (int i = getTurretList().size() - 1 ; i >= 0 ; i--) {
+			this.turretList.get(i).action();
+		}
+	}
+
 	public void addEnemy(Enemy enemy) {
 		this.enemyList.add(enemy);
+	}
+
+	public void removeEnemy(Enemy enemy) {
+		this.enemyList.remove(enemy);
 	}
 	
 	public void addTurret(Turret t) {
@@ -44,5 +59,4 @@ public class Battlefield {
 	public Graph getGraph() {
 		return this.graph;
 	}
-
 }
