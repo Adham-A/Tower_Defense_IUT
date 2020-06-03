@@ -37,6 +37,10 @@ public class Terrain {
 		return id>40 && id<101 ;
 	}
 	
+	public boolean isFree(int id) {
+		return id>500 && id<601 ;
+	}
+	
 	public int[] getStartCoordinates(){
 		for (int i = 0; i < this.width; i++) {
 			for (int j = 0; j < this.height; j++) {

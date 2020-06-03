@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Battlefield;
 import model.enemy.*;
@@ -31,14 +32,17 @@ public class BattlefieldView {
     private Pane pane;
 	@FXML
 	private TilePane tilepane;
+	@FXML
+    private VBox boardBox;
 	private Timeline timeline;
 	private BufferedImage tileset;
 	private Battlefield battlefield;
 	
-	public BattlefieldView(Battlefield battlefield, TilePane tilepane,Pane pane) {
+	public BattlefieldView(Battlefield battlefield, TilePane tilepane,Pane pane, VBox boardBox) {
 		this.battlefield = battlefield;
 		this.tilepane = tilepane;
 		this.pane = pane;
+		this.boardBox = boardBox;
 		try {
 			this.tileset = ImageIO.read(new File("tileset/tileset.png"));
 		} catch (IOException e) {
@@ -105,6 +109,14 @@ public class BattlefieldView {
 
 	}
 
+	public void createTurretBoard(ImageView imageView) {
+		int id = 101;
+
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+		imageView.setImage(image);
+		
+	}
+	
 	public void createTurret(Turret turret) {
 		int id = 0;
 
@@ -120,7 +132,6 @@ public class BattlefieldView {
 
 		imageView.setX(turret.getX()*32);
 		imageView.setY(turret.getY()*32);
-		
 		
 	}
 	

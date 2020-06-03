@@ -8,8 +8,15 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.*;
 import model.enemy.*;
@@ -21,12 +28,16 @@ public class Controller implements Initializable{
 	private TilePane tilepane;
 	@FXML
     private Pane pane;
+	@FXML
+    private ImageView dwarfImage;
+	@FXML
+    private VBox boardBox;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
     
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");
-    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane);
+    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane,boardBox);
     	battlefieldView.createView();
     	
     	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
@@ -35,7 +46,9 @@ public class Controller implements Initializable{
     	DwarfMiner d = new DwarfMiner(7,19);
     	battlefield.addTurret(d);
     	battlefieldView.createTurret(d);
-    	battlefield.addEnemy(q1);	
+    	battlefieldView.createTurretBoard(dwarfImage);
+    	battlefield.addEnemy(q1);
+    	dwarfImage.setId(101 + "");
     }
     
     @FXML
@@ -64,6 +77,38 @@ public class Controller implements Initializable{
            );
            gameLoop.getKeyFrames().add(kf);
            gameLoop.play();
+    }
+    
+    @FXML
+    void handleDragDetection(MouseEvent event) {
+    	Dragboard db = dwarfImage.startDragAndDrop(TransferMode.ANY);
+    	
+    	ClipboardContent cb = new ClipboardContent();
+    	cb.putImage(dwarfImage.getImage());
+    	cb.putString("101");
+    	
+    	db.setContent(cb);
+    	event.consume();
+    }
+    
+    @FXML
+    void handleImageDrop(DragEvent event) {
+    	int x = ((int)event.getX())/32;
+    	int y = ((int)event.getY())/32;
+    	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
+    		if(event.getDragboard().getString() == "101") {
+    	    	DwarfMiner d = new DwarfMiner(x,y);
+    	    	battlefield.addTurret(d);
+    	    	battlefieldView.createTurret(d);
+    	    	}
+    	}
+    }
+
+    @FXML
+    void handleImageOver(DragEvent event) {
+    	if (event.getDragboard().hasImage()) {
+    		event.acceptTransferModes(TransferMode.ANY);
+    	}
     }
 
 }
