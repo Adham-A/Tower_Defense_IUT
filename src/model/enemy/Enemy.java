@@ -74,14 +74,18 @@ public abstract class Enemy {
 		}
 		return null;
 	}
+
+	public boolean isDead() {
+		return this.hp == 0;
+	}
 	
 	public void add(Battlefield battlefield) {
 		battlefield.addEnemy(this);
 	}
 	
 // id
-	public int getId() {
-		return this.id;
+	public String getId() {
+		return "E" + this.id;
 	}
 
 // hp
