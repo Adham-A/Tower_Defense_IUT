@@ -2,6 +2,7 @@ package model.projectile;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import model.enemy.Enemy;
 
 public class Projectile {
 	
@@ -15,6 +16,12 @@ public class Projectile {
 		this.speed = speed;
 		this.x = new SimpleDoubleProperty(x);
 		this.y = new SimpleDoubleProperty(y);
+	}
+	
+	public void shoot(Enemy e) {
+		if(!(e==null) ) {
+			e.removeHp(this.damage);
+		}
 	}
 	
 	public int getDamage() {

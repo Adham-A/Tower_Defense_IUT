@@ -27,7 +27,15 @@ public abstract class Enemy {
 		this.edge = fetchEdge();
 	}
 	
-	public abstract void action();
+	public void action() {
+		
+		if(!this.isDead()) {
+			this.move();
+        }
+        else {
+        	this.battlefield.removeEnemy(this);
+        }
+	}
 	
 	public void move() {
 		if(this.edge.getParent()!=null) {
@@ -50,7 +58,7 @@ public abstract class Enemy {
 	}
 
 	public boolean isDead() {
-		return this.hp == 0;
+		return this.hp <= 0;
 	}
 	
 	public void add(Battlefield battlefield) {
@@ -69,6 +77,10 @@ public abstract class Enemy {
 
 	public void setHp(int n) {
 		this.hp = n;
+	}
+	
+	public void removeHp(int hp) {
+		this.hp -= hp;
 	}
 
 // speed

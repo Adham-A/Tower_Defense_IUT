@@ -3,7 +3,8 @@ package model.enemy;
 import model.Battlefield;
 
 public class Emerald extends Mineral {
-
+	
+	private static int split_counter = 0;
 // Initial constructor of basic Emerald
     public Emerald(int x, int y, Battlefield battlefield) {
         super(25, x, y, battlefield);
@@ -15,20 +16,20 @@ public class Emerald extends Mineral {
     }
 
     public void action() {
-        if(!this.isDead()) {
-            this.move();
+    	super.action();
+        if(split_counter<5) {
+        	this.removeHp(5);
         }
-        else {
+        else if(split_counter==5) {
             this.giveBirth();
-            this.battlefield.removeEnemy(this);
         }
+    
+        split_counter++;
     }
 
     private void giveBirth() {
-        Emerald e1 = new Emerald(this, this.battlefield);
-        Emerald e2 = new Emerald(this, this.battlefield);
-        battlefield.addEnemy(e1);
-        battlefield.addEnemy(e2);
+        battlefield.addEnemy(new Emerald(this, this.battlefield));
+        battlefield.addEnemy(new Emerald(this, this.battlefield));
     }
 
 }

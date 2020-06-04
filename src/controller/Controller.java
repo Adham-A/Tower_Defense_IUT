@@ -55,32 +55,27 @@ public class Controller implements Initializable{
     void move_button(ActionEvent event) {
     	startLoop();
     }
-    static int counter = 0;
-
+    
+    static int time=0;
     public void startLoop() {
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-
         KeyFrame kf = new KeyFrame(
             Duration.seconds(0.5),
                 (ev ->{
-                    int time=0;
                     if(time==1000){
                         gameLoop.stop();
                     }
                     else{
                         battlefield.turnLoop();
-
-                        // to kill emeralds
-                        if(counter == 5) {
-                            for (Enemy e : battlefield.getEnemyList()) {
-                                if (e instanceof Emerald) {
-                                    e.setHp(0);
-                                }
-                            }
-                        }
-                        counter ++;
+                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        this.battlefield.addEnemy(q);
                     }
+                    if(time%3==0) {
+                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        battlefield.addEnemy(e1);
+                    }
+                    System.out.println(time);
                     time++;
                 })
 
@@ -107,7 +102,7 @@ public class Controller implements Initializable{
     	int y = ((int)event.getY())/32;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
     		if(event.getDragboard().getString() == "101") {
-    	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield, 10);
+    	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     	    	battlefieldView.createTurret(d);
     	    	}

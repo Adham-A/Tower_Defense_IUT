@@ -10,7 +10,7 @@ public class Quartz extends Mineral {
 
 	@Override
 	public void action() {
-		this.move();
+		super.action();
 	}
 
 }
