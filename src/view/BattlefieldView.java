@@ -95,8 +95,8 @@ public class BattlefieldView {
 		imageView.setImage(image);
 		this.pane.getChildren().add(imageView);
 		
-		imageView.translateXProperty().set(enemy.getX_pixelProperty().multiply(32).getValue());
-		imageView.translateYProperty().set(enemy.getY_pixelProperty().multiply(32).getValue());
+		imageView.translateXProperty().set(enemy.getXProperty().multiply(32).getValue());
+		imageView.translateYProperty().set(enemy.getYProperty().multiply(32).getValue());
 
 		 enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
 	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
@@ -104,6 +104,7 @@ public class BattlefieldView {
 	                );
 		 			this.timeline.play();
 	      });
+		 
 	     enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
 	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
 	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))

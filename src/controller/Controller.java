@@ -107,7 +107,7 @@ public class Controller implements Initializable{
     	int y = ((int)event.getY())/32;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
     		if(event.getDragboard().getString() == "101") {
-    	    	DwarfMiner d = new DwarfMiner(x,y);
+    	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     	    	battlefieldView.createTurret(d);
     	    	}
