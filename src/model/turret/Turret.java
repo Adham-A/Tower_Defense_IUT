@@ -7,10 +7,11 @@ public abstract class Turret {
 	private int id;
 	private int hp;
 	private int x, y;
-
+	private Battlefield battlefield;
+	
 	private static int ids = 0;
 
-	public Turret(int hp, int x, int y) {
+	public Turret(int hp, int x, int y,Battlefield battlefield) {
 
 		++ids;
 		this.hp = hp;
@@ -19,17 +20,17 @@ public abstract class Turret {
 
 		this.x = x;
 		this.y = y;
+		this.battlefield = battlefield;
 	}
 
 	public abstract void action();
 	
-	public void add(Battlefield battlefield) {
-		battlefield.addTurret(this);
+	public Battlefield getBattlefield() {
+		return this.battlefield ;
 	}
-
 // id
-	public int getId() {
-		return this.id;
+	public String getId() {
+		return "T" + this.id ;
 	}
 
 // hp

@@ -1,6 +1,5 @@
 package model.enemy;
 
-
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Battlefield;
@@ -16,7 +15,6 @@ public abstract class Enemy {
 
 	private IntegerProperty x, y;
 	private Edge edge;
-	//PIXEL
 
 	public Enemy(int hp, int x, int y, Battlefield battlefield) {
 		++ids;
@@ -25,14 +23,19 @@ public abstract class Enemy {
 		this.id = ids;
 
 		this.x = new SimpleIntegerProperty(x);
-		this.x.set(x);
 		this.y = new SimpleIntegerProperty(y);
-		this.y.set(y);
-		
 		this.edge = fetchEdge();
 	}
 	
-	public abstract void action();
+	public void action() {
+		
+		if(!this.isDead()) {
+			this.move();
+        }
+        else {
+        	this.battlefield.removeEnemy(this);
+        }
+	}
 	
 	public void move() {
 		if(this.edge.getParent()!=null) {
@@ -53,14 +56,18 @@ public abstract class Enemy {
 		}
 		return null;
 	}
+
+	public boolean isDead() {
+		return this.hp <= 0;
+	}
 	
 	public void add(Battlefield battlefield) {
 		battlefield.addEnemy(this);
 	}
 	
 // id
-	public int getId() {
-		return this.id;
+	public String getId() {
+		return "E" + this.id;
 	}
 
 // hp
@@ -70,6 +77,10 @@ public abstract class Enemy {
 
 	public void setHp(int n) {
 		this.hp = n;
+	}
+	
+	public void removeHp(int hp) {
+		this.hp -= hp;
 	}
 
 // speed
@@ -104,6 +115,10 @@ public abstract class Enemy {
 
 	public void setY(int n) {
 		this.y.setValue(n);
+	}
+	
+	public Edge getEdge() {
+		return this.edge;
 	}
 
 }
