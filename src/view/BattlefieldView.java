@@ -123,7 +123,7 @@ public class BattlefieldView {
 	}
 	
 	public void createTurret(Turret turret) {
-		int id = 0;//888
+		int id = 0;//666
 
 		if(turret instanceof DwarfMiner) {
 			id = 101;
