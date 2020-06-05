@@ -127,7 +127,7 @@ public class BattlefieldView {
 
 		if(turret instanceof DwarfMiner) {
 			id = 101;
-			Image image1 = SwingFXUtils.toFXImage(cropImage(tileset,291),null);
+			Image image1 = SwingFXUtils.toFXImage(cropImage(tileset,301),null);
 			ImageView imageView2 = new ImageView();
 			imageView2.setImage(image1);
 			this.pane.getChildren().add(imageView2);
