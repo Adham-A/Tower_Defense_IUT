@@ -116,5 +116,9 @@ public abstract class Enemy {
 	public void setY(int n) {
 		this.y.setValue(n);
 	}
+	
+	public Edge getEdge() {
+		return this.edge;
+	}
 
 }

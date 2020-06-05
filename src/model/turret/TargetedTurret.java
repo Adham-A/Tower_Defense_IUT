@@ -37,4 +37,8 @@ public class TargetedTurret extends Turret {
     public void action() {
     	this.shoot();
     }
+    
+    public Projectile getProjectile() {
+    	return this.projectile;
+    }
 }

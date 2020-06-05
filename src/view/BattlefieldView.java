@@ -127,6 +127,28 @@ public class BattlefieldView {
 
 		if(turret instanceof DwarfMiner) {
 			id = 101;
+			Image image1 = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+			ImageView imageView2 = new ImageView();
+			imageView2.setImage(image1);
+			this.pane.getChildren().add(imageView2);
+			System.out.println(imageView2.getTranslateX());
+			
+			imageView2.translateXProperty().set(((DwarfMiner) turret).getProjectile().getXProperty().multiply(32).getValue());
+			imageView2.translateYProperty().set(((DwarfMiner) turret).getProjectile().getYProperty().multiply(32).getValue());
+
+			((DwarfMiner) turret).getProjectile().getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateXProperty(),old_value.intValue()*32)),
+		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateXProperty(),new_value.intValue()*32))
+		                );
+			 			this.timeline.play();
+		      });
+			 
+			((DwarfMiner) turret).getProjectile().getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateYProperty(),old_value.intValue()*32)),
+		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateYProperty(),new_value.intValue()*32))
+		                );
+		     			this.timeline.play();
+		    });
 		}
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
