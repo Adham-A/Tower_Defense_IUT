@@ -42,12 +42,13 @@ public class Controller implements Initializable{
     	battlefieldView.createView();
     	
     	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
+    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
     	
-        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+       //Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
         Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
     	battlefieldView.createTurretBoard(dwarfImage);
     	battlefield.addEnemy(q);
-    	battlefield.addEnemy(e1);
+    	//battlefield.addEnemy(e1);
     	dwarfImage.setId(101 + "");
     }
     
@@ -73,9 +74,8 @@ public class Controller implements Initializable{
                     }
                     if(time%3==0) {
                         Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        battlefield.addEnemy(e1);
+                      battlefield.addEnemy(e1);
                     }
-                    System.out.println(time);
                     time++;
                 })
 
