@@ -24,6 +24,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Battlefield;
 import model.enemy.*;
+import model.projectile.Pickaxe;
+import model.projectile.Projectile;
 import model.turret.*;
 
 public class BattlefieldView {
@@ -100,7 +102,7 @@ public class BattlefieldView {
 
 		 enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
 	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
-	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))	             
 	                );
 		 			this.timeline.play();
 	      });
@@ -127,28 +129,6 @@ public class BattlefieldView {
 
 		if(turret instanceof DwarfMiner) {
 			id = 101;
-			Image image1 = SwingFXUtils.toFXImage(cropImage(tileset,301),null);
-			ImageView imageView2 = new ImageView();
-			imageView2.setImage(image1);
-			this.pane.getChildren().add(imageView2);
-			System.out.println(imageView2.getTranslateX());
-			
-			imageView2.translateXProperty().set(((DwarfMiner) turret).getProjectile().getXProperty().multiply(32).getValue());
-			imageView2.translateYProperty().set(((DwarfMiner) turret).getProjectile().getYProperty().multiply(32).getValue());
-
-			((DwarfMiner) turret).getProjectile().getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateXProperty(),old_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateXProperty(),new_value.intValue()*32))
-		                );
-			 			this.timeline.play();
-		      });
-			 
-			((DwarfMiner) turret).getProjectile().getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateYProperty(),old_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateYProperty(),new_value.intValue()*32))
-		                );
-		     			this.timeline.play();
-		    });
 		}
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
@@ -159,6 +139,43 @@ public class BattlefieldView {
 
 		imageView.setX(turret.getX()*32);
 		imageView.setY(turret.getY()*32);
+		
+	}
+	
+	public void createProjectile(Projectile projectile) {
+		int id = 0 ;
+		if(projectile instanceof Pickaxe) {
+			id = 301;
+		}
+		
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setId(projectile.getId()+"");
+		
+		imageView.translateXProperty().set(projectile.getXProperty().multiply(32).getValue());
+		imageView.translateYProperty().set(projectile.getYProperty().multiply(32).getValue());
+		this.pane.getChildren().add(imageView);
+		
+		projectile.getXProperty().addListener((obs_value,old_value,new_value)-> {
+					this.timeline = new Timeline(
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),new_value.intValue()*32)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),old_value.intValue()*32)),
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
+	                );
+		 			this.timeline.play();
+	      });
+		 
+		projectile.getYProperty().addListener((obs_value,old_value,new_value)-> {
+					this.timeline = new Timeline(
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),new_value.intValue()*32)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),old_value.intValue()*32)),
+	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
+	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
+	                );
+	     			this.timeline.play();
+	    });
 		
 	}
 	
