@@ -31,6 +31,7 @@ public class TargetedTurret extends Turret {
     }
     
     public void shoot() {
+    	this.getBattlefield().removeProjectile(projectile);
     	if(!this.projectile.shoot(firstEnemyInRange())) {
     		this.getBattlefield().removeProjectile(projectile);
     	}

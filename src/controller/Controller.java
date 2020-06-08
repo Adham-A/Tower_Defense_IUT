@@ -69,12 +69,12 @@ public class Controller implements Initializable{
                     }
                     else{
                         battlefield.turnLoop();
-                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        this.battlefield.addEnemy(q);
+//                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+//                        this.battlefield.addEnemy(q);
                     }
                     if(time%3==0) {
-                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                      battlefield.addEnemy(e1);
+//                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+//                      battlefield.addEnemy(e1);
                     }
                     time++;
                 })
