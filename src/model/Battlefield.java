@@ -28,6 +28,7 @@ public class Battlefield {
 
 	public void turnLoop() {
 		this.turn_number++;
+		System.out.println(this.projectileList);
 		for (int i = getEnemyList().size() - 1 ; i >= 0 ; i--) {
 			this.enemyList.get(i).action();
 		}

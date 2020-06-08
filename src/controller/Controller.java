@@ -43,6 +43,7 @@ public class Controller implements Initializable{
     	
     	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
     	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
+    	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
     	
        //Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
         Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
@@ -104,7 +105,6 @@ public class Controller implements Initializable{
     		if(event.getDragboard().getString() == "101") {
     	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	battlefieldView.createTurret(d);
     	    	}
     	}
     }
