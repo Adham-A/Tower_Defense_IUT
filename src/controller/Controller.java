@@ -29,12 +29,23 @@ public class Controller implements Initializable{
 	@FXML
     private Pane pane;
 	@FXML
-    private ImageView dwarfImage;
+    private ImageView minerImage;
+	@FXML
+    private ImageView soldierImage;
+	@FXML
+    private ImageView scientistImage;
+	@FXML
+    private ImageView demolitionistImage;
 	@FXML
     private VBox boardBox;
 
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
+    
+    private final String idMiner = "101";
+    private final String idSoldier = "111";
+    private final String idScientist = "131";
+    private final String idDemolitionist = "121";
     
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");
@@ -45,12 +56,14 @@ public class Controller implements Initializable{
     	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
     	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
     	
-       //Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
         Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-    	battlefieldView.createTurretBoard(dwarfImage);
+    	battlefieldView.createTurretBoard(minerImage, idMiner);
+    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
+    	battlefieldView.createTurretBoard(scientistImage, idScientist);
+    	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
     	battlefield.addEnemy(q);
-    	//battlefield.addEnemy(e1);
-    	dwarfImage.setId(101 + "");
+    	battlefield.addEnemy(e1);
     }
     
     @FXML
@@ -70,13 +83,14 @@ public class Controller implements Initializable{
                     }
                     else{
                         battlefield.turnLoop();
-//                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-//                        this.battlefield.addEnemy(q);
+                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        this.battlefield.addEnemy(q);
                     }
                     if(time%3==0) {
-//                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-//                      battlefield.addEnemy(e1);
+                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        battlefield.addEnemy(e1);
                     }
+                    System.out.println(time);
                     time++;
                 })
 
@@ -87,11 +101,23 @@ public class Controller implements Initializable{
 
     @FXML
     void handleDragDetection(MouseEvent event) {
-    	Dragboard db = dwarfImage.startDragAndDrop(TransferMode.ANY);
-
     	ClipboardContent cb = new ClipboardContent();
-    	cb.putImage(dwarfImage.getImage());
-    	cb.putString("101");
+    	ImageView target = null;
+    	if (event.getTarget() == minerImage) {
+    		target = minerImage;
+    	}
+    	else if(event.getTarget() == soldierImage) {
+    		target = soldierImage;
+    	}
+    	else if(event.getTarget() == scientistImage) {
+    		target = scientistImage;
+    	}
+    	else {
+    		target = demolitionistImage;
+    	}
+    	Dragboard db = target.startDragAndDrop(TransferMode.ANY);
+    	cb.putImage(target.getImage());
+    	cb.putString(target.getId());
 
     	db.setContent(cb);
     	event.consume();
@@ -102,10 +128,27 @@ public class Controller implements Initializable{
     	int x = ((int)event.getX())/32;
     	int y = ((int)event.getY())/32;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
-    		if(event.getDragboard().getString() == "101") {
-    	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield, 4);
+    		if(event.getDragboard().getString() == idMiner && this.battlefield.getMoney() >= DwarfMiner.getPrice()) {
+    	    	Turret d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	}
+    	    	battlefieldView.createTurret(d);
+    	    	//this.battlefield.buy();
+    	    }
+    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.getMoney() >= 20) {
+    			/*Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
+    	    	battlefield.addTurret(d);
+    	    	battlefieldView.createTurret(d);*/
+    		}
+    		else if (event.getDragboard().getString() == idScientist && this.battlefield.getMoney() >= 30) {
+    			/*Turret d = new DwarfScientist(x,y,this.battlefield, 4);
+    	    	battlefield.addTurret(d);
+    	    	battlefieldView.createTurret(d);*/
+    		}
+    		else {
+    			/*Turret d = new DwarfDemolitionist(x,y,this.battlefield, 4);
+    	    	battlefield.addTurret(d);
+    	    	battlefieldView.createTurret(d);*/
+    		}
     	}
     }
 
