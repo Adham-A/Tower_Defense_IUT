@@ -33,6 +33,12 @@ public abstract class Enemy {
 			this.move();
         }
         else {
+        	if ( this instanceof Quartz) {
+        		this.battlefield.gainMoney(10);
+        	}
+        	if ( this instanceof Emerald) {
+        		this.battlefield.gainMoney(20);
+        	}
         	this.battlefield.removeEnemy(this);
         }
 	}
