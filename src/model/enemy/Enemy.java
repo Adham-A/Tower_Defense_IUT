@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import model.Battlefield;
 import model.Edge;
+import model.projectile.Projectile;
 
 public abstract class Enemy {
 
@@ -85,8 +86,8 @@ public abstract class Enemy {
 		this.hp = n;
 	}
 	
-	public void removeHp(int hp) {
-		this.hp -= hp;
+	public void removeHp(Projectile projectile) {
+		this.hp -= projectile.getDamage();
 	}
 
 // speed

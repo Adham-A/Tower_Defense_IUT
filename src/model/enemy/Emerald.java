@@ -18,7 +18,7 @@ public class Emerald extends Mineral {
     public void action() {
     	super.action();
         if(split_counter<5) {
-        	this.removeHp(5);
+//        	this.removeHp(5);
         }
         else if(split_counter==5) {
             this.giveBirth();

@@ -16,6 +16,7 @@ public class TargetedTurret extends Turret {
         this.atkSpeed = atkSpeed;
         this.projectile = projetcile;
         this.range = range;
+        this.projectile.setParent(this);
     }
     
     public Enemy firstEnemyInRange() {
@@ -47,10 +48,17 @@ public class TargetedTurret extends Turret {
     }
     
     public void action() {
-    	this.shoot();
+    	if(this.isDead()) {
+        	this.getBattlefield().removeProjectile(projectile);
+    		super.getBattlefield().removeTurret(this);
+    	}
+    	else {
+    		this.shoot();
+    	}
     }
     
     public Projectile getProjectile() {
     	return this.projectile;
     }
+
 }

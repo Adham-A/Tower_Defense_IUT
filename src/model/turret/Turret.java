@@ -41,6 +41,14 @@ public abstract class Turret {
 	public void setHp(int n) {
 		this.hp = n;
 	}
+	
+	public void removeHp(int hp) {
+		this.hp -= hp ;
+	}
+	
+	public boolean isDead() {
+		return this.hp <=0;
+	}
 
 // x
 	public int getX() {

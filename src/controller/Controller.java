@@ -56,14 +56,11 @@ public class Controller implements Initializable{
     	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
     	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
     	
-        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
     	battlefieldView.createTurretBoard(minerImage, idMiner);
     	battlefieldView.createTurretBoard(soldierImage, idSoldier);
     	battlefieldView.createTurretBoard(scientistImage, idScientist);
     	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
-    	battlefield.addEnemy(q);
-    	battlefield.addEnemy(e1);
+
     }
     
     @FXML
@@ -83,12 +80,14 @@ public class Controller implements Initializable{
                     }
                     else{
                         battlefield.turnLoop();
-                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        this.battlefield.addEnemy(q);
+//                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+//                        this.battlefield.addEnemy(q);
                     }
                     if(time%3==0) {
-                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        battlefield.addEnemy(e1);
+                    	Saphir s1 = new Saphir(20,battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1], battlefield);
+                    	battlefield.addEnemy(s1);
+//                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+//                        battlefield.addEnemy(e1);
                     }
                     System.out.println(time);
                     time++;
@@ -131,7 +130,6 @@ public class Controller implements Initializable{
     		if(event.getDragboard().getString() == idMiner && this.battlefield.getMoney() >= DwarfMiner.getPrice()) {
     	    	Turret d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	battlefieldView.createTurret(d);
     	    	//this.battlefield.buy();
     	    }
     		else if (event.getDragboard().getString() == idSoldier && this.battlefield.getMoney() >= 20) {

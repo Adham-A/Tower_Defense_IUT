@@ -56,6 +56,10 @@ public class Battlefield {
 		this.turretList.add(t);
 	}
 	
+	public void removeTurret(Turret t) {
+		this.turretList.remove(t);
+	}
+	
 	public void addProjectile(Projectile projectile) {
 		this.projectileList.add(projectile);
 	}
