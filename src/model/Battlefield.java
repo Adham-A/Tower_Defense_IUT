@@ -15,9 +15,11 @@ public class Battlefield {
 	private Graph graph;
 	private ObservableList<Projectile> projectileList;
 	private int turn_number;
+	private int money;
 
 	public Battlefield(String path) {
 		this.terrain = new Terrain(path);
+		this.money = 100;
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
 		this.projectileList = FXCollections.observableArrayList();
@@ -36,7 +38,6 @@ public class Battlefield {
 		for (int i = getTurretList().size() - 1 ; i >= 0 ; i--) {
 			this.turretList.get(i).action();
 		}
-		
 	}
 	
 	public int getTurnNumber() {
@@ -81,5 +82,22 @@ public class Battlefield {
 	
 	public Graph getGraph() {
 		return this.graph;
+	}
+	
+	public void gainMoney(int value) {
+		if (value > 0) {
+			this.money += value;
+		}
+	}
+	
+	public void buy(int value) {
+		if (value > 0) {
+			if (this.money-value >= 0)
+				this.money -= value;
+		}
+	}
+	
+	public int getMoney() {
+		return this.money;
 	}
 }
