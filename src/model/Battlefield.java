@@ -94,11 +94,14 @@ public class Battlefield {
 		}
 	}
 	
-	public void buy(int value) {
+	public boolean buy(int value) {
 		if (value > 0) {
-			if (this.money-value >= 0)
+			if (this.money-value >= 0) {
 				this.money -= value;
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public int getMoney() {

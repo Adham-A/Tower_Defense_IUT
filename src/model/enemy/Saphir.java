@@ -12,7 +12,11 @@ public class Saphir extends Mineral{
 	@Override
 	public void removeHp(Projectile projectile) {
 		super.removeHp(projectile);
-		projectile.getParent().removeHp(projectile.getDamage()/2); //deals back half of the damage received to the turret
+		dealBackDamage(projectile);
+	}
+	
+	public static void dealBackDamage(Projectile projectile) {
+		projectile.getParent().removeHp(projectile.getDamage()/8); //deals back 1/8 of the damage received to the turret
 	}
 
 }

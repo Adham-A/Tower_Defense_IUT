@@ -127,10 +127,9 @@ public class Controller implements Initializable{
     	int x = ((int)event.getX())/32;
     	int y = ((int)event.getY())/32;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
-    		if(event.getDragboard().getString() == idMiner && this.battlefield.getMoney() >= DwarfMiner.getPrice()) {
+    		if(event.getDragboard().getString() == idMiner && this.battlefield.buy(DwarfMiner.getPrice())) {
     	    	Turret d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	//this.battlefield.buy();
     	    }
     		else if (event.getDragboard().getString() == idSoldier && this.battlefield.getMoney() >= 20) {
     			/*Turret d = new DwarfSoldier(x,y,this.battlefield, 4);

@@ -40,6 +40,10 @@ public abstract class Enemy {
         	if ( this instanceof Emerald) {
         		this.battlefield.gainMoney(20);
         	}
+        	if (this instanceof Saphir) {
+        		this.battlefield.gainMoney(35);
+        	}
+        	
         	this.battlefield.removeEnemy(this);
         }
 	}
