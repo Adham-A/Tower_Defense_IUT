@@ -137,9 +137,9 @@ public class BattlefieldView {
 		else if(turret instanceof DwarfSoldier) {
 			id = 111;
 		}
-		/*else if(turret instanceof DwarfDemolitionist) {
+		else if(turret instanceof DwarfDemolitionist) {
 			id = 121;
-		}*/
+		}
 		else {
 			id = 131;
 		}
@@ -165,9 +165,9 @@ public class BattlefieldView {
 		   else if(projectile instanceof Rocket) {
 		   		id = 311;
 		   }
-		   /*else if(projectile instanceof C4) {
+		   else if(projectile instanceof Dynamit) {
 				id = 321;
-		   }*/
+		   }
 		   else {
 		   		id = 331;
 		   }
