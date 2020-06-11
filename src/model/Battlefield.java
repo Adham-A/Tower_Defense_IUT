@@ -4,6 +4,7 @@ package model;
 import model.enemy.Enemy;
 import model.projectile.Projectile;
 import model.turret.Turret;
+import exception.TerrainLoaderException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +18,7 @@ public class Battlefield {
 	private int turn_number;
 	private int money;
 
-	public Battlefield(String path) {
+	public Battlefield(String path) throws TerrainLoaderException {
 		this.terrain = new Terrain(path);
 		this.money = 100;
 		this.enemyList = FXCollections.observableArrayList();
