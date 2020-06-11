@@ -54,6 +54,8 @@ public abstract class Enemy {
 			this.edge = this.edge.getParent();
 		}
 		else {
+			if(this.battlefield.getHp() > 0)
+			this.battlefield.removeHp();
 			System.out.println("Vous êtes à la fin du chemin ");
 		}
 	}

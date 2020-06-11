@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane fx:id="not_a_pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<Pane fx:id="not_a_pane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="864.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
       <HBox>
          <children>
             <Pane fx:id="pane">
                <children>
                   <TilePane fx:id="tilepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDropped="#handleImageDrop" onDragOver="#handleImageOver" prefHeight="864.00" prefWidth="480.0" />
+                  <Label fx:id="result">
+                     <font>
+                        <Font size="63.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
-            <VBox fx:id="boardBox" prefHeight="826.0" prefWidth="100.0">
+            <VBox fx:id="boardBox" prefHeight="864.0" prefWidth="84.0">
                <children>
-                  <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="MOVE " />
-                  <ImageView fx:id="minerImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="soldierImage" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="35.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="scientistImage" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="67.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="demolitionistImage" fitHeight="32.0" fitWidth="32.0" layoutX="10.0" layoutY="99.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                  <VBox fx:id="dwarfBoard" prefHeight="200.0" prefWidth="74.0">
+                     <children>
+                        <ImageView fx:id="minerImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="soldierImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="demolitionistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="scientistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="MOVE " />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Money" />
+                        <Label fx:id="money" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Life" />
+                        <Label fx:id="hp" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="startBox" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="start" mnemonicParsing="false" onAction="#startLevel" prefHeight="81.0" prefWidth="79.0" text="Start" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="13.72998046875" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <MenuButton fx:id="levelList" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Level 1">
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Level 2" />
+                              <MenuItem mnemonicParsing="false" text="Level 3" />
+                              <MenuItem mnemonicParsing="false" text="Level 4" />
+                              <MenuItem mnemonicParsing="false" text="Level 5" />
+                           </items>
+                        </MenuButton>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

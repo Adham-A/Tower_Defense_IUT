@@ -5,6 +5,8 @@ import model.enemy.Enemy;
 import model.projectile.Projectile;
 import model.turret.Turret;
 import exception.TerrainLoaderException;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,11 +18,15 @@ public class Battlefield {
 	private Graph graph;
 	private ObservableList<Projectile> projectileList;
 	private int turn_number;
-	private int money;
+	private IntegerProperty money;
+	private IntegerProperty hp;
  
 	public Battlefield(String path) throws TerrainLoaderException {
 		this.terrain = new Terrain(path);
-		this.money = 100;
+		money = new SimpleIntegerProperty();
+		this.money.set(100);
+		hp = new SimpleIntegerProperty();
+		this.hp.set(10);
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
 		this.projectileList = FXCollections.observableArrayList();
@@ -91,14 +97,14 @@ public class Battlefield {
 	
 	public void gainMoney(int value) {
 		if (value > 0) {
-			this.money += value;
+			this.money.set(this.money.intValue()+value);
 		}
 	}
 	
 	public boolean buy(int value) {
 		if (value > 0) {
-			if (this.money-value >= 0) {
-				this.money -= value;
+			if (this.money.intValue()-value >= 0) {
+				this.money.set(this.money.intValue()-value);
 				return true;
 			}
 		}
@@ -106,6 +112,22 @@ public class Battlefield {
 	}
 	
 	public int getMoney() {
+		return this.money.intValue();
+	}
+	
+	public IntegerProperty getMoneyProperty() {
 		return this.money;
+	}
+	
+	public void removeHp() {
+		this.hp.set(this.hp.intValue()-1);
+	}
+	
+	public IntegerProperty getHpProperty() {
+		return this.hp;
+	}
+	
+	public int getHp() {
+		return this.hp.intValue();
 	}
 }

@@ -9,6 +9,11 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -39,6 +44,20 @@ public class Controller implements Initializable{
     private ImageView demolitionistImage;
 	@FXML
     private VBox boardBox;
+	@FXML
+    private VBox startBox;
+	@FXML
+    private VBox dwarfBoard;
+	@FXML
+    private MenuButton levelList;
+	@FXML
+    private Button start;
+	@FXML
+    private Label money;
+	@FXML
+    private Label hp;
+	@FXML
+    private Label result;
 
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
@@ -49,10 +68,20 @@ public class Controller implements Initializable{
     private final String idDemolitionist = "121";
     
     public void initialize(URL arg0, ResourceBundle arg1) {
+    	
     	try {
 			battlefield = new Battlefield("battlefields/battlefield1.json");
 	    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
 	    	battlefieldView.createView();
+	    	tilepane.setVisible(false);
+	    	dwarfBoard.setVisible(false);
+
+	    	ImageView acceuil = new ImageView();
+	    	Image imageAcceuil = new Image("view/StartImage.png");
+	    	acceuil.setImage(imageAcceuil);
+	    	pane.getChildren().add(0,acceuil);
+	    	money.textProperty().bind(battlefield.getMoneyProperty().asString());
+	    	hp.textProperty().bind(battlefield.getHpProperty().asString());
 	    	
 	    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
 	    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
@@ -62,11 +91,13 @@ public class Controller implements Initializable{
 	    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
 	    	battlefieldView.createTurretBoard(scientistImage, idScientist);
 	    	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
+	    	
 		} catch (TerrainLoaderException e) {
 			System.err.println(e.getMessage());
 		}
 
     }
+    
     
     @FXML
     void move_button(ActionEvent event) {
@@ -80,20 +111,26 @@ public class Controller implements Initializable{
         KeyFrame kf = new KeyFrame(
             Duration.seconds(0.5),
                 (ev ->{
-                    if(time==1000){
+                    if(time==10){
                         gameLoop.stop();
+                        tilepane.setVisible(false);
+                        for ( int i = 0 ; i < battlefield.getEnemyList().size() ; i++) {
+                        	battlefield.removeEnemy(battlefield.getEnemyList().get(i));
+                        	i--;
+                        }
+                    	if(this.battlefield.getHp() > 0) {
+                        	this.result.setText("You Won!");
+                        }
+                        
                     }
                     else{
                         battlefield.turnLoop();
-                        Diamond d = new Diamond(20,battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1], battlefield);
-//                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        this.battlefield.addEnemy(d);
+                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        this.battlefield.addEnemy(q);
                     }
                     if(time%3==0) {
-                    	Saphir s1 = new Saphir(20,battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1], battlefield);
-                    	battlefield.addEnemy(s1);
-//                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-//                        battlefield.addEnemy(e1);
+                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
+                        battlefield.addEnemy(e1);
                     }
                     System.out.println(time);
                     time++;
@@ -137,7 +174,7 @@ public class Controller implements Initializable{
     	    	Turret d = new DwarfMiner(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     	    }
-    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.getMoney() >= 20) {
+    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.buy(DwarfSoldier.getPrice())) {
     			Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     		}
@@ -159,6 +196,14 @@ public class Controller implements Initializable{
     	if (event.getDragboard().hasImage()) {
     		event.acceptTransferModes(TransferMode.ANY);
     	}
+    }
+    
+    @FXML
+    void startLevel(ActionEvent event) {
+    	tilepane.setVisible(true);
+    	dwarfBoard.setVisible(true);
+    	startBox.setVisible(false);
+    	pane.getChildren().remove(0);
     }
 
 }
