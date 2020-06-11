@@ -17,7 +17,7 @@ public class Battlefield {
 	private ObservableList<Projectile> projectileList;
 	private int turn_number;
 	private int money;
-
+ 
 	public Battlefield(String path) throws TerrainLoaderException {
 		this.terrain = new Terrain(path);
 		this.money = 100;
