@@ -94,6 +94,9 @@ public class BattlefieldView {
 		else if (enemy instanceof Saphir) {
 			id = 221;
 		}
+		else if(enemy instanceof Diamond) {
+			id = 231;
+		}
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
