@@ -109,7 +109,7 @@ public class Controller implements Initializable{
         KeyFrame kf = new KeyFrame(
             Duration.seconds(0.5),
                 (ev ->{
-                    if(time==10){
+                    if(time==1000){
                         gameLoop.stop();
                         tilepane.setVisible(false);
                         dwarfBoard.setVisible(false);
@@ -182,14 +182,16 @@ public class Controller implements Initializable{
     			Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     		}
-    		else if (event.getDragboard().getString() == idScientist && this.battlefield.getMoney() >= 30) {
+    		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(DwarfScientist.getPrice())) {
     			Turret d = new DwarfScientist(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     		}
-    		else {
-    			/*Turret d = new DwarfDemolitionist(x,y,this.battlefield, 4);
+    		else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(DwarfDemolitionist.getPrice())){
+    			Turret d = new DwarfDemolitionist(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	battlefieldView.createTurret(d);*/
+    		}
+    		else {
+    			System.out.println("non");
     		}
     	}
     }

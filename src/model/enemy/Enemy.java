@@ -140,4 +140,8 @@ public abstract class Enemy {
 	public Battlefield getBattlefield() {
 		return this.battlefield;
 	}
+	
+	public void setEdge(Edge e) {
+		this.edge = e;
+	}
 }

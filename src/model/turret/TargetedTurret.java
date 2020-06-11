@@ -11,10 +11,10 @@ public class TargetedTurret extends Turret {
     private Projectile projectile;
     private double range;
 
-    public TargetedTurret(int hp, int x, int y,Battlefield battlefield ,int atkSpeed,double range,Projectile projetcile) {
+    public TargetedTurret(int hp, int x, int y,Battlefield battlefield ,int atkSpeed,double range,Projectile projectile) {
         super(hp, x, y, battlefield);
         this.atkSpeed = atkSpeed;
-        this.projectile = projetcile;
+        this.projectile = projectile;
         this.range = range;
         this.projectile.setParent(this);
     }
