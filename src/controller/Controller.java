@@ -46,7 +46,7 @@ public class Controller implements Initializable{
     private final String idSoldier = "111";
     private final String idScientist = "131";
     private final String idDemolitionist = "121";
-    
+
     public void initialize(URL arg0, ResourceBundle arg1) {
     	battlefield = new Battlefield("battlefields/battlefield1.json");
     	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
@@ -55,12 +55,11 @@ public class Controller implements Initializable{
     	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
     	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
     	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
-    	
+
     	battlefieldView.createTurretBoard(minerImage, idMiner);
     	battlefieldView.createTurretBoard(soldierImage, idSoldier);
     	battlefieldView.createTurretBoard(scientistImage, idScientist);
     	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
-
     }
     
     @FXML
@@ -132,9 +131,8 @@ public class Controller implements Initializable{
     	    	battlefield.addTurret(d);
     	    }
     		else if (event.getDragboard().getString() == idSoldier && this.battlefield.getMoney() >= 20) {
-    			/*Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
+    			Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
-    	    	battlefieldView.createTurret(d);*/
     		}
     		else if (event.getDragboard().getString() == idScientist && this.battlefield.getMoney() >= 30) {
     			/*Turret d = new DwarfScientist(x,y,this.battlefield, 4);
