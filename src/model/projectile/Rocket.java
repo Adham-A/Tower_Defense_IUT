@@ -33,7 +33,6 @@ public class Rocket extends Projectile {
                         if (enemy.getX() == i && enemy.getY() == j && enemy != e) {
                             int damage = super.getDamage() - (Math.abs(targetEdge.getX() - i + targetEdge.getY() - j) + 1) * 3; // the further the enemy is the less damage they take; only the target take full damage
                             enemy.removeHp(damage);
-                            System.out.println(damage);
                         }
                     }
                 }

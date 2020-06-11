@@ -19,4 +19,9 @@ public class Saphir extends Mineral{
 		projectile.getParent().removeHp(projectile.getDamage()/8); //deals back 1/8 of the damage received to the turret
 	}
 
+	@Override
+	public int moneyDrop() {
+		return 30;
+	}
+
 }

@@ -30,8 +30,13 @@ public class Diamond extends Enemy{
 		this.armor = b;
 	}
 
-	public boolean getArmor() {
+	public boolean hasArmor() {
 		return this.armor;
+	}
+
+	@Override
+	public int moneyDrop() {
+		return 50;
 	}
 
 }

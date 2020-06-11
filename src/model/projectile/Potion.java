@@ -8,11 +8,12 @@ public class Potion extends Projectile {
     public Potion(int damage, int speed, double x, double y) {
         super(damage, speed, x, y);
     }
-
+    
+    @Override
     public boolean shoot(Enemy e) {
         boolean b = super.shoot(e);
 
-        if(e!=null && e instanceof Diamond && ((Diamond) e).getArmor()) {
+        if(e!=null && e instanceof Diamond && ((Diamond) e).hasArmor()) {
             debuff((Diamond) e);
         }
 
