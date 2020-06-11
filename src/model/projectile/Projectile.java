@@ -30,6 +30,11 @@ public class Projectile {
 			e.removeHp(this);
 			this.x.setValue(e.getEdge().getX()+0.1); //this helps triggering listeners when x doesn't change
 			this.y.setValue(e.getEdge().getY()+0.1); //this helps triggering listeners when y doesn't change
+
+			if(this instanceof Rocket) {
+				((Rocket) this).collateralDamages(e);
+			}
+
 			return true;
 		}
 		else {
