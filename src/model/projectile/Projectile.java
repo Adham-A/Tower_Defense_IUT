@@ -2,6 +2,7 @@ package model.projectile;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import model.enemy.Diamond;
 import model.enemy.Enemy;
 import model.turret.TargetedTurret;
 
@@ -24,22 +25,17 @@ public class Projectile {
 		this.id = Projectile.ids;
 		ids++;
 	}
-	
+
+
 	public boolean shoot(Enemy e) {
-		if(!(e==null) ) {
+		if(e!=null) {
 			e.removeHp(this);
 			this.x.setValue(e.getEdge().getX()+0.1); //this helps triggering listeners when x doesn't change
 			this.y.setValue(e.getEdge().getY()+0.1); //this helps triggering listeners when y doesn't change
 
-			if(this instanceof Rocket) {
-				((Rocket) this).collateralDamages(e);
-			}
-
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	public String getId() {
@@ -77,6 +73,7 @@ public class Projectile {
 	public void setParent(TargetedTurret parent) {
 		this.parent = parent;
 	}
+
 	public TargetedTurret getParent() {
 		return this.parent;
 	}

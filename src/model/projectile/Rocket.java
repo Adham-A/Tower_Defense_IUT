@@ -12,6 +12,17 @@ public class Rocket extends Projectile {
         this.radius = radius; // deals full damage to the target but collateral damages are reduced.
     }
 
+    @Override
+    public boolean shoot(Enemy e) {
+        boolean b = super.shoot(e);
+
+        if(e!=null) {
+            collateralDamages(e);
+        }
+
+        return b;
+    }
+
     public void collateralDamages(Enemy e) {
         Edge targetEdge = e.getEdge(); // Edge where is the targeted enemy
 

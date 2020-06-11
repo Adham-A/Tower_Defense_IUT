@@ -24,9 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.Battlefield;
 import model.enemy.*;
-import model.projectile.Pickaxe;
-import model.projectile.Projectile;
-import model.projectile.Rocket;
+import model.projectile.*;
 import model.turret.*;
 
 public class BattlefieldView {
@@ -131,7 +129,7 @@ public class BattlefieldView {
 	}
 	
 	public void createTurret(Turret turret) {
-		int id = 0;//666
+		int id = 0;
 
 		if(turret instanceof DwarfMiner) {
 			id = 101;
@@ -139,6 +137,13 @@ public class BattlefieldView {
 		else if(turret instanceof DwarfSoldier) {
 			id = 111;
 		}
+		/*else if(turret instanceof DwarfDemolitionist) {
+			id = 121;
+		}*/
+		else {
+			id = 131;
+		}
+
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
@@ -153,11 +158,18 @@ public class BattlefieldView {
 	
 	public void createProjectile(Projectile projectile) {
 		   int id = 0 ;
+
 		   if(projectile instanceof Pickaxe) {
-		      id = 301;
+		   		id = 301;
 		   }
 		   else if(projectile instanceof Rocket) {
-		      id = 311;
+		   		id = 311;
+		   }
+		   /*else if(projectile instanceof C4) {
+				id = 321;
+		   }*/
+		   else {
+		   		id = 331;
 		   }
 		   
 		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
