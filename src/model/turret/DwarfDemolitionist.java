@@ -11,7 +11,7 @@ public class DwarfDemolitionist extends TargetedTurret{
 	}
 	
 	public static int getPrice() {
-		return 40;
+		return 40; 
 	}
 
 }
