@@ -26,7 +26,6 @@ import model.Battlefield;
 import model.enemy.*;
 import model.projectile.Pickaxe;
 import model.projectile.Projectile;
-import model.projectile.Rocket;
 import model.turret.*;
 
 public class BattlefieldView {
@@ -65,10 +64,10 @@ public class BattlefieldView {
 			this.tilepane.getChildren().add(new ImageView());
 		}
 
-		Map<Integer, Image> hashmap = new HashMap<>();
+		Map<Integer, Image> hashmap = new HashMap<Integer, Image>();
 		for ( int i = 0; i < heigth; i++) {
 			for(int j = 0; j < width ; j++) {			
-				if(! hashmap.containsKey(battlefield.getTerrain().getTerrainTile(j, i) )) {
+				if(! hashmap.containsKey( (Integer) battlefield.getTerrain().getTerrainTile(j, i) )) {
 					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getTerrain().getTerrainTile(j, i)),null);
 					hashmap.put(battlefield.getTerrain().getTerrainTile(j, i), src);
 				}
@@ -133,9 +132,6 @@ public class BattlefieldView {
 		if(turret instanceof DwarfMiner) {
 			id = 101;
 		}
-		else if(turret instanceof DwarfSoldier) {
-			id = 111;
-		}
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
@@ -153,9 +149,9 @@ public class BattlefieldView {
 		   if(projectile instanceof Pickaxe) {
 		      id = 301;
 		   }
-		   else if(projectile instanceof Rocket) {
+		  /* else if(projectile instanceof Rocket) {
 		      id = 311;
-		   }
+		   }*/
 		   
 		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		   ImageView imageView = new ImageView();
