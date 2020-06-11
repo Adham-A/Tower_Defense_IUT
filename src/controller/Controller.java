@@ -124,18 +124,8 @@ public class Controller implements Initializable{
 
                     }
                     else{
-                        battlefield.turnLoop();
-                        Diamond d = new Diamond(20,battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1], battlefield);
-//                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        this.battlefield.addEnemy(d);
+                    	battlefield.turnLoop();
                     }
-                    if(time%3==0) {
-                    	Saphir s1 = new Saphir(20,battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1], battlefield);
-                    	battlefield.addEnemy(s1);
-//                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-//                        battlefield.addEnemy(e1);
-                    }
-                    System.out.println(time);
                     time++;
                 })
 

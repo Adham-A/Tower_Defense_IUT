@@ -17,9 +17,9 @@ public class Battlefield {
 	private ObservableList<Turret> turretList;
 	private Graph graph;
 	private ObservableList<Projectile> projectileList;
-	private int turn_number;
 	private IntegerProperty money;
 	private IntegerProperty hp;
+	private WaveManager waveManager;
  
 	public Battlefield(String path) throws TerrainLoaderException {
 		this.terrain = new Terrain(path);
@@ -32,12 +32,11 @@ public class Battlefield {
 		this.projectileList = FXCollections.observableArrayList();
 		this.graph = new Graph(this.terrain);
 		this.graph.createBFS();
-		this.turn_number=0;
+		this.waveManager = new WaveManager(this);
 	}
 
 	public void turnLoop() {
-		this.turn_number++;
-		System.out.println(this.projectileList);
+		waveManager.wave();
 		for (int i = getEnemyList().size() - 1 ; i >= 0 ; i--) {
 			this.enemyList.get(i).action();
 		}
@@ -48,7 +47,7 @@ public class Battlefield {
 	}
 	
 	public int getTurnNumber() {
-		return this.turn_number;
+		return this.waveManager.getTurnNumber();
 	}
 
 	public void addEnemy(Enemy enemy) {
@@ -115,6 +114,10 @@ public class Battlefield {
 		return this.money.intValue();
 	}
 	
+	public void addMoney(int money) {
+		this.money.setValue(this.getMoney()+money);
+	}
+	
 	public IntegerProperty getMoneyProperty() {
 		return this.money;
 	}
@@ -129,5 +132,9 @@ public class Battlefield {
 	
 	public int getHp() {
 		return this.hp.intValue();
+	}
+	
+	public WaveManager getWaveManager() {
+		return this.waveManager;
 	}
 }

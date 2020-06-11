@@ -16,6 +16,8 @@ public abstract class Enemy {
 
 	private IntegerProperty x, y;
 	private Edge edge;
+	
+	public abstract int moneyDrop();
 
 	public Enemy(int hp, int x, int y, Battlefield battlefield) {
 		++ids;
@@ -33,20 +35,11 @@ public abstract class Enemy {
 			this.move();
         }
         else {
-        	if ( this instanceof Quartz) {
-        		this.battlefield.gainMoney(10);
-        	}
-        	if ( this instanceof Emerald) {
-        		this.battlefield.gainMoney(20);
-        	}
-        	if (this instanceof Saphir) {
-        		this.battlefield.gainMoney(35);
-        	}
-        	
+        	this.battlefield.addMoney(this.moneyDrop());
         	this.battlefield.removeEnemy(this);
         }
 	}
-	
+
 	public void move() {
 		if(this.edge.getParent()!=null) {
 			this.y.set(this.edge.getParent().getY());
