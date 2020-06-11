@@ -3,6 +3,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exception.TerrainLoaderException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -46,20 +47,25 @@ public class Controller implements Initializable{
     private final String idSoldier = "111";
     private final String idScientist = "131";
     private final String idDemolitionist = "121";
-
+    
     public void initialize(URL arg0, ResourceBundle arg1) {
-    	battlefield = new Battlefield("battlefields/battlefield1.json");
-    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
-    	battlefieldView.createView();
-    	
-    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
-    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
-    	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
+    	try {
+			battlefield = new Battlefield("battlefields/battlefield1.json");
+	    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
+	    	battlefieldView.createView();
+	    	
+	    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
+	    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
+	    	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
+	    	
+	    	battlefieldView.createTurretBoard(minerImage, idMiner);
+	    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
+	    	battlefieldView.createTurretBoard(scientistImage, idScientist);
+	    	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
+		} catch (TerrainLoaderException e) {
+			System.err.println(e.getMessage());
+		}
 
-    	battlefieldView.createTurretBoard(minerImage, idMiner);
-    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
-    	battlefieldView.createTurretBoard(scientistImage, idScientist);
-    	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
     }
     
     @FXML
