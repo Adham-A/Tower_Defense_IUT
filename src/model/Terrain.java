@@ -1,12 +1,14 @@
 package model;
 
+import exception.TerrainLoaderException;
+
 public class Terrain {
 	private int width;
 	private int height;
 	private int[][] terrain_map;
 	private TerrainLoader terrainLoader;
 	
-	public Terrain(String path) {
+	public Terrain(String path) throws TerrainLoaderException {
 		this.terrainLoader = new TerrainLoader(path);
 		this.height = terrainLoader.parseBattlefieldHeight();
 		this.width = terrainLoader.parseBattlefieldWidth();
