@@ -29,7 +29,6 @@ public abstract class Enemy {
 	}
 	
 	public void action() {
-		
 		if(!this.isDead()) {
 			this.move();
         }
@@ -94,6 +93,10 @@ public abstract class Enemy {
 		this.hp -= projectile.getDamage();
 	}
 
+	public void removeHp(int damage) {
+		this.hp -= damage;
+	}
+
 // speed
 	public int getSpeed() {
 		return this.speed;
@@ -132,4 +135,7 @@ public abstract class Enemy {
 		return this.edge;
 	}
 
+	public Battlefield getBattlefield() {
+		return this.battlefield;
+	}
 }
