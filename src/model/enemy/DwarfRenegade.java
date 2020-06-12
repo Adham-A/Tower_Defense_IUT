@@ -1,3 +1,8 @@
+/*
+ * Sub class DwarfRenegade that extends Enemy,
+ * can shoot like a turret.
+ */
+
 package model.enemy;
 
 import javafx.collections.ObservableList;
@@ -33,7 +38,7 @@ public class DwarfRenegade extends Enemy {
 		return mRUtil.dwarfRenegade_money;
 	}
 	
-	public void shoot() { //Shoots an enemy using its projectile
+	public void shoot() { //Shoots a turret using its projectile
     	this.getBattlefield().removeProjectile(this.projectile);
     	if(!this.projectile.shoot(firstTowerInRange())) { //If no enemy is found removes the projectile
     		this.getBattlefield().removeProjectile(this.projectile);
@@ -42,11 +47,17 @@ public class DwarfRenegade extends Enemy {
         	this.getBattlefield().addProjectile(this.projectile);
     	}
     	this.projectile.resetProjectile();
+
     }
 	
 	@Override
 	public void action() {
-		this.move();
-		this.shoot();
+		if(this.isDead()) {
+			this.getBattlefield().removeProjectile(this.projectile);
+		}
+		else {
+			this.shoot();
+		}
+		super.action();
 	}
 }
