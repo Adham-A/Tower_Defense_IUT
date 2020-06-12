@@ -31,9 +31,10 @@ public class Dynamite extends Projectile {
 			if (this.battlefield.getGraph().getArrayListEdges().get(i).getParent().getParent() == e.getEdge()) {
 				for ( int j = 0 ; j < this.battlefield.getEnemyList().size() ; j++) {
 					if (this.battlefield.getEnemyList().get(j).getEdge() == targetEdge) {
-						this.battlefield.getEnemyList().get(j).setX(this.battlefield.getGraph().getArrayListEdges().get(i).getX());
-						this.battlefield.getEnemyList().get(j).setY(this.battlefield.getGraph().getArrayListEdges().get(i).getY());
-						this.battlefield.getEnemyList().get(j).setEdge(this.battlefield.getGraph().getArrayListEdges().get(i));
+						Enemy enemy = this.battlefield.getEnemyList().get(j);
+						enemy.setX(this.battlefield.getGraph().getArrayListEdges().get(i).getX());
+						enemy.setY(this.battlefield.getGraph().getArrayListEdges().get(i).getY());
+						enemy.setEdge(this.battlefield.getGraph().getArrayListEdges().get(i));
 					}
 				}
 				break;
