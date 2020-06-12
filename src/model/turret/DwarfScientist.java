@@ -1,3 +1,4 @@
+//This class models the DwarfScientist who nullify armor
 package model.turret;
 
 import mineralsRevenge.mRUtil;

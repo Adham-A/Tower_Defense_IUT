@@ -1,3 +1,4 @@
+//This class models the basic DwarfMiner
 package model.turret;
 
 import mineralsRevenge.mRUtil;

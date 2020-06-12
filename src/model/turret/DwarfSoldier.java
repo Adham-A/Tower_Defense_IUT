@@ -1,3 +1,4 @@
+//This class models the DwarfSoldier who deals damage in a zone
 package model.turret;
 
 import mineralsRevenge.mRUtil;

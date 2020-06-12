@@ -1,3 +1,4 @@
+//This is the basic class of every turret
 package model.turret;
 
 import model.Battlefield;

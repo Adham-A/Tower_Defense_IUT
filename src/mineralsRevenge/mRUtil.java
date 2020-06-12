@@ -1,3 +1,4 @@
+//This class provides every constant used in the game
 package mineralsRevenge;
 
 public class mRUtil {
