@@ -179,6 +179,9 @@ public class BattlefieldView {
             	if (t.getButton() == MouseButton.SECONDARY) {
             		for ( int i = 0 ;  i < battlefield.getTurretList().size() ; i++) {
             			if (battlefield.getTurretList().get(i) == turret) {
+            				if (battlefield.getTurretList().get(i) instanceof TargetedTurret) {
+            					battlefield.removeProjectile(((TargetedTurret)battlefield.getTurretList().get(i)).getProjectile());
+            				}
             				battlefield.removeTurret(battlefield.getTurretList().get(i));
             				break;
             			}

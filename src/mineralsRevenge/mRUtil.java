@@ -7,7 +7,7 @@ public class mRUtil {
 	 * Battlefield
 	 */
 	
-	public final static int beginning_money = 100;
+	public final static int beginning_money = 50;
 	public final static int beginning_hp = 20;
 	
 	public static int difficulty = 0;
@@ -32,14 +32,14 @@ public class mRUtil {
 	 * WaveManager
 	 */
 	
-	public final static int maxTurn = 150;
+	public final static int maxTurn = 175;
 	
 	//SpawnTurn
 	public final static int quartz_spawnTurn = 0;
 	public final static int emerald_spawnTurn = 15;
-	public final static int saphir_spawnTurn = 25;
-	public final static int diamond_spawnTurn = 50;
-	public final static int dwarfRenegade_spawnTurn = 75;
+	public final static int saphir_spawnTurn = 30;
+	public final static int diamond_spawnTurn = 55;
+	public final static int dwarfRenegade_spawnTurn = 80;
 	
 	//SpawnRates
 	public final static int[] quartz_spawnrate = {2,2,1,1,1};
@@ -57,30 +57,30 @@ public class mRUtil {
 	//Quartz
 	public final static int quartz_id = 201;
 	public final static int quartz_hp = 30;
-	public final static int quartz_money = 15 ;
+	public final static int quartz_money = 3 ;
 	
 	//Emerald
 	public final static int emerald_id = 211;
 	public final static int emerald_hp = 40;
-	public final static int emerald_money = 25;
+	public final static int emerald_money = 1;
 	public final static int emerald_baby1_id = 212;
 	public final static int emerald_baby2_id = 213;
 	
 	//Saphir
 	public final static int saphir_id = 221;
-	public final static int saphir_hp = 50;
-	public final static int saphir_money = 30 ;
+	public final static int saphir_hp = 100;
+	public final static int saphir_money = 5;
 	public final static int saphir_returnedDamageRatio = 8;
 	
 	//Diamond
 	public final static int diamond_id = 231;
 	public final static int diamond_hp = 50;
-	public final static int diamond_money = 40;
+	public final static int diamond_money = 7;
 	
 	//DwarfRenegade
 	public final static int dwarfRenegade_id = 241;
 	public final static int dwarfRenegade_hp = 50;
-	public final static int dwarfRenegade_money = 60;
+	public final static int dwarfRenegade_money = 10;
 	public final static int dwarfRenegade_range = 3;
 	
 	//-------------------------------------------------------------------
@@ -99,13 +99,13 @@ public class mRUtil {
 	public final static int dwarfSoldier_id = 111;
 	public final static int dwarfSoldier_hp = 40;
 	public final static int dwarfSoldier_range = 4;
-	public final static int dwarfSoldier_price = 50;
+	public final static int dwarfSoldier_price = 60;
 	
 	//DwarfDemolitionist
 	public final static int dwarfDemolitionist_id = 121;
 	public final static int dwarfDemolitionist_hp = 30;
 	public final static int dwarfDemolitionist_range = 3;
-	public final static int dwarfDemolitionist_price = 30;
+	public final static int dwarfDemolitionist_price = 70;
 	
 	//DwarfScientist
 	public final static int dwarfScientist_id = 131;
@@ -117,7 +117,7 @@ public class mRUtil {
 	public final static int mine_id = 141;
 	public final static int mine_income = 10;
 	public final static int mine_hp = 150;
-	public final static int mine_price = 450;
+	public final static int mine_price = 150;
 	
 	//-------------------------------------------------------------------
 	
@@ -144,7 +144,7 @@ public class mRUtil {
 	
 	//RevengefulPickaxe
 	public final static int revengefulPickaxe_id = 341;
-	public final static int revengefulPickaxe_damage = 6;
+	public final static int revengefulPickaxe_damage = 5;
 	
 	//-------------------------------------------------------------------
 	
