@@ -11,7 +11,6 @@ public abstract class Enemy {
 	protected Battlefield battlefield;
 	private int id;
 	private int hp;
-	private int speed;
 	private static int ids = 0;
 
 	private IntegerProperty x, y;
@@ -88,15 +87,6 @@ public abstract class Enemy {
 
 	public void removeHp(int damage) { // Remove the hp by a certain amount
 		this.hp -= damage;
-	}
-
-// speed
-	public int getSpeed() {
-		return this.speed;
-	}
-
-	public void setSpeed(int n) {
-		this.speed = n;
 	}
 
 // x

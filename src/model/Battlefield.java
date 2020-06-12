@@ -9,6 +9,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mineralsRevenge.mRUtil;
 
 public class Battlefield {
 	
@@ -24,9 +25,9 @@ public class Battlefield {
 	public Battlefield(String path) throws TerrainLoaderException {
 		this.terrain = new Terrain(path);
 		money = new SimpleIntegerProperty();
-		this.money.set(100);
+		this.money.set(mRUtil.beginning_money);
 		hp = new SimpleIntegerProperty();
-		this.hp.set(10);
+		this.hp.set(mRUtil.beginning_hp);
 		this.enemyList = FXCollections.observableArrayList();
 		this.turretList = FXCollections.observableArrayList();
 		this.projectileList = FXCollections.observableArrayList();
