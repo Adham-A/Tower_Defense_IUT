@@ -156,9 +156,17 @@ public class Battlefield {
         }
 	}
 	
+	private void removeAllProjectiles() {
+		for ( int i = 0 ; i < this.getProjectileList().size() ; i++) {
+        	this.removeProjectile(this.getProjectileList().get(i));
+        	i--;
+        }
+	}
+	
 	public void clearBattlefield() {
 		this.removeAllEnnemies();
 		this.removeAllTurrets();
+		this.removeAllProjectiles();
 	}
 	
 	
