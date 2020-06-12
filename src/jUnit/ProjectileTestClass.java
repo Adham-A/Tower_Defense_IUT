@@ -53,25 +53,31 @@ public class ProjectileTestClass {
 	@Test
 	void testPushBackEnemy() {
 		this.dynamite.shoot(this.quartz);
+		// check the position of the quartz after getting pushed
 		assertEquals(8, this.quartz.getX(), "Case: x");
 		assertEquals(22, this.quartz.getY(), "Case: y");
 	}
 
 	@Test
 	void testAreaOfEffects() {
+        // Pre-calculated values using the formula in collateralDamages() from the class Rocket.
+        final int damageReduction_OneCellAway = 3;
+        final int damageReduction_TwoCellAway = 6;
+
 		this.rocket.shoot(this.emerald);
 
 		assertEquals(mRUtil.emerald_hp - mRUtil.rocket_damage, this.emerald.getHp(), "Case: target of the rocket");
-		assertEquals( mRUtil.quartz_hp - 3, this.quartz.getHp(), "Case: enemy who is one position ahead the target");
-		assertEquals(mRUtil.saphir_hp - 6, this.saphir.getHp(), "Case: enemy who is one position behind the target");
+		assertEquals(mRUtil.quartz_hp - damageReduction_OneCellAway, this.quartz.getHp(), "Case: enemy who is one position ahead the target");
+		assertEquals(mRUtil.saphir_hp - damageReduction_TwoCellAway, this.saphir.getHp(), "Case: enemy who is one position behind the target");
 		assertEquals(mRUtil.diamond_hp, this.diamond.getHp(), "Case: enemy out of the radius");
-	}
+    }
 
     @Test
     void testNullifyDiamondsArmor() {
         this.potion.shoot(this.diamond);
         assertFalse(this.diamond.hasArmor(), "Case: Potions Nullify Diamonds' Armor");
 
+        // test if the projectile does damage to the diamond.
         this.potion.shoot(this.diamond);
         assertEquals(mRUtil.diamond_hp - mRUtil.potion_damage, this.diamond.getHp());
     }
