@@ -1,6 +1,5 @@
 package controller;
 
-import mineralsRevenge.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -93,10 +91,6 @@ public class Controller implements Initializable{
 	    	dwarfBoard.setVisible(false);
 	    	restartBox.setVisible(false);
 
-	    	ImageView accueil = new ImageView();
-	    	Image imageAccueil = new Image("view/StartImage.png");
-	    	accueil.setImage(imageAccueil);
-	    	pane.getChildren().add(0,accueil);
 	    	money.textProperty().bind(battlefield.getMoneyProperty().asString());
 	    	hp.textProperty().bind(battlefield.getHpProperty().asString());
 
@@ -133,7 +127,6 @@ public class Controller implements Initializable{
     
     static int time=0;
     public void startLoop() {
-    	System.out.println(mRUtil.difficulty);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -235,7 +228,7 @@ public class Controller implements Initializable{
     	tilepane.setVisible(true);
     	dwarfBoard.setVisible(true);
     	startBox.setVisible(false);
-    	pane.getChildren().remove(0);
+    	battlefieldView.playStartAnimation();
     }
     
     @FXML
@@ -265,7 +258,6 @@ public class Controller implements Initializable{
     void restart(ActionEvent event) {
     	initialize(null, null);
     	startBox.setVisible(true);
-    	System.out.println(this.battlefield.isDead());
     	this.result.setText("");
     	time = 0;
     	move = true;

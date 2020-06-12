@@ -32,6 +32,7 @@ public abstract class Enemy {
 	public void action() { // Function called every gameloop to make the enemy move or die
 		if(this.isDead()) {
 			this.battlefield.removeEnemy(this);
+			this.battlefield.addMoney(this.moneyDrop());
         }
         else {
 			this.move();

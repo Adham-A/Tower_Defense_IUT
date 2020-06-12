@@ -4,6 +4,7 @@ package view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -42,6 +45,7 @@ public class BattlefieldView {
 	private Timeline timeline;
 	private BufferedImage tileset;
 	private Battlefield battlefield;
+	private ArrayList<Timeline> timelines;
 	
 	public BattlefieldView(Battlefield battlefield, TilePane tilepane,Pane pane, VBox boardBox) {
 		this.battlefield = battlefield;
@@ -82,7 +86,7 @@ public class BattlefieldView {
 				((ImageView)tilepane.getChildren().get((k)*width+l)).setImage(hashmap.get(battlefield.getTerrain().getTerrainTile(l, k))); 
 			}
 		}
-		
+		this.brick_animation();
 	}
 	
 	private static int emerald_flip = 0;
@@ -247,4 +251,55 @@ public class BattlefieldView {
     public Pane getPane() {
 		return this.pane;
     }
+    
+    private void brick_animation() {
+
+		Image image = new Image("view/StartImage.png");
+		ArrayList<Timeline> s = new ArrayList<Timeline>();
+
+		PixelReader reader = image.getPixelReader();
+		int width = (int) (image.getWidth()/4);
+		int height = (int) (image.getHeight()/3);
+		for (int i = 0; i < 12; i++) {
+			WritableImage newImage = new WritableImage(reader, width*(i%4), height*(i%3), width, height);
+			ImageView brick = new ImageView(newImage);
+			pane.getChildren().add(brick);
+			brick.setTranslateX(width*(i%4));
+			brick.setTranslateY(height*(i%3));
+			Timeline timeline = new Timeline();
+
+			if(brick.translateXProperty().getValue()<image.getWidth()/4) {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2), new KeyValue(brick.translateXProperty(),width*-3))
+						);
+			}
+			else if(brick.translateXProperty().getValue()<image.getWidth()/2){
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*-3))
+						);
+			}
+			else if(brick.translateXProperty().getValue()<image.getWidth()-image.getWidth()/4) {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5))
+						);
+			}
+			else {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5))
+						);
+
+			}
+			s.add(timeline);
+		}
+		this.timelines = s;
+	    }
+	
+
+	public void playStartAnimation() {
+		this.timelines.forEach(brick_timeline -> brick_timeline.play() );
+	}
 }
