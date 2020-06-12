@@ -10,6 +10,7 @@ public class mRUtil {
 	public final static int beginning_money = 100;
 	public final static int beginning_hp = 20;
 	
+	public static int difficulty = 0;
 	//-------------------------------------------------------------------
 	
 	/*
@@ -35,13 +36,13 @@ public class mRUtil {
 	
 	//SpawnTurn
 	public final static int quartz_spawnTurn = 0;
-	public final static int emerald_spawnTurn = 10;
+	public final static int emerald_spawnTurn = 15;
 	public final static int saphir_spawnTurn = 25;
 	public final static int diamond_spawnTurn = 50;
 	public final static int dwarfRenegade_spawnTurn = 75;
 	
 	//SpawnRates
-	public final static int quartz_spawnrate = 2;
+	public final static int[] quartz_spawnrate = {2,2,1,1};
 	public final static int emerald_spawnrate = 3;
 	public final static int saphir_spawnrate = 5;
 	public final static int diamond_spawnrate = 10;
@@ -111,6 +112,11 @@ public class mRUtil {
 	public final static int dwarfScientist_hp = 500;
 	public final static int dwarfScientist_range = 5;
 	public final static int dwarfScientist_price = 30;
+	
+	//Mine
+	public final static int mine_id = 141;
+	public final static int mine_income = 10;
+	public final static int mine_hp = 150;
 	
 	//-------------------------------------------------------------------
 	
