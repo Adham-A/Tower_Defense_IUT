@@ -62,6 +62,8 @@ public class mRUtil {
 	public final static int emerald_id = 211;
 	public final static int emerald_hp = 40;
 	public final static int emerald_money = 25 ;
+	public final static int emerald_baby1_id = 212;
+	public final static int emerald_baby2_id = 213;
 	
 	//Saphir
 	public final static int saphir_id = 221;
