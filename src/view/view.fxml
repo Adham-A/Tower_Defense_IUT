@@ -30,7 +30,8 @@
                         <ImageView fx:id="soldierImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="demolitionistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="scientistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="START" />
+                        <ImageView fx:id="mineImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
+                        <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="MOVE " />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Money" />
                         <Label fx:id="money" />

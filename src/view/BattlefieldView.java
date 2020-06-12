@@ -114,9 +114,8 @@ public class BattlefieldView {
 	        }
 	        else if(enemy instanceof DwarfRenegade) {
 	        	id = mRUtil.dwarfRenegade_id;
-	        }
-	        
-	 
+			}
+
 	        Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 	        imageView.setId(enemy.getId() + "");
 	        imageView.setImage(image);
@@ -163,9 +162,10 @@ public class BattlefieldView {
 			id = mRUtil.dwarfScientist_id;
 		}
 		else if(turret instanceof Mine) {
-			id = mRUtil.mine_id;
-		}
-		
+            id = mRUtil.mine_id;
+        }
+
+
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
 		imageView.setId(turret.getId() + "");
@@ -202,13 +202,13 @@ public class BattlefieldView {
 		   else if(projectile instanceof Dynamite) {
 				id = mRUtil.dynamite_id;
 		   }
-		   else if(projectile instanceof Potion){
+		   else if(projectile instanceof Potion) {
 		   		id = mRUtil.potion_id;
 		   }
 		   else if(projectile instanceof RevengefulPickaxe) {
-			   id = mRUtil.revengefulPickaxe_id;
+		   		id = mRUtil.revengefulPickaxe_id;
 		   }
-		   
+
 		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		   ImageView imageView = new ImageView();
 		   imageView.setImage(image);

@@ -46,6 +46,8 @@ public class Controller implements Initializable{
 	@FXML
     private ImageView demolitionistImage;
 	@FXML
+	private ImageView mineImage;
+	@FXML
     private VBox boardBox;
 	@FXML
     private VBox startBox;
@@ -106,6 +108,7 @@ public class Controller implements Initializable{
 	    	battlefieldView.createTurretBoard(soldierImage, mRUtil.dwarfSoldier_id);
 	    	battlefieldView.createTurretBoard(scientistImage, mRUtil.dwarfScientist_id);
 	    	battlefieldView.createTurretBoard(demolitionistImage, mRUtil.dwarfDemolitionist_id);
+	    	battlefieldView.createTurretBoard(mineImage, mRUtil.mine_id);
 
 		} catch (TerrainLoaderException e) {
 			System.err.println(e.getMessage());
@@ -134,8 +137,8 @@ public class Controller implements Initializable{
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
-            Duration.seconds(0.5),
-                (ev ->{
+            Duration.seconds(0.5), (
+            	ev ->{
                     if(time==battlefield.getWaveManager().getMaxTurns() || this.battlefield.isDead() ){
                         gameLoop.stop();
                         tilepane.setVisible(false);
@@ -156,11 +159,11 @@ public class Controller implements Initializable{
                     	battlefield.turnLoop();
                     }
                     time++;
-                })
-
+                }
+            )
         );
-           gameLoop.getKeyFrames().add(kf);
-           gameLoop.play();
+        gameLoop.getKeyFrames().add(kf);
+        gameLoop.play();
     }
 
     @FXML
@@ -180,6 +183,9 @@ public class Controller implements Initializable{
     	else if(event.getTarget() == scientistImage) {
     		target = scientistImage;
     	}
+    	else if(event.getTarget() == mineImage) {
+			target = mineImage;
+		}
 
     	Dragboard db = target.startDragAndDrop(TransferMode.ANY);
     	cb.putImage(target.getImage());
@@ -210,6 +216,10 @@ public class Controller implements Initializable{
     			Turret d = new DwarfScientist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
+			else if (event.getDragboard().getString().equals(mRUtil.mine_id+"")  && this.battlefield.buy(mRUtil.mine_price)) {
+				Turret d = new Mine(x,y,this.battlefield);
+				battlefield.addTurret(d);
+			}
     	}
     }
 
@@ -249,7 +259,6 @@ public class Controller implements Initializable{
     		this.levelList.setText(menuItem5.getText());
     		mRUtil.difficulty = 4;
     	}
-    	
     }
     
     @FXML
@@ -260,9 +269,5 @@ public class Controller implements Initializable{
     	this.result.setText("");
     	time = 0;
     	move = true;
-    	//mineralsRevenge.start();
-    	
     }
-
-
 }
