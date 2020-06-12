@@ -22,6 +22,10 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import mineralsRevenge.mRUtil;
 import model.*;
@@ -93,6 +97,13 @@ public class Controller implements Initializable{
 
 		} catch (TerrainLoaderException e) {
 			System.err.println(e.getMessage());
+			Label error = new Label();
+			Font font = Font.font(45);
+			error.setTextFill(Color.RED);
+			error.setFont(font);
+			error.setText(e.getMessage());
+			this.pane.getChildren().add(error);
+			this.boardBox.setVisible(false);
 		}
 
     }
@@ -201,6 +212,10 @@ public class Controller implements Initializable{
     	dwarfBoard.setVisible(true);
     	startBox.setVisible(false);
     	pane.getChildren().remove(0);
+    }
+    
+    public Pane getPane() {
+    	return this.pane;
     }
 
 }
