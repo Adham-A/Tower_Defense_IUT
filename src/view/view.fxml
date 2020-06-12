@@ -30,7 +30,7 @@
                         <ImageView fx:id="soldierImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="demolitionistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="scientistImage" fitHeight="32.0" fitWidth="32.0" onDragDetected="#handleDragDetection" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="MOVE " />
+                        <Button fx:id="move_forward" mnemonicParsing="false" onAction="#move_button" text="START" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Money" />
                         <Label fx:id="money" />
@@ -45,12 +45,13 @@
                         <Button fx:id="start" mnemonicParsing="false" onAction="#startLevel" prefHeight="81.0" prefWidth="79.0" text="Start" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="13.72998046875" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <MenuButton fx:id="levelList" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Level 1">
+                        <MenuButton fx:id="levelList" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="Level">
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Level 2" />
-                              <MenuItem mnemonicParsing="false" text="Level 3" />
-                              <MenuItem mnemonicParsing="false" text="Level 4" />
-                              <MenuItem mnemonicParsing="false" text="Level 5" />
+                              <MenuItem fx:id="menuItem1" mnemonicParsing="false" onAction="#handleLevel" text="Level 1" />
+                              <MenuItem fx:id="menuItem2" mnemonicParsing="false" onAction="#handleLevel" text="Level 2" />
+                              <MenuItem fx:id="menuItem3" mnemonicParsing="false" onAction="#handleLevel" text="Level 3" />
+                              <MenuItem fx:id="menuItem4" mnemonicParsing="false" onAction="#handleLevel" text="Level 4" />
+                              <MenuItem fx:id="menuItem5" mnemonicParsing="false" onAction="#handleLevel" text="Level 5" />
                            </items>
                         </MenuButton>
                      </children>

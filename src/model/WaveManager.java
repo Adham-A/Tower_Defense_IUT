@@ -51,7 +51,7 @@ public class WaveManager {
 
 		if(this.turnNumber.getValue() >= mRUtil.quartz_spawnTurn) { //Start adding emeralds at turn x
 			
-			if( quartz_counter%mRUtil.quartz_spawnrate == 0 ) { //Adds a Quartz every 2 turn
+			if( quartz_counter%mRUtil.quartz_spawnrate[mRUtil.difficulty] == 0 ) { //Adds a Quartz every 2 turn
 				battlefield.addEnemy(new Quartz(start_x,start_y,battlefield));
 			}
 			
@@ -60,7 +60,7 @@ public class WaveManager {
 		
 		if(this.turnNumber.getValue() >= mRUtil.emerald_spawnTurn) { //Start adding emeralds at turn x
 			
-			if( emerald_counter%mRUtil.emerald_spawnrate == 0 ) { // Adds an Emerald every x turn
+			if( emerald_counter%mRUtil.emerald_spawnrate[mRUtil.difficulty] == 0 ) { // Adds an Emerald every x turn
  				battlefield.addEnemy(new Emerald(start_x, start_y, battlefield));		
 			}
 			
@@ -69,7 +69,7 @@ public class WaveManager {
 		
 		if(this.turnNumber.getValue() >= mRUtil.saphir_spawnTurn) { //Start adding saphirs at turn x
 			
-			if( saphir_counter%mRUtil.saphir_spawnrate == 0 ) { // Adds a saphir every x turn
+			if( saphir_counter%mRUtil.saphir_spawnrate[mRUtil.difficulty] == 0 ) { // Adds a saphir every x turn
 				battlefield.addEnemy(new Saphir(start_x, start_y, battlefield));
 			}
 			
@@ -78,7 +78,7 @@ public class WaveManager {
 		
 		if(this.turnNumber.getValue()>=mRUtil.diamond_spawnTurn) { //Start adding diamonds at turn x
 			
-			if( diamond_counter%mRUtil.diamond_spawnrate == 0 ) {// Adds a diamond every x turn
+			if( diamond_counter%mRUtil.diamond_spawnrate[mRUtil.difficulty] == 0 ) {// Adds a diamond every x turn
 				battlefield.addEnemy(new Diamond(start_x, start_y, battlefield));
 			}
 			

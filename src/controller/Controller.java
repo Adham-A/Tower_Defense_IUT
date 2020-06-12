@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -61,7 +62,18 @@ public class Controller implements Initializable{
     private Label hp;
 	@FXML
     private Label result;
+	@FXML
+    private MenuItem menuItem1;
+	@FXML
+    private MenuItem menuItem2;
+	@FXML
+    private MenuItem menuItem3;
+    @FXML
+    private MenuItem menuItem4;
+    @FXML
+    private MenuItem menuItem5;
 
+	private boolean move = true;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
     
@@ -105,12 +117,17 @@ public class Controller implements Initializable{
 			this.pane.getChildren().add(error); 
 			this.boardBox.setVisible(false); 
 		}
+    	
+    	//levelList.set
 
     }
     
     @FXML
     void move_button(ActionEvent event) {
-    	startLoop();
+    	if(move) {
+    		move = false;
+    		startLoop();
+    	}
     }
     
     static int time=0;
@@ -214,8 +231,28 @@ public class Controller implements Initializable{
     	pane.getChildren().remove(0);
     }
     
-    public Pane getPane() {
-    	return this.pane;
+    @FXML
+    void handleLevel(ActionEvent event) {
+    	if ( event.getSource() == menuItem1) {
+    		this.levelList.setText(menuItem1.getText());
+    	}
+    	else if ( event.getSource() == menuItem2) {
+    		this.levelList.setText(menuItem2.getText());
+    		mRUtil.difficulty = 1;
+    	}
+    	else if ( event.getSource() == menuItem3) {
+    		this.levelList.setText(menuItem3.getText());
+    		mRUtil.difficulty = 2;
+    	}
+    	else if ( event.getSource() == menuItem4) {
+    		this.levelList.setText(menuItem4.getText());
+    		mRUtil.difficulty = 3;
+    	}
+    	else if ( event.getSource() == menuItem5) {
+    		this.levelList.setText(menuItem5.getText());
+    		mRUtil.difficulty = 4;
+    	}
+    	
     }
 
 }

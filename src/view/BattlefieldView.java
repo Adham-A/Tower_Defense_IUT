@@ -151,6 +151,9 @@ public class BattlefieldView {
 		else if(turret instanceof DwarfScientist){
 			id = mRUtil.dwarfScientist_id;
 		}
+		/*else if(turret instanceof Mine) {
+            id = mRUtil.mine_id;
+        }*/
 
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);

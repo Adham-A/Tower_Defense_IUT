@@ -26,17 +26,11 @@ public class Dynamite extends Projectile {
     }
 	
 	private void moveBack(Enemy e) {
-		Edge targetEdge = e.getEdge();
 		for ( int i = this.battlefield.getGraph().getArrayListEdges().size()-2 ; i > 0 ; i--) {
 			if (this.battlefield.getGraph().getArrayListEdges().get(i).getParent().getParent() == e.getEdge()) {
-				for ( int j = 0 ; j < this.battlefield.getEnemyList().size() ; j++) {
-					if (this.battlefield.getEnemyList().get(j).getEdge() == targetEdge) {
-						Enemy enemy = this.battlefield.getEnemyList().get(j);
-						enemy.setX(this.battlefield.getGraph().getArrayListEdges().get(i).getX());
-						enemy.setY(this.battlefield.getGraph().getArrayListEdges().get(i).getY());
-						enemy.setEdge(this.battlefield.getGraph().getArrayListEdges().get(i));
-					}
-				}
+						e.setX(this.battlefield.getGraph().getArrayListEdges().get(i).getX());
+						e.setY(this.battlefield.getGraph().getArrayListEdges().get(i).getY());
+						e.setEdge(this.battlefield.getGraph().getArrayListEdges().get(i));
 				break;
 			}
 		}
