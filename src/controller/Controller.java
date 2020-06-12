@@ -60,7 +60,7 @@ public class Controller implements Initializable{
 
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
-   
+
     public void initialize(URL arg0, ResourceBundle arg1) {
 
     	try {
@@ -141,12 +141,13 @@ public class Controller implements Initializable{
     	else if(event.getTarget() == soldierImage) {
     		target = soldierImage;
     	}
+		else if(event.getTarget() == demolitionistImage) {
+			target = demolitionistImage;
+		}
     	else if(event.getTarget() == scientistImage) {
     		target = scientistImage;
     	}
-    	else {
-    		target = demolitionistImage;
-    	}
+
     	Dragboard db = target.startDragAndDrop(TransferMode.ANY);
     	cb.putImage(target.getImage());
     	cb.putString(target.getId());
@@ -168,16 +169,13 @@ public class Controller implements Initializable{
     			Turret d = new DwarfSoldier(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
+			else if (event.getDragboard().getString().equals(mRUtil.dwarfDemolitionist_id+"") && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
+				Turret d = new DwarfDemolitionist(x,y,this.battlefield);
+				battlefield.addTurret(d);
+			}
     		else if (event.getDragboard().getString().equals(mRUtil.dwarfScientist_id+"")  && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
     			Turret d = new DwarfScientist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
-    		}
-    		else if (event.getDragboard().getString().equals(mRUtil.dwarfDemolitionist_id+"") && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
-    			Turret d = new DwarfDemolitionist(x,y,this.battlefield);
-    	    	battlefield.addTurret(d);
-    		}
-    		else {
-    			System.out.println("non");
     		}
     	}
     }
