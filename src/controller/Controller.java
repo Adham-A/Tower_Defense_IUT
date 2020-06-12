@@ -174,7 +174,7 @@ public class Controller implements Initializable{
     	    	battlefield.addTurret(d);
     		}
     		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
-    			Turret d = new DwarfScientist(x,y,this.battlefield, 4);
+    			Turret d = new DwarfScientist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
     		else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {

@@ -56,7 +56,7 @@ public class BattlefieldView {
 	}
 		
 	private BufferedImage cropImage(BufferedImage src, int number) {
-		return src.getSubimage(((number-1)%10)*32,(number-1)/10*32, 32,32);
+		return src.getSubimage(((number-1)%10)*mRUtil.tileSize,(number-1)/10*mRUtil.tileSize, mRUtil.tileSize,mRUtil.tileSize);
 	}
 	
 	public void createView() {
@@ -111,19 +111,19 @@ public class BattlefieldView {
 	        imageView.setImage(image);
 	        this.pane.getChildren().add(imageView);
 	       
-	        imageView.translateXProperty().set(enemy.getXProperty().multiply(32).getValue());
-	        imageView.translateYProperty().set(enemy.getYProperty().multiply(32).getValue());
+	        imageView.translateXProperty().set(enemy.getXProperty().multiply(mRUtil.tileSize).getValue());
+	        imageView.translateYProperty().set(enemy.getYProperty().multiply(mRUtil.tileSize).getValue());
 	 
 	         enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
-	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*mRUtil.tileSize)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*mRUtil.tileSize))
 	                    );
 	                    this.timeline.play();
 	          });
 	         
 	         enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
-	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*mRUtil.tileSize)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*mRUtil.tileSize))
 	                    );
 	                    this.timeline.play();
 	         });
@@ -172,8 +172,8 @@ public class BattlefieldView {
 		
 		this.pane.getChildren().add(imageView);
 
-		imageView.setX(turret.getX()*32);
-		imageView.setY(turret.getY()*32);
+		imageView.setX(turret.getX()*mRUtil.tileSize);
+		imageView.setY(turret.getY()*mRUtil.tileSize);
 		
 	}
 	
@@ -198,14 +198,14 @@ public class BattlefieldView {
 		   imageView.setImage(image);
 		   imageView.setId(projectile.getId()+"");
 		   
-		   imageView.translateXProperty().set(projectile.getXProperty().multiply(32).getValue());
-		   imageView.translateYProperty().set(projectile.getYProperty().multiply(32).getValue());
+		   imageView.translateXProperty().set(projectile.getXProperty().multiply(mRUtil.tileSize).getValue());
+		   imageView.translateYProperty().set(projectile.getYProperty().multiply(mRUtil.tileSize).getValue());
 		   this.pane.getChildren().add(imageView);
 		   
 		   projectile.getXProperty().addListener((obs_value,old_value,new_value)-> {
 		            this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),new_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),old_value.intValue()*32)),
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),new_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),old_value.intValue()*mRUtil.tileSize)),
 		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
 		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
 		                );
@@ -214,8 +214,8 @@ public class BattlefieldView {
 		    
 		   projectile.getYProperty().addListener((obs_value,old_value,new_value)-> {
 		            this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),new_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),old_value.intValue()*32)),
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),new_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),old_value.intValue()*mRUtil.tileSize)),
 		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
 		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
 		                );

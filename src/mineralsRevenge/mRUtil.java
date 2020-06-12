@@ -120,5 +120,10 @@ public class mRUtil {
 	//Potion
 	public final static int potion_id = 331;
 	public final static int potion_damage = 10;
+	
+	//-------------------------------------------------------------------
+	
+	//BattlefieldView
+	public final static int tileSize = 32;
 		
 }
