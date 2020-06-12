@@ -27,11 +27,11 @@ public class Diamond extends Enemy{
 		}
 	}
 
-	public void setArmor(boolean b) {
+	public void setArmor(boolean b) { // Set if it has armor or no 
 		this.armor = b;
 	}
 
-	public boolean hasArmor() {
+	public boolean hasArmor() { // Return true if it has armor
 		return this.armor;
 	}
 
