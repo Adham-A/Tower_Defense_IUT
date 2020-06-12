@@ -102,7 +102,7 @@ public class Controller implements Initializable{
 			error.setTextFill(Color.RED);
 			error.setFont(font);
 			error.setText(e.getMessage());
-			this.pane.getChildren().add(error);
+			this.pane.getChildren().add(error); 
 			this.boardBox.setVisible(false); 
 		}
 
