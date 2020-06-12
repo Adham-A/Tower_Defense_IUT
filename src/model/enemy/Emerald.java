@@ -20,13 +20,13 @@ public class Emerald extends Mineral {
 
     public void action() {
     	if(this.isDead() && notAChild) {
-			this.giveBirth();
+			this.split();
         }
     	super.action();
     }
 
-    private void giveBirth() { // Split the emerald in two children when it dies
-        battlefield.addEnemy(new Emerald(this, this.battlefield));
+    private void split() { // Split the emerald in two children when it dies
+        for(int numberOfChild = 0; numberOfChild < 2; numberOfChild++)
         battlefield.addEnemy(new Emerald(this, this.battlefield));
     }
 

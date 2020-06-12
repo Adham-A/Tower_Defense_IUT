@@ -51,7 +51,7 @@ public class ProjectileTestClass {
     }
 
 	@Test
-	void testPushBackEnemy() {
+	void testMoveBack() {
 		this.dynamite.shoot(this.quartz);
 		// check the position of the quartz after getting pushed
 		assertEquals(8, this.quartz.getX(), "Case: x");
@@ -59,7 +59,7 @@ public class ProjectileTestClass {
 	}
 
 	@Test
-	void testAreaOfEffects() {
+	void testCollateralDamages() {
         // Pre-calculated values using the formula in collateralDamages() from the class Rocket.
         final int damageReduction_OneCellAway = 3;
         final int damageReduction_TwoCellAway = 6;
@@ -73,7 +73,7 @@ public class ProjectileTestClass {
     }
 
     @Test
-    void testNullifyDiamondsArmor() {
+    void testDebuff() {
         this.potion.shoot(this.diamond);
         assertFalse(this.diamond.hasArmor(), "Case: Potions Nullify Diamonds' Armor");
 

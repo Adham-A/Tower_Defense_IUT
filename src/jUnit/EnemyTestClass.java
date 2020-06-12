@@ -77,7 +77,7 @@ public class EnemyTestClass {
 	}
 
 	@Test
-	void testSplitIntoTwo() {
+	void testSplit() {
 		for(Enemy e: this.battlefield.getEnemyList()) {
 			if(e instanceof Emerald) {
 				assertFalse(((Emerald) e).isAChild(), "Case: no emerald child before the split");
@@ -95,7 +95,7 @@ public class EnemyTestClass {
 	}
 	// Check if turrets took back damages.
 	@Test
-	void testDealsBackDamages() {
+	void testDealBackDamage() {
 		this.miner.shoot();
 		assertEquals(mRUtil.dwarfMiner_hp - (mRUtil.pickaxe_damage/mRUtil.saphir_returnedDamageRatio), this.miner.getHp(), "Case: Damage taken by the Miner from saphir");
 
