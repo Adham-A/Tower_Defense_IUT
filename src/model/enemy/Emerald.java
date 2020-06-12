@@ -25,7 +25,7 @@ public class Emerald extends Mineral {
     	super.action();
     }
 
-    private void giveBirth() {
+    private void giveBirth() { // Split the emerald in two children when it dies
         battlefield.addEnemy(new Emerald(this, this.battlefield));
         battlefield.addEnemy(new Emerald(this, this.battlefield));
     }
@@ -35,7 +35,7 @@ public class Emerald extends Mineral {
 		return mRUtil.emerald_money;
 	}
 	
-	public boolean isAChild() {
+	public boolean isAChild() { // Return true if the emerald is a children ( to don't split an infinite time the emeralds )
 		return !this.notAChild;
 	}
 

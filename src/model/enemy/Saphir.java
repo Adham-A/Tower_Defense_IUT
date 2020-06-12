@@ -16,7 +16,7 @@ public class Saphir extends Mineral{
 		dealBackDamage(projectile);
 	}
 	
-	public static void dealBackDamage(Projectile projectile) {
+	public static void dealBackDamage(Projectile projectile) { // Return 1/8 of the damages he takes ( his speciality )
 		projectile.getParent().removeHp(projectile.getDamage()/8); //deals back 1/8 of the damage received to the turret
 	}
 
