@@ -49,7 +49,7 @@ public abstract class Enemy {
 		else {
 			if(this.battlefield.getHp() > 0)
 			this.battlefield.removeHp();
-			System.out.println("Vous êtes à la fin du chemin ");
+			this.battlefield.removeEnemy(this);
 		}
 	}
 	

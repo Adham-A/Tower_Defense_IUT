@@ -33,6 +33,10 @@ public class Emerald extends Mineral {
 	public int moneyDrop() {
 		return 25;
 	}
+	
+	public boolean isAChild() {
+		return !this.notAChild;
+	}
 
 
 

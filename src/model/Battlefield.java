@@ -134,7 +134,32 @@ public class Battlefield {
 		return this.hp.intValue();
 	}
 	
+	public boolean isDead() {
+		return this.hp.getValue() <= 0;
+	}
+	
 	public WaveManager getWaveManager() {
 		return this.waveManager;
 	}
+	
+	private void removeAllEnnemies() {
+		for ( int i = 0 ; i < this.getEnemyList().size() ; i++) {
+        	this.removeEnemy(this.getEnemyList().get(i));
+        	i--;
+        }
+	}
+	
+	private void removeAllTurrets() {
+		for ( int i = 0 ; i < this.getTurretList().size() ; i++) {
+        	this.removeTurret(this.getTurretList().get(i));
+        	i--;
+        }
+	}
+	
+	public void clearBattlefield() {
+		this.removeAllEnnemies();
+		this.removeAllTurrets();
+	}
+	
+	
 }
