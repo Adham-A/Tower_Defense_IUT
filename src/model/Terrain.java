@@ -1,3 +1,4 @@
+//This class manages the terrain
 package model;
 
 import exception.TerrainLoaderException;
@@ -27,22 +28,27 @@ public class Terrain {
 		return this.terrain_map[x][y]; 
 	}
 	
+	//Returns true if the tile is an end tile
 	public boolean isEnd(int id) {
 		return id>20 && id<40 ;
 	}
 	
+	//Returns true if the tile is a start tile
 	public boolean isStart(int id) {
 		return id>0 && id<21 ;
 	}
 	
+	//Returns true if the tile is a road
 	public boolean isRoad(int id) {
 		return id>40 && id<101 ;
 	}
 	
+	//Returns true if the tile is available for a turret placement
 	public boolean isFree(int id) {
 		return id>500 && id<601 ;
 	}
 	
+	//Finds the start tile coordinates
 	public int[] getStartCoordinates(){
 		for (int i = 0; i < this.width; i++) {
 			for (int j = 0; j < this.height; j++) {
@@ -54,6 +60,7 @@ public class Terrain {
 		return null;
 	}
 	
+	//Finds the end tile coordinates
 	public int[] getEndCoordinates() {
 		for (int i = 0; i < this.width; i++) {
 			for (int j = 0; j < this.height; j++) {

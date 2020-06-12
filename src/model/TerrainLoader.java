@@ -16,7 +16,7 @@ public class TerrainLoader {
 	public TerrainLoader(String path) {
 		Object obj = null;
 		try {
-			obj = new JSONParser().parse(new FileReader(path));
+			obj = new JSONParser().parse(new FileReader(path)); //Creates the JSON object
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -24,14 +24,14 @@ public class TerrainLoader {
 	}
 	
 	public int parseBattlefieldWidth() {
-		return ((Long) this.jo.get("width")).intValue();
+		return ((Long) this.jo.get("width")).intValue(); //Returns width of the battlefield
 	}
 	
 	public int parseBattlefieldHeight() {
-		return ((Long) this.jo.get("height")).intValue();
+		return ((Long) this.jo.get("height")).intValue(); //Returns height of the battlefield
 	}
 	
-	public int[][] parseBattlefieldFromFile() throws TerrainLoaderException {
+	public int[][] parseBattlefieldFromFile() throws TerrainLoaderException { //Creates the whole battlefield
 		int[][] battlefield ;
 		
 		try {
@@ -40,9 +40,13 @@ public class TerrainLoader {
 			
 			battlefield = new int [width][height];
 	
-			JSONArray jsonArray = (JSONArray) this.jo.get("data");
+			JSONArray jsonArray = (JSONArray) this.jo.get("data"); //Creates an array with every tile id
 			Iterator<?> iterator = jsonArray.iterator();
-	
+			
+			/*
+			 * //Fills battlefield array with corresponding tileset ids
+			 */
+			
 			for (int line = 0; line < height; line++) {
 				for (int column = 0; column < width; column++) {
 					if(iterator.hasNext()) {
@@ -53,12 +57,10 @@ public class TerrainLoader {
 			
 		}
 		catch(Exception e) {
-			throw new TerrainLoaderException("Loading of Terrain failed");
+			throw new TerrainLoaderException("Loading of Terrain failed"); //Throws an exception if loading failed
 		}
 
-		return battlefield;
-		
-		
+		return battlefield;	
 	}
 	
 }

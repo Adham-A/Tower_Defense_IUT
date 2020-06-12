@@ -1,3 +1,4 @@
+//This class represents an edge
 package model;
 
 public class Edge {
@@ -36,7 +37,6 @@ public class Edge {
 		return true;
 	}
 
-
 	public int getX() {
 		return x;
 	}
@@ -46,7 +46,7 @@ public class Edge {
 	}
 
 	public void setParent(Edge parent) {
-		if(this.parent==null) {
+		if(this.parent==null) { //Set the parent of the edge only if this edge hasn't.
 			this.parent = parent;
 		}
 	}
@@ -54,22 +54,5 @@ public class Edge {
 	public Edge getParent() {
 		return this.parent;
 	}
-	
-	public boolean isAdjacentTo(Edge e) {
-		if(e.getX()-this.getX() < -1 || e.getX()-this.getX() > 1 ) { // x coordinates
-			return false;
-		}
-		if(e.getY()-this.getY() < -1 || e.getY()-this.getY() > 1) { // y coordinates
-			return false;
-		}
-		if(e.getX() !=0 && e.getY() !=0) { // No diagonals
-			return false;
-		}
-		return true;
-	}
-	
-	public String toString() {
-		return " X : "+this.getX()+" Y : "+this.getY();
-	}
-	
+
 }
