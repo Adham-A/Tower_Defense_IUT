@@ -38,12 +38,7 @@ public abstract class TargetedTurret extends Turret {
     	else {
         	this.getBattlefield().addProjectile(this.getProjectile());
     	}
-    	this.resetProjectile();
-    }
-    
-    public void resetProjectile() { //Resets projectile coordinates
-    	this.projectile.setXProperty(this.getX());
-    	this.projectile.setYProperty(this.getY());
+    	this.projectile.resetProjectile();
     }
     
     public void action() {
