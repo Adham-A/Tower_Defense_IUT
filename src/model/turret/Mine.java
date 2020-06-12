@@ -17,5 +17,5 @@ public class Mine extends Turret {
 	public void income() {
 		this.getBattlefield().addMoney(mRUtil.mine_income);
 	}
-
 }
+

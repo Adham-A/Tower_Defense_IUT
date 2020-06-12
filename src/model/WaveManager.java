@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import mineralsRevenge.mRUtil;
 import model.enemy.Diamond;
+import model.enemy.DwarfRenegade;
 import model.enemy.Emerald;
 import model.enemy.Quartz;
 import model.enemy.Saphir;
@@ -21,6 +22,7 @@ public class WaveManager {
 	private int emerald_counter;
 	private int saphir_counter;
 	private int diamond_counter;
+	private int dwarfRenegade_counter;
 
 	public WaveManager(Battlefield battlefield) {
 		this.turnNumber = new SimpleIntegerProperty(0);
@@ -29,6 +31,7 @@ public class WaveManager {
 		this.emerald_counter = 0;
 		this.saphir_counter = 0;
 		this.diamond_counter = 0;
+		this.dwarfRenegade_counter = 0;
 		this.max_turns = mRUtil.maxTurn ;
 	}
 	public int getTurnNumber() {
@@ -48,7 +51,7 @@ public class WaveManager {
 		int start_y = battlefield.getTerrain().getStartCoordinates()[1];
 		
 		this.turnNumber.setValue(this.turnNumber.getValue()+1); //Increase turn by 1
-
+		
 		if(this.turnNumber.getValue() >= mRUtil.quartz_spawnTurn) { //Start adding emeralds at turn x
 			
 			if( quartz_counter%mRUtil.quartz_spawnrate[mRUtil.difficulty] == 0 ) { //Adds a Quartz every 2 turn
@@ -83,6 +86,15 @@ public class WaveManager {
 			}
 			
 			diamond_counter++;
+		}
+		
+		if(this.turnNumber.getValue()>=mRUtil.dwarfRenegade_spawnTurn) { //Start adding dwarfRenegade at turn x
+			
+			if( dwarfRenegade_counter%mRUtil.dwarfRenegade_spawnrate[mRUtil.difficulty] == 0) { // Adds a dwarfRenegade every x turn
+				battlefield.addEnemy(new DwarfRenegade(start_x, start_y, battlefield));
+			}
+			
+			dwarfRenegade_counter++;
 		}
 
 	}

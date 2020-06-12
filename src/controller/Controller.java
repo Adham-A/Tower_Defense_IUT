@@ -76,11 +76,6 @@ public class Controller implements Initializable{
 	private boolean move = true;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
-    
-    private final String idMiner = "101";
-    private final String idSoldier = "111";
-	private final String idDemolitionist = "121";
-    private final String idScientist = "131";
 
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -102,10 +97,10 @@ public class Controller implements Initializable{
 	    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
 	    	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
 	    	
-	    	battlefieldView.createTurretBoard(minerImage, idMiner);
-	    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
-			battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
-	    	battlefieldView.createTurretBoard(scientistImage, idScientist);
+	    	battlefieldView.createTurretBoard(minerImage, mRUtil.dwarfMiner_id);
+	    	battlefieldView.createTurretBoard(soldierImage, mRUtil.dwarfSoldier_id);
+	    	battlefieldView.createTurretBoard(scientistImage, mRUtil.dwarfScientist_id);
+	    	battlefieldView.createTurretBoard(demolitionistImage, mRUtil.dwarfDemolitionist_id);
 
 		} catch (TerrainLoaderException e) {
 			System.err.println(e.getMessage());
@@ -174,10 +169,10 @@ public class Controller implements Initializable{
     	else if(event.getTarget() == soldierImage) {
     		target = soldierImage;
     	}
-		else if(event.getTarget() == demolitionistImage){
+		else if(event.getTarget() == demolitionistImage) {
 			target = demolitionistImage;
 		}
-    	else {
+    	else if(event.getTarget() == scientistImage) {
     		target = scientistImage;
     	}
 
@@ -191,27 +186,24 @@ public class Controller implements Initializable{
 
     @FXML
     void handleImageDrop(DragEvent event) {
-    	int x = ((int)event.getX())/32;
-    	int y = ((int)event.getY())/32;
+    	int x = ((int)event.getX())/mRUtil.tileSize;
+    	int y = ((int)event.getY())/mRUtil.tileSize;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
-    		if(event.getDragboard().getString() == idMiner && this.battlefield.buy(mRUtil.dwarfMiner_price)) {
+    		if(event.getDragboard().getString().equals(mRUtil.dwarfMiner_id+"") && this.battlefield.buy(mRUtil.dwarfMiner_price)) {
     	    	Turret d = new DwarfMiner(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     	    }
-    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.buy(mRUtil.dwarfSoldier_price)) {
+    		else if (event.getDragboard().getString().equals(mRUtil.dwarfSoldier_id+"") && this.battlefield.buy(mRUtil.dwarfSoldier_price)) {
     			Turret d = new DwarfSoldier(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
-			else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)){
+			else if (event.getDragboard().getString().equals(mRUtil.dwarfDemolitionist_id+"") && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
 				Turret d = new DwarfDemolitionist(x,y,this.battlefield);
 				battlefield.addTurret(d);
 			}
-    		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
+    		else if (event.getDragboard().getString().equals(mRUtil.dwarfScientist_id+"")  && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
     			Turret d = new DwarfScientist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
-    		}
-    		else {
-    			System.out.println("non");
     		}
     	}
     }

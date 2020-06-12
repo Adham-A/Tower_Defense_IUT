@@ -1,3 +1,4 @@
+//This abstract class provides methods for every turret which actually shoots a projectile
 package model.turret;
 
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ public abstract class TargetedTurret extends Turret {
         this.projectile.setParent(this);
     }
     
-    public Enemy firstEnemyInRange() {
+    public Enemy firstEnemyInRange() { //Finds the firstEnemyInRange
     	ObservableList<Enemy> list= this.getBattlefield().getEnemyList();
     	for (int i = 0; i < list.size(); i++) {
 			Enemy e = list.get(i);
@@ -29,24 +30,19 @@ public abstract class TargetedTurret extends Turret {
     	return null;
     }
     
-    public void shoot() {
+    public void shoot() { //Shoots an enemy using its projectile
     	this.getBattlefield().removeProjectile(projectile);
-    	if(!this.projectile.shoot(firstEnemyInRange())) {
+    	if(!this.projectile.shoot(firstEnemyInRange())) { //If no enemy is found removes the projectile
     		this.getBattlefield().removeProjectile(projectile);
     	}
     	else {
         	this.getBattlefield().addProjectile(this.getProjectile());
     	}
-    	this.resetProjectile();
-    }
-    
-    public void resetProjectile() {
-    	this.projectile.setXProperty(this.getX());
-    	this.projectile.setYProperty(this.getY());
+    	this.projectile.resetProjectile();
     }
     
     public void action() {
-    	if(this.isDead()) {
+    	if(this.isDead()) { //Remove the turret and its projectile if it is dead
         	this.getBattlefield().removeProjectile(projectile);
     		super.getBattlefield().removeTurret(this);
     	}

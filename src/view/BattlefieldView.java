@@ -85,6 +85,7 @@ public class BattlefieldView {
 		
 	}
 	
+	private static int emerald_flip = 0;
 	public void createEnemy(Enemy enemy) {
 		 ImageView imageView = new ImageView();
 	        imageView.setPreserveRatio(true);
@@ -95,8 +96,14 @@ public class BattlefieldView {
 	        else if (enemy instanceof Emerald) {
 	            id = mRUtil.emerald_id;
 	            if(((Emerald) enemy).isAChild()) {
-	                imageView.setFitHeight(16);
-	                imageView.setFitWidth(16);
+	            	if(emerald_flip==0) {
+	            		emerald_flip = 1;
+	            		id = mRUtil.emerald_baby1_id;
+	            	}
+	            	else {
+	            		emerald_flip = 0;
+	            		id = mRUtil.emerald_baby2_id;
+	            	}
 	            }
 	        }
 	        else if (enemy instanceof Saphir) {
@@ -129,10 +136,10 @@ public class BattlefieldView {
 	         });
 	}
 
-	public void createTurretBoard(ImageView imageView, String id) {
-		Image image = SwingFXUtils.toFXImage(cropImage(tileset,Integer.parseInt(id)),null);
+	public void createTurretBoard(ImageView imageView, int id) {
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		imageView.setImage(image);
-		imageView.setId(id);
+		imageView.setId(id+"");
 		
 	}
 	

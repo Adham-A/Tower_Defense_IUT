@@ -72,12 +72,12 @@ public class EnemyTestClass {
 		assertEquals(mRUtil.diamond_hp, this.diamond.getHp(), "Case: rocket shoot the diamond");
 		this.dynamite.shoot(this.diamond);
 		assertEquals(mRUtil.diamond_hp, this.diamond.getHp(), "Case: dynamite shoot the diamond");
-		this.potion.shoot(this.diamond);
+		this.potion.shoot(this.diamond); // it resists to first attack before getting debuff.
 		assertEquals(mRUtil.diamond_hp, this.diamond.getHp(), "Case: potion shoot the diamond");
 	}
 
 	@Test
-	void testSplitIntoTwo() {
+	void testSplit() {
 		for(Enemy e: this.battlefield.getEnemyList()) {
 			if(e instanceof Emerald) {
 				assertFalse(((Emerald) e).isAChild(), "Case: no emerald child before the split");
@@ -93,27 +93,22 @@ public class EnemyTestClass {
 			}
 		}
 	}
-
+	// Check if turrets took back damages.
 	@Test
-	void testDealsBackDamages() {
+	void testDealBackDamage() {
 		this.miner.shoot();
-		assertEquals(mRUtil.saphir_hp-mRUtil.pickaxe_damage,this.saphir.getHp(), "");
-		assertEquals(mRUtil.dwarfMiner_hp-mRUtil.pickaxe_damage/8,this.miner.getHp(), "");
+		assertEquals(mRUtil.dwarfMiner_hp - (mRUtil.pickaxe_damage/mRUtil.saphir_returnedDamageRatio), this.miner.getHp(), "Case: Damage taken by the Miner from saphir");
 
-		this.saphir.setHp(50);
+		this.saphir.setHp(50); // reset hp to 50
 		this.soldier.shoot();
-		assertEquals(mRUtil.saphir_hp-mRUtil.rocket_damage,this.saphir.getHp(), "");
-		assertEquals(mRUtil.dwarfSoldier_hp-mRUtil.rocket_damage/8,this.soldier.getHp(), "");
+		assertEquals(mRUtil.dwarfSoldier_hp - (mRUtil.rocket_damage/mRUtil.saphir_returnedDamageRatio),this.soldier.getHp(), "Case: Damage taken by the Soldier from saphir");
 
 		this.saphir.setHp(50);
 		this.demolitionist.shoot();
-		assertEquals(mRUtil.saphir_hp-mRUtil.dynamite_damage,this.saphir.getHp(), "");
-		assertEquals(mRUtil.dwarfDemolitionist_hp-mRUtil.dynamite_damage/8,this.demolitionist.getHp(), "");
+		assertEquals(mRUtil.dwarfDemolitionist_hp - (mRUtil.dynamite_damage/mRUtil.saphir_returnedDamageRatio),this.demolitionist.getHp(), "Case: Damage taken by the Demolitionist from saphir");
 
 		this.saphir.setHp(50);
 		this.scientist.shoot();
-		assertEquals(mRUtil.saphir_hp-mRUtil.potion_damage,this.saphir.getHp(), "");
-		assertEquals(mRUtil.dwarfScientist_hp-mRUtil.potion_damage/8,this.scientist.getHp(), "");
-
+		assertEquals(mRUtil.dwarfScientist_hp - (mRUtil.potion_damage/mRUtil.saphir_returnedDamageRatio),this.scientist.getHp(), "Case: Damage taken by the Scientist from saphir");
 	}
 }

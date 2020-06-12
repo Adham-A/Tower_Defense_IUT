@@ -1,3 +1,8 @@
+/*
+ * Sub class Pickaxe that extends Projectile, represents the projectile of DwarfMiner.
+ *
+ */
+
 package model.projectile;
 
 import mineralsRevenge.mRUtil;
