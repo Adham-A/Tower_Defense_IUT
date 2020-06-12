@@ -3,11 +3,17 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import exception.TerrainLoaderException;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
@@ -17,9 +23,11 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import mineralsRevenge.mRUtil;
 import model.*;
-import model.enemy.*;
 import model.turret.*;
 import view.BattlefieldView;
 
@@ -29,31 +37,93 @@ public class Controller implements Initializable{
 	@FXML
     private Pane pane;
 	@FXML
-    private ImageView dwarfImage;
+    private ImageView minerImage;
+	@FXML
+    private ImageView soldierImage;
+	@FXML
+    private ImageView scientistImage;
+	@FXML
+    private ImageView demolitionistImage;
+	@FXML
+	private ImageView mineImage;
 	@FXML
     private VBox boardBox;
+	@FXML
+    private VBox startBox;
+	@FXML
+    private VBox dwarfBoard;
+	@FXML
+    private MenuButton levelList;
+	@FXML
+    private Button start;
+	@FXML
+    private Label money;
+	@FXML
+    private Label hp;
+	@FXML
+    private Label result;
+	@FXML
+    private MenuItem menuItem1;
+	@FXML
+    private MenuItem menuItem2;
+	@FXML
+    private MenuItem menuItem3;
+    @FXML
+    private MenuItem menuItem4;
+    @FXML
+    private MenuItem menuItem5;
+    @FXML
+    private Button restart;
+    @FXML
+    private VBox restartBox;
 
+	private boolean move = true;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
-    
+	private Timeline timeline ;
+
     public void initialize(URL arg0, ResourceBundle arg1) {
-    	battlefield = new Battlefield("battlefields/battlefield1.json");
-    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
-    	battlefieldView.createView();
-    	
-    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
-    	
-        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-    	battlefieldView.createTurretBoard(dwarfImage);
-    	battlefield.addEnemy(q);
-    	battlefield.addEnemy(e1);
-    	dwarfImage.setId(101 + "");
+
+    	try {
+			battlefield = new Battlefield("battlefields/battlefield1.json");
+	    	battlefieldView = new BattlefieldView(battlefield, tilepane,pane, boardBox);
+	    	battlefieldView.createView();
+	    	tilepane.setVisible(false);
+	    	dwarfBoard.setVisible(false);
+	    	restartBox.setVisible(false);
+
+	    	money.textProperty().bind(battlefield.getMoneyProperty().asString());
+	    	hp.textProperty().bind(battlefield.getHpProperty().asString());
+
+	    	battlefield.getEnemyList().addListener(new EnemyListListener(battlefieldView));
+	    	battlefield.getProjectileList().addListener(new ProjectileListListener(battlefieldView));
+	    	battlefield.getTurretList().addListener(new TurretListListener(battlefieldView));
+	    	
+	    	battlefieldView.createTurretBoard(minerImage, mRUtil.dwarfMiner_id);
+	    	battlefieldView.createTurretBoard(soldierImage, mRUtil.dwarfSoldier_id);
+	    	battlefieldView.createTurretBoard(scientistImage, mRUtil.dwarfScientist_id);
+	    	battlefieldView.createTurretBoard(demolitionistImage, mRUtil.dwarfDemolitionist_id);
+	    	battlefieldView.createTurretBoard(mineImage, mRUtil.mine_id);
+
+		} catch (TerrainLoaderException e) {
+			System.err.println(e.getMessage());
+			Label error = new Label();
+			Font font = Font.font(45);
+			error.setTextFill(Color.RED);
+			error.setFont(font);
+			error.setText(e.getMessage());
+			this.pane.getChildren().add(error); 
+			this.boardBox.setVisible(false); 
+		}
+
     }
     
     @FXML
     void move_button(ActionEvent event) {
-    	startLoop();
+    	if(move) {
+    		move = false;
+    		startLoop();
+    	}
     }
     
     static int time=0;
@@ -61,36 +131,60 @@ public class Controller implements Initializable{
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
-            Duration.seconds(0.5),
-                (ev ->{
-                    if(time==1000){
+            Duration.seconds(0.5), (
+            	ev ->{
+                    if(time==battlefield.getWaveManager().getMaxTurns() || this.battlefield.isDead() ){
                         gameLoop.stop();
+                        tilepane.setVisible(false);
+                        dwarfBoard.setVisible(false);
+                        restartBox.setVisible(true);
+
+                        battlefield.clearBattlefield();
+                        
+                    	if(this.battlefield.getHp() > 0) {
+                        	this.result.setText("You Won!");
+                        }
+                    	else {
+                    		this.result.setText("You lost");
+                    	}
+
                     }
                     else{
-                        battlefield.turnLoop();
-                        Quartz q = new Quartz(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        this.battlefield.addEnemy(q);
+                    	battlefield.turnLoop();
                     }
-                    if(time%3==0) {
-                        Emerald e1 =  new Emerald(battlefield.getTerrain().getStartCoordinates()[0],battlefield.getTerrain().getStartCoordinates()[1],this.battlefield);
-                        battlefield.addEnemy(e1);
-                    }
-                    System.out.println(time);
-                    time++;
-                })
+                    time++;    	
 
+                }
+            )
         );
-           gameLoop.getKeyFrames().add(kf);
-           gameLoop.play();
+        gameLoop.getKeyFrames().add(kf);
+        gameLoop.play();
     }
 
     @FXML
     void handleDragDetection(MouseEvent event) {
-    	Dragboard db = dwarfImage.startDragAndDrop(TransferMode.ANY);
-
     	ClipboardContent cb = new ClipboardContent();
-    	cb.putImage(dwarfImage.getImage());
-    	cb.putString("101");
+    	ImageView target = null;
+
+    	if (event.getTarget() == minerImage) {
+    		target = minerImage;
+    	}
+    	else if(event.getTarget() == soldierImage) {
+    		target = soldierImage;
+    	}
+		else if(event.getTarget() == demolitionistImage) {
+			target = demolitionistImage;
+		}
+    	else if(event.getTarget() == scientistImage) {
+    		target = scientistImage;
+    	}
+    	else if(event.getTarget() == mineImage) {
+			target = mineImage;
+		}
+
+    	Dragboard db = target.startDragAndDrop(TransferMode.ANY);
+    	cb.putImage(target.getImage());
+    	cb.putString(target.getId());
 
     	db.setContent(cb);
     	event.consume();
@@ -98,17 +192,32 @@ public class Controller implements Initializable{
 
     @FXML
     void handleImageDrop(DragEvent event) {
-    	int x = ((int)event.getX())/32;
-    	int y = ((int)event.getY())/32;
+    	int x = ((int)event.getX())/mRUtil.tileSize;
+    	int y = ((int)event.getY())/mRUtil.tileSize;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
-    		if(event.getDragboard().getString() == "101") {
-    	    	DwarfMiner d = new DwarfMiner(x,y,this.battlefield, 4);
+    		if(event.getDragboard().getString().equals(mRUtil.dwarfMiner_id+"") && this.battlefield.buy(mRUtil.dwarfMiner_price)) {
+    	    	Turret d = new DwarfMiner(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
-    	    	battlefieldView.createTurret(d);
-    	    	}
+    	    }
+    		else if (event.getDragboard().getString().equals(mRUtil.dwarfSoldier_id+"") && this.battlefield.buy(mRUtil.dwarfSoldier_price)) {
+    			Turret d = new DwarfSoldier(x,y,this.battlefield);
+    	    	battlefield.addTurret(d);
+    		}
+			else if (event.getDragboard().getString().equals(mRUtil.dwarfDemolitionist_id+"") && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
+				Turret d = new DwarfDemolitionist(x,y,this.battlefield);
+				battlefield.addTurret(d);
+			}
+    		else if (event.getDragboard().getString().equals(mRUtil.dwarfScientist_id+"")  && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
+    			Turret d = new DwarfScientist(x,y,this.battlefield);
+    	    	battlefield.addTurret(d);
+    		}
+			else if (event.getDragboard().getString().equals(mRUtil.mine_id+"")  && this.battlefield.buy(mRUtil.mine_price)) {
+				Turret d = new Mine(x,y,this.battlefield);
+				battlefield.addTurret(d);
+			}
     	}
-    }
-
+    }    
+    																																																																																																			@FXML void doABarrelRoll(MouseEvent event) { if(event.getX()<32 && event.getY()<32) {pane.getChildren().forEach(node -> {this.timeline = new Timeline( new KeyFrame(Duration.seconds(0), new KeyValue(node.rotateProperty(),0)),new KeyFrame(Duration.seconds(0.5), new KeyValue(node.rotateProperty(),360)));this.timeline.setCycleCount(10);this.timeline.play();});}}
     @FXML
     void handleImageOver(DragEvent event) {
     	if (event.getDragboard().hasImage()) {
@@ -116,4 +225,43 @@ public class Controller implements Initializable{
     	}
     }
 
+    @FXML
+    void startLevel(ActionEvent event) {
+    	tilepane.setVisible(true);
+    	dwarfBoard.setVisible(true);
+    	startBox.setVisible(false);
+    	battlefieldView.playStartAnimation();
+    }
+    
+    @FXML
+    void handleLevel(ActionEvent event) {
+    	if ( event.getSource() == menuItem1) {
+    		this.levelList.setText(menuItem1.getText());
+    	}
+    	else if ( event.getSource() == menuItem2) {
+    		this.levelList.setText(menuItem2.getText());
+    		mRUtil.difficulty = 1;
+    	}
+    	else if ( event.getSource() == menuItem3) {
+    		this.levelList.setText(menuItem3.getText());
+    		mRUtil.difficulty = 2;
+    	}
+    	else if ( event.getSource() == menuItem4) {
+    		this.levelList.setText(menuItem4.getText());
+    		mRUtil.difficulty = 3;
+    	}
+    	else if ( event.getSource() == menuItem5) {
+    		this.levelList.setText(menuItem5.getText());
+    		mRUtil.difficulty = 4;
+    	}
+    }
+    
+    @FXML
+    void restart(ActionEvent event) {
+    	initialize(null, null);
+    	startBox.setVisible(true);
+    	this.result.setText("");
+    	time = 0;
+    	move = true;
+    }
 }

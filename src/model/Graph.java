@@ -1,3 +1,4 @@
+//This class models a graph of the terrain
 package model;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class Graph {
 	 this.createGraph();
 	}
 	
-	public void createGraph() {
+	//Adds every edges and an ArrayList of its adjacent edges in a hashmap
+	public void createGraph() { 
 		Edge edge,start,end;
 		for (int i = 0; i < terrain.getWidth(); i++) {
 			for (int j = 0; j < terrain.getHeight(); j++) {
@@ -34,6 +36,7 @@ public class Graph {
 		
 	}
 	
+	//Returns an ArrayList with the adjacent edges of an edge
 	public ArrayList<Edge> getAllAdjacentEdges(Edge e) {
 		
 		ArrayList<Edge> adjacentEdges = new ArrayList<Edge>();
@@ -64,6 +67,7 @@ public class Graph {
 		return adjacentEdges;
 	}
 	
+	//Bfs algorithm implementation
 	public void createBFS() {
 		Edge end = new Edge(terrain.getEndCoordinates()[0], terrain.getEndCoordinates()[1]);
 		Queue<Edge> bfsQueue = new LinkedList<Edge>();

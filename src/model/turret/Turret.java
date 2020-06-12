@@ -1,3 +1,4 @@
+//This is the basic class of every turret
 package model.turret;
 
 import model.Battlefield;
@@ -40,6 +41,14 @@ public abstract class Turret {
 
 	public void setHp(int n) {
 		this.hp = n;
+	}
+	
+	public void removeHp(int hp) {
+		this.hp -= hp ;
+	}
+	
+	public boolean isDead() {
+		return this.hp <=0;
 	}
 
 // x

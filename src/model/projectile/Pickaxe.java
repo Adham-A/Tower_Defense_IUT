@@ -1,11 +1,16 @@
+/*
+ * Sub class Pickaxe that extends Projectile, represents the projectile of DwarfMiner.
+ *
+ */
+
 package model.projectile;
+
+import mineralsRevenge.mRUtil;
 
 public class Pickaxe extends Projectile{
 
-	public Pickaxe(int damage, int speed,double x,double y) {
-		super(damage, speed, x, y);
-		// TODO Auto-generated constructor stub
+	public Pickaxe(double x,double y) {
+		super(mRUtil.pickaxe_damage, x, y);
 	}
-	
 	
 }

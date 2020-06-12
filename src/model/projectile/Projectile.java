@@ -1,62 +1,51 @@
+/*
+ * Abstract Class Projectile
+ * which grants to all projectiles their main attributes and the method shoot().
+ */
+
 package model.projectile;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.util.Duration;
 import model.enemy.Enemy;
+import model.turret.TargetedTurret;
 
-public class Projectile {
+
+public abstract class Projectile {
 	
 	private int damage;
-	private int speed;
-	private Timeline timeline;
 	private DoubleProperty x;
 	private DoubleProperty y;
-		
-	public Projectile(int damage, int speed,double x, double y) {
+	private int id;
+	private static int ids = 0;
+	private TargetedTurret parent;
+	
+	public Projectile(int damage,double x, double y) {
 		this.damage = damage;
-		this.speed = speed;
 		this.x = new SimpleDoubleProperty(x);
 		this.y = new SimpleDoubleProperty(y);
-		
-		/*this.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0), new KeyValue(this.getXProperty(),old_value.intValue()*32)),
-                new KeyFrame(Duration.seconds(0.4), new KeyValue(this.getXProperty(),new_value.intValue()*32))
-                );
-	 			this.timeline.play();
-		});
-		
-		this.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0), new KeyValue(this.getYProperty(),old_value.intValue()*32)),
-                new KeyFrame(Duration.seconds(0.4), new KeyValue(this.getYProperty(),new_value.intValue()*32))
-                );
-     			this.timeline.play();
-     });*/
+		this.id = Projectile.ids;
+		ids++;
+	}
+
+	// Returns true if the projectile has an enemy that exists.
+	public boolean shoot(Enemy e) {
+		if(e!=null) {
+			e.removeHp(this);
+			this.x.setValue(e.getEdge().getX()+0.1); //this helps triggering listeners when x doesn't change
+			this.y.setValue(e.getEdge().getY()+0.1); //this helps triggering listeners when y doesn't change
+
+			return true;
+		}
+		return false;
 	}
 	
-	public void shoot(Enemy e) {
-		if(!(e==null) ) {
-			e.removeHp(this.damage);
-			this.x.setValue(e.getEdge().getParent().getX());
-			this.y.setValue(e.getEdge().getParent().getY());
-			System.out.println(this.x + ", " + this.y);
-		}
-		
+	public String getId() {
+		return "P" + this.id;
 	}
 	
 	public int getDamage() {
 		return damage;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-	
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 	
 	public DoubleProperty getXProperty() {
@@ -73,5 +62,18 @@ public class Projectile {
 	
 	public void setYProperty(int value) {
 		this.y.setValue(value);
+	}
+
+	public void setParent(TargetedTurret parent) {
+		this.parent = parent;
+	}
+
+	public TargetedTurret getParent() {
+		return this.parent;
+	}
+	
+	public void resetProjectile() {
+		this.x.setValue(parent.getX());
+    	this.y.setValue(parent.getY());
 	}
 }

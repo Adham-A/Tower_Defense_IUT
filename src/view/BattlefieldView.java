@@ -4,26 +4,34 @@ package view;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import mineralsRevenge.mRUtil;
 import model.Battlefield;
 import model.enemy.*;
+import model.projectile.*;
 import model.turret.*;
 
 public class BattlefieldView {
@@ -37,6 +45,7 @@ public class BattlefieldView {
 	private Timeline timeline;
 	private BufferedImage tileset;
 	private Battlefield battlefield;
+	private ArrayList<Timeline> timelines;
 	
 	public BattlefieldView(Battlefield battlefield, TilePane tilepane,Pane pane, VBox boardBox) {
 		this.battlefield = battlefield;
@@ -51,7 +60,7 @@ public class BattlefieldView {
 	}
 		
 	private BufferedImage cropImage(BufferedImage src, int number) {
-		return src.getSubimage(((number-1)%10)*32,(number-1)/10*32, 32,32);
+		return src.getSubimage(((number-1)%10)*mRUtil.tileSize,(number-1)/10*mRUtil.tileSize, mRUtil.tileSize,mRUtil.tileSize);
 	}
 	
 	public void createView() {
@@ -62,10 +71,10 @@ public class BattlefieldView {
 			this.tilepane.getChildren().add(new ImageView());
 		}
 
-		Map<Integer, Image> hashmap = new HashMap<Integer, Image>();
+		Map<Integer, Image> hashmap = new HashMap<>();
 		for ( int i = 0; i < heigth; i++) {
 			for(int j = 0; j < width ; j++) {			
-				if(! hashmap.containsKey( (Integer) battlefield.getTerrain().getTerrainTile(j, i) )) {
+				if(! hashmap.containsKey(battlefield.getTerrain().getTerrainTile(j, i) )) {
 					Image src = SwingFXUtils.toFXImage(cropImage(tileset,this.battlefield.getTerrain().getTerrainTile(j, i)),null);
 					hashmap.put(battlefield.getTerrain().getTerrainTile(j, i), src);
 				}
@@ -77,89 +86,165 @@ public class BattlefieldView {
 				((ImageView)tilepane.getChildren().get((k)*width+l)).setImage(hashmap.get(battlefield.getTerrain().getTerrainTile(l, k))); 
 			}
 		}
-		
+		this.brick_animation();
 	}
 	
+	private static int emerald_flip = 0;
 	public void createEnemy(Enemy enemy) {
-		int id = 0;
-		if( enemy instanceof Quartz) {
-			id = 201;
-		}
-		else if (enemy instanceof Emerald) {
-			id = 211;
-		}
+		 ImageView imageView = new ImageView();
+	        imageView.setPreserveRatio(true);
+	        int id = 0;
+	        if( enemy instanceof Quartz) {
+	            id = mRUtil.quartz_id;
+	        }
+	        else if (enemy instanceof Emerald) {
+	            id = mRUtil.emerald_id;
+	            if(((Emerald) enemy).isAChild()) {
+	            	if(emerald_flip==0) {
+	            		emerald_flip = 1;
+	            		id = mRUtil.emerald_baby1_id;
+	            	}
+	            	else {
+	            		emerald_flip = 0;
+	            		id = mRUtil.emerald_baby2_id;
+	            	}
+	            }
+	        }
+	        else if (enemy instanceof Saphir) {
+	            id = mRUtil.saphir_id;
+	        }
+	        else if(enemy instanceof Diamond) {
+	            id = mRUtil.diamond_id;
+	        }
+	        else if(enemy instanceof DwarfRenegade) {
+	        	id = mRUtil.dwarfRenegade_id;
+			}
 
-		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
-		ImageView imageView = new ImageView();
-		imageView.setId(enemy.getId() + "");
-		imageView.setImage(image);
-		this.pane.getChildren().add(imageView);
-		
-		imageView.translateXProperty().set(enemy.getXProperty().multiply(32).getValue());
-		imageView.translateYProperty().set(enemy.getYProperty().multiply(32).getValue());
-
-		 enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
-	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
-	                );
-		 			this.timeline.play();
-	      });
-		 
-	     enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
-	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))
-	                );
-	     			this.timeline.play();
-	     });
-
+	        Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+	        imageView.setId(enemy.getId() + "");
+	        imageView.setImage(image);
+	        this.pane.getChildren().add(imageView);
+	       
+	        imageView.translateXProperty().set(enemy.getXProperty().multiply(mRUtil.tileSize).getValue());
+	        imageView.translateYProperty().set(enemy.getYProperty().multiply(mRUtil.tileSize).getValue());
+	 
+	         enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*mRUtil.tileSize)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*mRUtil.tileSize))
+	                    );
+	                    this.timeline.play();
+	          });
+	         
+	         enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*mRUtil.tileSize)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*mRUtil.tileSize))
+	                    );
+	                    this.timeline.play();
+	         });
 	}
 
-	public void createTurretBoard(ImageView imageView) {
-		int id = 101;
-
+	public void createTurretBoard(ImageView imageView, int id) {
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		imageView.setImage(image);
+		imageView.setId(id+"");
 		
 	}
 	
 	public void createTurret(Turret turret) {
-		int id = 0;//666
+		int id = 0;
 
 		if(turret instanceof DwarfMiner) {
-			id = 101;
-			Image image1 = SwingFXUtils.toFXImage(cropImage(tileset,301),null);
-			ImageView imageView2 = new ImageView();
-			imageView2.setImage(image1);
-			this.pane.getChildren().add(imageView2);
-			System.out.println(imageView2.getTranslateX());
-			
-			imageView2.translateXProperty().set(((DwarfMiner) turret).getProjectile().getXProperty().multiply(32).getValue());
-			imageView2.translateYProperty().set(((DwarfMiner) turret).getProjectile().getYProperty().multiply(32).getValue());
-
-			((DwarfMiner) turret).getProjectile().getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateXProperty(),old_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateXProperty(),new_value.intValue()*32))
-		                );
-			 			this.timeline.play();
-		      });
-			 
-			((DwarfMiner) turret).getProjectile().getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView2.translateYProperty(),old_value.intValue()*32)),
-		                new KeyFrame(Duration.seconds(1), new KeyValue(imageView2.translateYProperty(),new_value.intValue()*32))
-		                );
-		     			this.timeline.play();
-		    });
+			id = mRUtil.dwarfMiner_id;
 		}
+		else if(turret instanceof DwarfSoldier) {
+			id = mRUtil.dwarfSoldier_id;
+		}
+		else if(turret instanceof DwarfDemolitionist) {
+			id = mRUtil.dwarfDemolitionist_id;
+		}
+		else if(turret instanceof DwarfScientist){
+			id = mRUtil.dwarfScientist_id;
+		}
+		else if(turret instanceof Mine) {
+            id = mRUtil.mine_id;
+        }
+
 
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
 		imageView.setId(turret.getId() + "");
 		imageView.setImage(image);
+		imageView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent t) {
+            	if (t.getButton() == MouseButton.SECONDARY) {
+            		for ( int i = 0 ;  i < battlefield.getTurretList().size() ; i++) {
+            			if (battlefield.getTurretList().get(i) == turret) {
+            				if (battlefield.getTurretList().get(i) instanceof TargetedTurret) {
+            					battlefield.removeProjectile(((TargetedTurret)battlefield.getTurretList().get(i)).getProjectile());
+            				}
+            				battlefield.removeTurret(battlefield.getTurretList().get(i));
+            				break;
+            			}
+            		}
+            	}
+            }
+        });
+		
 		this.pane.getChildren().add(imageView);
 
-		imageView.setX(turret.getX()*32);
-		imageView.setY(turret.getY()*32);
+		imageView.setX(turret.getX()*mRUtil.tileSize);
+		imageView.setY(turret.getY()*mRUtil.tileSize);
 		
+	}
+	
+	public void createProjectile(Projectile projectile) {
+		   int id = 0 ;
+
+		   if(projectile instanceof Pickaxe) {
+		   		id = mRUtil.pickaxe_id;
+		   }
+		   else if(projectile instanceof Rocket) {
+		   		id = mRUtil.rocket_id;
+		   }
+		   else if(projectile instanceof Dynamite) {
+				id = mRUtil.dynamite_id;
+		   }
+		   else if(projectile instanceof Potion) {
+		   		id = mRUtil.potion_id;
+		   }
+		   else if(projectile instanceof RevengefulPickaxe) {
+		   		id = mRUtil.revengefulPickaxe_id;
+		   }
+
+		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+		   ImageView imageView = new ImageView();
+		   imageView.setImage(image);
+		   imageView.setId(projectile.getId()+"");
+		   
+		   imageView.translateXProperty().set(projectile.getXProperty().multiply(mRUtil.tileSize).getValue());
+		   imageView.translateYProperty().set(projectile.getYProperty().multiply(mRUtil.tileSize).getValue());
+		   this.pane.getChildren().add(imageView);
+		   
+		   projectile.getXProperty().addListener((obs_value,old_value,new_value)-> {
+		            this.timeline = new Timeline(
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),new_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),old_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
+		                );
+		            this.timeline.play();
+		      });
+		    
+		   projectile.getYProperty().addListener((obs_value,old_value,new_value)-> {
+		            this.timeline = new Timeline(
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),new_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),old_value.intValue()*mRUtil.tileSize)),
+		                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.rotateProperty(),0)),
+		                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.rotateProperty(),360))
+		                );
+		             this.timeline.play();
+		    });
+		   
 	}
 	
 	public Timeline getTimeline() {
@@ -169,4 +254,59 @@ public class BattlefieldView {
     public Pane getPane() {
 		return this.pane;
     }
+    
+    private void brick_animation() {
+
+		Image image = new Image("view/StartImage.png");
+		ArrayList<Timeline> s = new ArrayList<Timeline>();
+
+		PixelReader reader = image.getPixelReader();
+		int width = (int) (image.getWidth()/4);
+		int height = (int) (image.getHeight()/3);
+		for (int i = 0; i < 12; i++) {
+			WritableImage newImage = new WritableImage(reader, width*(i%4), height*(i%3), width, height);
+			ImageView brick = new ImageView(newImage);
+			pane.getChildren().add(brick);
+			brick.setTranslateX(width*(i%4));
+			brick.setTranslateY(height*(i%3));
+			Timeline timeline = new Timeline();
+
+			if(brick.translateXProperty().getValue()<image.getWidth()/4) {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2), new KeyValue(brick.translateXProperty(),width*-3)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
+						);
+			}
+			else if(brick.translateXProperty().getValue()<image.getWidth()/2){
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*-3)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
+						);
+			}
+			else if(brick.translateXProperty().getValue()<image.getWidth()-image.getWidth()/4) {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
+						);
+			}
+			else {
+				timeline = new Timeline(
+						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
+						);
+
+			}
+			s.add(timeline);
+		}
+		this.timelines = s;
+	    }
+	
+
+	public void playStartAnimation() {
+		this.timelines.forEach(brick_timeline -> brick_timeline.play());
+	}
 }
