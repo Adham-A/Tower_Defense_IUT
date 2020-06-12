@@ -62,7 +62,7 @@ public class mRUtil {
 	//Emerald
 	public final static int emerald_id = 211;
 	public final static int emerald_hp = 40;
-	public final static int emerald_money = 25 ;
+	public final static int emerald_money = 25;
 	public final static int emerald_baby1_id = 212;
 	public final static int emerald_baby2_id = 213;
 	
@@ -75,13 +75,13 @@ public class mRUtil {
 	//Diamond
 	public final static int diamond_id = 231;
 	public final static int diamond_hp = 50;
-	public final static int diamond_money = 40 ;
+	public final static int diamond_money = 40;
 	
 	//DwarfRenegade
 	public final static int dwarfRenegade_id = 241;
 	public final static int dwarfRenegade_hp = 50;
 	public final static int dwarfRenegade_money = 60;
-	public final static int dwarfRenegade_range = 2;
+	public final static int dwarfRenegade_range = 3;
 	
 	//-------------------------------------------------------------------
 	
@@ -91,32 +91,33 @@ public class mRUtil {
 	
 	//DwarfMiner
 	public final static int dwarfMiner_id = 101;
-	public final static int dwarfMiner_hp = 20;
+	public final static int dwarfMiner_hp = 25;
 	public final static int dwarfMiner_range = 4;
-	public final static int dwarfMiner_price = 10;
+	public final static int dwarfMiner_price = 15;
 
 	//DwarfSoldier
 	public final static int dwarfSoldier_id = 111;
-	public final static int dwarfSoldier_hp = 30;
+	public final static int dwarfSoldier_hp = 40;
 	public final static int dwarfSoldier_range = 4;
-	public final static int dwarfSoldier_price = 30;
+	public final static int dwarfSoldier_price = 50;
 	
 	//DwarfDemolitionist
 	public final static int dwarfDemolitionist_id = 121;
-	public final static int dwarfDemolitionist_hp = 25;
+	public final static int dwarfDemolitionist_hp = 30;
 	public final static int dwarfDemolitionist_range = 3;
-	public final static int dwarfDemolitionist_price = 50;
+	public final static int dwarfDemolitionist_price = 30;
 	
 	//DwarfScientist
 	public final static int dwarfScientist_id = 131;
-	public final static int dwarfScientist_hp = 500;
+	public final static int dwarfScientist_hp = 20;
 	public final static int dwarfScientist_range = 5;
-	public final static int dwarfScientist_price = 30;
+	public final static int dwarfScientist_price = 40;
 	
 	//Mine
 	public final static int mine_id = 141;
 	public final static int mine_income = 10;
 	public final static int mine_hp = 150;
+	public final static int mine_price = 450;
 	
 	//-------------------------------------------------------------------
 	
@@ -125,8 +126,8 @@ public class mRUtil {
 	 */
 	
 	//Pickaxe
-	public final static int pickaxe_id = 301 ;
-	public final static int pickaxe_damage = 10 ;
+	public final static int pickaxe_id = 301;
+	public final static int pickaxe_damage = 10;
 
 	//Rocket
 	public final static int rocket_id = 311;
@@ -134,16 +135,16 @@ public class mRUtil {
 	public final static int rocket_radius = 3;
 
 	//Dynamite
-	public final static int dynamite_id = 321 ;
-	public final static int dynamite_damage = 5 ;
+	public final static int dynamite_id = 321;
+	public final static int dynamite_damage = 6;
 	
 	//Potion
 	public final static int potion_id = 331;
-	public final static int potion_damage = 3;
+	public final static int potion_damage = 1;
 	
 	//RevengefulPickaxe
 	public final static int revengefulPickaxe_id = 341;
-	public final static int revengefulPickaxe_damage = 10;
+	public final static int revengefulPickaxe_damage = 6;
 	
 	//-------------------------------------------------------------------
 	

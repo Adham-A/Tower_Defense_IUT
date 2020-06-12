@@ -1,3 +1,7 @@
+/*
+ * Sub class RevengefulPickaxe that extends Projectile,
+ * represents the projectile of the DwarfRenegade.
+ */
 package model.projectile;
 
 import mineralsRevenge.mRUtil;
