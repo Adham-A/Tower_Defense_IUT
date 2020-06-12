@@ -129,10 +129,10 @@ public class BattlefieldView {
 	         });
 	}
 
-	public void createTurretBoard(ImageView imageView, String id) {
-		Image image = SwingFXUtils.toFXImage(cropImage(tileset,Integer.parseInt(id)),null);
+	public void createTurretBoard(ImageView imageView, int id) {
+		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		imageView.setImage(image);
-		imageView.setId(id);
+		imageView.setId(id+"");
 		
 	}
 	
