@@ -1,5 +1,6 @@
 package controller;
 
+import mineralsRevenge.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,8 +26,6 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import mineralsRevenge.mRUtil;
 import model.*;
@@ -72,6 +71,11 @@ public class Controller implements Initializable{
     private MenuItem menuItem4;
     @FXML
     private MenuItem menuItem5;
+    @FXML
+    private Button restart;
+    @FXML
+    private VBox restartBox;
+
 
 	private boolean move = true;
 	private Battlefield battlefield;
@@ -85,6 +89,7 @@ public class Controller implements Initializable{
 	    	battlefieldView.createView();
 	    	tilepane.setVisible(false);
 	    	dwarfBoard.setVisible(false);
+	    	restartBox.setVisible(false);
 
 	    	ImageView accueil = new ImageView();
 	    	Image imageAccueil = new Image("view/StartImage.png");
@@ -112,8 +117,6 @@ public class Controller implements Initializable{
 			this.pane.getChildren().add(error); 
 			this.boardBox.setVisible(false); 
 		}
-    	
-    	//levelList.set
 
     }
     
@@ -127,6 +130,7 @@ public class Controller implements Initializable{
     
     static int time=0;
     public void startLoop() {
+    	System.out.println(mRUtil.difficulty);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -136,6 +140,7 @@ public class Controller implements Initializable{
                         gameLoop.stop();
                         tilepane.setVisible(false);
                         dwarfBoard.setVisible(false);
+                        restartBox.setVisible(true);
 
                         battlefield.clearBattlefield();
                         
@@ -246,5 +251,18 @@ public class Controller implements Initializable{
     	}
     	
     }
+    
+    @FXML
+    void restart(ActionEvent event) {
+    	initialize(null, null);
+    	startBox.setVisible(true);
+    	System.out.println(this.battlefield.isDead());
+    	this.result.setText("");
+    	time = 0;
+    	move = true;
+    	//mineralsRevenge.start();
+    	
+    }
+
 
 }

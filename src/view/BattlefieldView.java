@@ -112,6 +112,10 @@ public class BattlefieldView {
 	        else if(enemy instanceof Diamond) {
 	            id = mRUtil.diamond_id;
 	        }
+	        else if(enemy instanceof DwarfRenegade) {
+	        	id = mRUtil.dwarfRenegade_id;
+	        }
+	        
 	 
 	        Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 	        imageView.setId(enemy.getId() + "");
@@ -158,11 +162,10 @@ public class BattlefieldView {
 		else if(turret instanceof DwarfScientist){
 			id = mRUtil.dwarfScientist_id;
 		}
-		/*else if(turret instanceof Mine) {
-            id = mRUtil.mine_id;
-        }*/
-
-
+		else if(turret instanceof Mine) {
+			id = mRUtil.mine_id;
+		}
+		
 		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
 		ImageView imageView = new ImageView();
 		imageView.setId(turret.getId() + "");
@@ -201,6 +204,9 @@ public class BattlefieldView {
 		   }
 		   else if(projectile instanceof Potion){
 		   		id = mRUtil.potion_id;
+		   }
+		   else if(projectile instanceof RevengefulPickaxe) {
+			   id = mRUtil.revengefulPickaxe_id;
 		   }
 		   
 		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
