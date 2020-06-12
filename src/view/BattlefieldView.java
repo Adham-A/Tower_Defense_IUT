@@ -271,25 +271,29 @@ public class BattlefieldView {
 			if(brick.translateXProperty().getValue()<image.getWidth()/4) {
 				timeline = new Timeline(
 						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
-						new KeyFrame(Duration.seconds(2), new KeyValue(brick.translateXProperty(),width*-3))
+						new KeyFrame(Duration.seconds(2), new KeyValue(brick.translateXProperty(),width*-3)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
 						);
 			}
 			else if(brick.translateXProperty().getValue()<image.getWidth()/2){
 				timeline = new Timeline(
 						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
-						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*-3))
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*-3)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
 						);
 			}
 			else if(brick.translateXProperty().getValue()<image.getWidth()-image.getWidth()/4) {
 				timeline = new Timeline(
 						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
-						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5))
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
 						);
 			}
 			else {
 				timeline = new Timeline(
 						new KeyFrame(Duration.seconds(0), new KeyValue(brick.translateXProperty(),brick.translateXProperty().getValue())),
-						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5))
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.translateXProperty(),width*5)),
+						new KeyFrame(Duration.seconds(2.70), new KeyValue(brick.visibleProperty(),false))
 						);
 
 			}
@@ -300,6 +304,6 @@ public class BattlefieldView {
 	
 
 	public void playStartAnimation() {
-		this.timelines.forEach(brick_timeline -> brick_timeline.play() );
+		this.timelines.forEach(brick_timeline -> brick_timeline.play());
 	}
 }

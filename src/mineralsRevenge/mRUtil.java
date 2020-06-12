@@ -150,5 +150,5 @@ public class mRUtil {
 	
 	//BattlefieldView
 	public final static int tileSize = 32;
-		
+
 }

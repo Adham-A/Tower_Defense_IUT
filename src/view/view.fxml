@@ -12,7 +12,7 @@
    <children>
       <HBox>
          <children>
-            <Pane fx:id="pane">
+            <Pane fx:id="pane" onMouseClicked="#doABarrelRoll">
                <children>
                   <TilePane fx:id="tilepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDropped="#handleImageDrop" onDragOver="#handleImageOver" prefHeight="864.00" prefWidth="480.0" />
                   <Label fx:id="result">

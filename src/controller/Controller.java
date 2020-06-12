@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import exception.TerrainLoaderException;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,10 +77,10 @@ public class Controller implements Initializable{
     @FXML
     private VBox restartBox;
 
-
 	private boolean move = true;
 	private Battlefield battlefield;
     private BattlefieldView battlefieldView;
+	private Timeline timeline ;
 
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -151,7 +152,8 @@ public class Controller implements Initializable{
                     else{
                     	battlefield.turnLoop();
                     }
-                    time++;
+                    time++;    	
+
                 }
             )
         );
@@ -214,8 +216,8 @@ public class Controller implements Initializable{
 				battlefield.addTurret(d);
 			}
     	}
-    }
-
+    }    
+    																																																																																																			@FXML void doABarrelRoll(MouseEvent event) { if(event.getX()<32 && event.getY()<32) {pane.getChildren().forEach(node -> {this.timeline = new Timeline( new KeyFrame(Duration.seconds(0), new KeyValue(node.rotateProperty(),0)),new KeyFrame(Duration.seconds(0.5), new KeyValue(node.rotateProperty(),360)));this.timeline.setCycleCount(10);this.timeline.play();});}}
     @FXML
     void handleImageOver(DragEvent event) {
     	if (event.getDragboard().hasImage()) {
