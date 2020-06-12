@@ -1,6 +1,6 @@
 package controller;
 
-import mineralsRevenge.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -260,7 +260,6 @@ public class Controller implements Initializable{
     	this.result.setText("");
     	time = 0;
     	move = true;
-    	//mineralsRevenge.start();
     	
     }
 
