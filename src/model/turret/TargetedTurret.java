@@ -5,15 +5,13 @@ import model.Battlefield;
 import model.enemy.Enemy;
 import model.projectile.Projectile;
 
-public class TargetedTurret extends Turret {
+public abstract class TargetedTurret extends Turret {
 
-    private int atkSpeed;
     private Projectile projectile;
     private double range;
 
-    public TargetedTurret(int hp, int x, int y,Battlefield battlefield ,int atkSpeed,double range,Projectile projectile) {
+    public TargetedTurret(int hp, int x, int y,Battlefield battlefield,double range,Projectile projectile) {
         super(hp, x, y, battlefield);
-        this.atkSpeed = atkSpeed;
         this.projectile = projectile;
         this.range = range;
         this.projectile.setParent(this);

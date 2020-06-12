@@ -2,24 +2,21 @@ package model.projectile;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import model.enemy.Diamond;
 import model.enemy.Enemy;
 import model.turret.TargetedTurret;
 
 
-public class Projectile {
+public abstract class Projectile {
 	
 	private int damage;
-	private int speed;
 	private DoubleProperty x;
 	private DoubleProperty y;
 	private int id;
 	private static int ids = 0;
 	private TargetedTurret parent;
 	
-	public Projectile(int damage, int speed,double x, double y) {
+	public Projectile(int damage,double x, double y) {
 		this.damage = damage;
-		this.speed = speed;
 		this.x = new SimpleDoubleProperty(x);
 		this.y = new SimpleDoubleProperty(y);
 		this.id = Projectile.ids;
@@ -44,14 +41,6 @@ public class Projectile {
 	
 	public int getDamage() {
 		return damage;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-	
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 	
 	public DoubleProperty getXProperty() {

@@ -1,12 +1,13 @@
 package model.projectile;
 
+import mineralsRevenge.mRUtil;
 import model.enemy.Diamond;
 import model.enemy.Enemy;
 
 public class Potion extends Projectile {
 
-    public Potion(int damage, int speed, double x, double y) {
-        super(damage, speed, x, y);
+    public Potion(double x, double y) {
+        super(mRUtil.potion_damage,x, y);
     }
     
     @Override

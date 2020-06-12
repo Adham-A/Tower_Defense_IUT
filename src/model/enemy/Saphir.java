@@ -1,12 +1,13 @@
 package model.enemy;
 
+import mineralsRevenge.mRUtil;
 import model.Battlefield;
 import model.projectile.Projectile;
 
 public class Saphir extends Mineral{
 
-	public Saphir(int hp, int x, int y, Battlefield battlefield) {
-		super(hp, x, y, battlefield);
+	public Saphir(int x, int y, Battlefield battlefield) {
+		super(mRUtil.saphir_hp, x, y, battlefield);
 	}
 	
 	@Override
@@ -21,7 +22,7 @@ public class Saphir extends Mineral{
 
 	@Override
 	public int moneyDrop() {
-		return 30;
+		return mRUtil.saphir_money;
 	}
 
 }

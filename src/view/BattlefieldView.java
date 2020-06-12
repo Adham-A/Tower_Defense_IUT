@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import mineralsRevenge.mRUtil;
 import model.Battlefield;
 import model.enemy.*;
 import model.projectile.*;
@@ -89,20 +90,20 @@ public class BattlefieldView {
 	        imageView.setPreserveRatio(true);
 	        int id = 0;
 	        if( enemy instanceof Quartz) {
-	            id = 201;
+	            id = mRUtil.quartz_id;
 	        }
 	        else if (enemy instanceof Emerald) {
-	            id = 211;
+	            id = mRUtil.emerald_id;
 	            if(((Emerald) enemy).isAChild()) {
 	                imageView.setFitHeight(16);
 	                imageView.setFitWidth(16);
 	            }
 	        }
 	        else if (enemy instanceof Saphir) {
-	            id = 221;
+	            id = mRUtil.saphir_id;
 	        }
 	        else if(enemy instanceof Diamond) {
-	            id = 231;
+	            id = mRUtil.diamond_id;
 	        }
 	 
 	        Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
@@ -139,16 +140,16 @@ public class BattlefieldView {
 		int id = 0;
 
 		if(turret instanceof DwarfMiner) {
-			id = 101;
+			id = mRUtil.dwarfMiner_id;
 		}
 		else if(turret instanceof DwarfSoldier) {
-			id = 111;
+			id = mRUtil.dwarfSoldier_id;
 		}
 		else if(turret instanceof DwarfDemolitionist) {
-			id = 121;
+			id = mRUtil.dwarfDemolitionist_id;
 		}
-		else {
-			id = 131;
+		else if(turret instanceof DwarfScientist){
+			id = mRUtil.dwarfScientist_id;
 		}
 
 
@@ -180,16 +181,16 @@ public class BattlefieldView {
 		   int id = 0 ;
 
 		   if(projectile instanceof Pickaxe) {
-		   		id = 301;
+		   		id = mRUtil.pickaxe_id;
 		   }
 		   else if(projectile instanceof Rocket) {
-		   		id = 311;
+		   		id = mRUtil.rocket_id;
 		   }
 		   else if(projectile instanceof Dynamite) {
-				id = 321;
+				id = mRUtil.dynamite_id;
 		   }
-		   else {
-		   		id = 331;
+		   else if(projectile instanceof Potion){
+		   		id = mRUtil.potion_id;
 		   }
 		   
 		   Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);

@@ -1,5 +1,6 @@
 package model.enemy;
 
+import mineralsRevenge.mRUtil;
 import model.Battlefield;
 import model.projectile.Projectile;
 
@@ -7,8 +8,8 @@ public class Diamond extends Enemy{
 	
 	public boolean armor;
 	
-	public Diamond(int hp, int x, int y, Battlefield battlefield) {
-		super(hp, x, y, battlefield);
+	public Diamond(int x, int y, Battlefield battlefield) {
+		super(mRUtil.diamond_hp, x, y, battlefield);
 		this.armor = true;
 	}
 	
@@ -36,7 +37,7 @@ public class Diamond extends Enemy{
 
 	@Override
 	public int moneyDrop() {
-		return 50;
+		return mRUtil.diamond_money;
 	}
 
 }

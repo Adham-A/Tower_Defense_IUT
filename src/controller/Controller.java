@@ -23,8 +23,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import mineralsRevenge.mRUtil;
 import model.*;
-import model.enemy.*;
 import model.turret.*;
 import view.BattlefieldView;
 
@@ -165,20 +165,20 @@ public class Controller implements Initializable{
     	int x = ((int)event.getX())/32;
     	int y = ((int)event.getY())/32;
     	if(battlefield.getTerrain().isFree(battlefield.getTerrain().getTerrainTile(x, y))) {
-    		if(event.getDragboard().getString() == idMiner && this.battlefield.buy(DwarfMiner.getPrice())) {
-    	    	Turret d = new DwarfMiner(x,y,this.battlefield, 4);
+    		if(event.getDragboard().getString() == idMiner && this.battlefield.buy(mRUtil.dwarfMiner_price)) {
+    	    	Turret d = new DwarfMiner(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     	    }
-    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.buy(DwarfSoldier.getPrice())) {
-    			Turret d = new DwarfSoldier(x,y,this.battlefield, 4);
+    		else if (event.getDragboard().getString() == idSoldier && this.battlefield.buy(mRUtil.dwarfSoldier_price)) {
+    			Turret d = new DwarfSoldier(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
-    		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(DwarfScientist.getPrice())) {
+    		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
     			Turret d = new DwarfScientist(x,y,this.battlefield, 4);
     	    	battlefield.addTurret(d);
     		}
-    		else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(DwarfDemolitionist.getPrice())){
-    			Turret d = new DwarfDemolitionist(x,y,this.battlefield, 4);
+    		else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
+    			Turret d = new DwarfDemolitionist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
     		else {

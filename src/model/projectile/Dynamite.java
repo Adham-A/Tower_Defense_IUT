@@ -1,7 +1,7 @@
 package model.projectile;
 
 import model.enemy.Enemy;
-import model.Graph;
+import mineralsRevenge.mRUtil;
 import model.Battlefield;
 import model.Edge;
 
@@ -9,8 +9,8 @@ public class Dynamite extends Projectile {
 	
 	private Battlefield battlefield;
 
-	public Dynamite(int damage, int speed, double x, double y,Battlefield battlefield) {
-		super(damage, speed, x, y);
+	public Dynamite(double x, double y,Battlefield battlefield) {
+		super(mRUtil.dynamite_damage, x, y);
 		this.battlefield = battlefield;
 	}
 	

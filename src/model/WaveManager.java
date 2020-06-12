@@ -46,23 +46,23 @@ public class WaveManager {
 
 		
 		if(quartz_counter%2 == 0) {
-			battlefield.addEnemy(new Quartz(30,start_x,start_y,battlefield));
+			battlefield.addEnemy(new Quartz(start_x,start_y,battlefield));
 		}
 		
 		if(this.turnNumber.getValue() > 5) {
 			if(emerald_counter%3 == 0) {
-				battlefield.addEnemy(new Emerald(40,start_x, start_y, battlefield));
+				battlefield.addEnemy(new Emerald(start_x, start_y, battlefield));
 			}
 		}
 		
 		if(this.turnNumber.getValue() > 20) {
 			if(saphir_counter%5 == 0) {
-				battlefield.addEnemy(new Saphir(50,start_x, start_y, battlefield));
+				battlefield.addEnemy(new Saphir(start_x, start_y, battlefield));
 			}
 		}
 		if(this.turnNumber.getValue() > 50) {
 			if(diamond_counter%10 == 0) {
-				battlefield.addEnemy(new Diamond(50, start_x, start_y, battlefield));
+				battlefield.addEnemy(new Diamond(start_x, start_y, battlefield));
 			}
 		}
 		

@@ -1,5 +1,6 @@
 package model.projectile;
 
+import mineralsRevenge.mRUtil;
 import model.Edge;
 import model.enemy.Enemy;
 
@@ -7,9 +8,9 @@ public class Rocket extends Projectile {
 
     private int radius;
 
-    public Rocket(int damage, int speed, double x, double y, int radius) {
-        super(damage, speed, x, y);
-        this.radius = radius; // deals full damage to the target but collateral damages are reduced.
+    public Rocket(double x, double y) {
+        super(mRUtil.rocket_damage,x, y);
+        this.radius = mRUtil.rocket_radius; // deals full damage to the target but collateral damages are reduced.
     }
 
     @Override
