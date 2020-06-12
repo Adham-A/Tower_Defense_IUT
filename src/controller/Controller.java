@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
@@ -110,18 +109,19 @@ public class Controller implements Initializable{
         KeyFrame kf = new KeyFrame(
             Duration.seconds(0.5),
                 (ev ->{
-                    if(time==1000){
+                    if(time==battlefield.getWaveManager().getMaxTurns() || this.battlefield.isDead() ){
                         gameLoop.stop();
                         tilepane.setVisible(false);
                         dwarfBoard.setVisible(false);
 
-                        for ( int i = 0 ; i < battlefield.getEnemyList().size() ; i++) {
-                        	battlefield.removeEnemy(battlefield.getEnemyList().get(i));
-                        	i--;
-                        }
+                        battlefield.clearBattlefield();
+                        
                     	if(this.battlefield.getHp() > 0) {
                         	this.result.setText("You Won!");
                         }
+                    	else {
+                    		this.result.setText("You lost");
+                    	}
 
                     }
                     else{

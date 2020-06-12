@@ -85,43 +85,47 @@ public class BattlefieldView {
 	}
 	
 	public void createEnemy(Enemy enemy) {
-		int id = 0;
-		if( enemy instanceof Quartz) {
-			id = 201;
-		}
-		else if (enemy instanceof Emerald) {
-			id = 211;
-		}
-		else if (enemy instanceof Saphir) {
-			id = 221;
-		}
-		else if(enemy instanceof Diamond) {
-			id = 231;
-		}
-
-		Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
-		ImageView imageView = new ImageView();
-		imageView.setId(enemy.getId() + "");
-		imageView.setImage(image);
-		this.pane.getChildren().add(imageView);
-		
-		imageView.translateXProperty().set(enemy.getXProperty().multiply(32).getValue());
-		imageView.translateYProperty().set(enemy.getYProperty().multiply(32).getValue());
-
-		 enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
-	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
-	                );
-		 			this.timeline.play();
-	      });
-		 
-	     enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
-	                new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
-	                new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))
-	                );
-	     			this.timeline.play();
-	     });
-
+		 ImageView imageView = new ImageView();
+	        imageView.setPreserveRatio(true);
+	        int id = 0;
+	        if( enemy instanceof Quartz) {
+	            id = 201;
+	        }
+	        else if (enemy instanceof Emerald) {
+	            id = 211;
+	            if(((Emerald) enemy).isAChild()) {
+	                imageView.setFitHeight(16);
+	                imageView.setFitWidth(16);
+	            }
+	        }
+	        else if (enemy instanceof Saphir) {
+	            id = 221;
+	        }
+	        else if(enemy instanceof Diamond) {
+	            id = 231;
+	        }
+	 
+	        Image image = SwingFXUtils.toFXImage(cropImage(tileset,id),null);
+	        imageView.setId(enemy.getId() + "");
+	        imageView.setImage(image);
+	        this.pane.getChildren().add(imageView);
+	       
+	        imageView.translateXProperty().set(enemy.getXProperty().multiply(32).getValue());
+	        imageView.translateYProperty().set(enemy.getYProperty().multiply(32).getValue());
+	 
+	         enemy.getXProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateXProperty(),(int)old_value*32)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateXProperty(),(int)new_value*32))
+	                    );
+	                    this.timeline.play();
+	          });
+	         
+	         enemy.getYProperty().addListener((obs_value,old_value,new_value)-> { this.timeline = new Timeline(
+	                    new KeyFrame(Duration.seconds(0), new KeyValue(imageView.translateYProperty(),(int)old_value*32)),
+	                    new KeyFrame(Duration.seconds(0.5), new KeyValue(imageView.translateYProperty(),(int)new_value*32))
+	                    );
+	                    this.timeline.play();
+	         });
 	}
 
 	public void createTurretBoard(ImageView imageView, String id) {
