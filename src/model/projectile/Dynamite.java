@@ -5,11 +5,11 @@ import model.Graph;
 import model.Battlefield;
 import model.Edge;
 
-public class Dynamit extends Projectile {
+public class Dynamite extends Projectile {
 	
 	private Battlefield battlefield;
 
-	public Dynamit(int damage, int speed, double x, double y,Battlefield battlefield) {
+	public Dynamite(int damage, int speed, double x, double y,Battlefield battlefield) {
 		super(damage, speed, x, y);
 		this.battlefield = battlefield;
 	}

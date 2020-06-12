@@ -9,12 +9,15 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -149,6 +152,19 @@ public class BattlefieldView {
 		ImageView imageView = new ImageView();
 		imageView.setId(turret.getId() + "");
 		imageView.setImage(image);
+		imageView.setOnMouseClicked((EventHandler<? super MouseEvent>) new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent t) {
+            	if (t.getButton() == MouseButton.SECONDARY) {
+            		for ( int i = 0 ;  i < battlefield.getTurretList().size() ; i++) {
+            			if (battlefield.getTurretList().get(i) == turret) {
+            				battlefield.removeTurret(battlefield.getTurretList().get(i));
+            				break;
+            			}
+            		}
+            	}
+            }
+        });
+		
 		this.pane.getChildren().add(imageView);
 
 		imageView.setX(turret.getX()*32);
@@ -165,7 +181,7 @@ public class BattlefieldView {
 		   else if(projectile instanceof Rocket) {
 		   		id = 311;
 		   }
-		   else if(projectile instanceof Dynamit) {
+		   else if(projectile instanceof Dynamite) {
 				id = 321;
 		   }
 		   else {
