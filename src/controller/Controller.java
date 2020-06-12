@@ -63,9 +63,9 @@ public class Controller implements Initializable{
     
     private final String idMiner = "101";
     private final String idSoldier = "111";
+	private final String idDemolitionist = "121";
     private final String idScientist = "131";
-    private final String idDemolitionist = "121";
-    
+
     public void initialize(URL arg0, ResourceBundle arg1) {
 
     	try {
@@ -88,8 +88,8 @@ public class Controller implements Initializable{
 	    	
 	    	battlefieldView.createTurretBoard(minerImage, idMiner);
 	    	battlefieldView.createTurretBoard(soldierImage, idSoldier);
+			battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
 	    	battlefieldView.createTurretBoard(scientistImage, idScientist);
-	    	battlefieldView.createTurretBoard(demolitionistImage, idDemolitionist);
 
 		} catch (TerrainLoaderException e) {
 			System.err.println(e.getMessage());
@@ -146,12 +146,13 @@ public class Controller implements Initializable{
     	else if(event.getTarget() == soldierImage) {
     		target = soldierImage;
     	}
-    	else if(event.getTarget() == scientistImage) {
+		else if(event.getTarget() == demolitionistImage){
+			target = demolitionistImage;
+		}
+    	else {
     		target = scientistImage;
     	}
-    	else {
-    		target = demolitionistImage;
-    	}
+
     	Dragboard db = target.startDragAndDrop(TransferMode.ANY);
     	cb.putImage(target.getImage());
     	cb.putString(target.getId());
@@ -173,12 +174,12 @@ public class Controller implements Initializable{
     			Turret d = new DwarfSoldier(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
+			else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)){
+				Turret d = new DwarfDemolitionist(x,y,this.battlefield);
+				battlefield.addTurret(d);
+			}
     		else if (event.getDragboard().getString() == idScientist && this.battlefield.buy(mRUtil.dwarfScientist_price)) {
     			Turret d = new DwarfScientist(x,y,this.battlefield);
-    	    	battlefield.addTurret(d);
-    		}
-    		else if (event.getDragboard().getString() == idDemolitionist && this.battlefield.buy(mRUtil.dwarfDemolitionist_price)) {
-    			Turret d = new DwarfDemolitionist(x,y,this.battlefield);
     	    	battlefield.addTurret(d);
     		}
     		else {
