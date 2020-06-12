@@ -40,7 +40,7 @@ public abstract class Enemy {
 	}
 
 	public void move() { // Make the enemy follow the way to the next tile
-		if(this.edge.getParent()!=null) {
+		if(this.edge != null && this.edge.getParent()!=null) {
 			this.y.set(this.edge.getParent().getY());
 			this.x.set(this.edge.getParent().getX());
 			this.edge = this.edge.getParent();
