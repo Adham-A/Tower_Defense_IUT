@@ -32,14 +32,20 @@ public class mRUtil {
 	 */
 	
 	public final static int maxTurn = 150;
+	
+	//SpawnTurn
 	public final static int quartz_spawnTurn = 0;
 	public final static int emerald_spawnTurn = 10;
 	public final static int saphir_spawnTurn = 25;
 	public final static int diamond_spawnTurn = 50;
+	public final static int dwarfRenegade_spawnTurn = 75;
+	
+	//SpawnRates
 	public final static int quartz_spawnrate = 2;
 	public final static int emerald_spawnrate = 3;
 	public final static int saphir_spawnrate = 5;
 	public final static int diamond_spawnrate = 10;
+	public final static int dwarfRenegade_spawnrate = 15;
 
 	//-------------------------------------------------------------------
 	
@@ -68,6 +74,12 @@ public class mRUtil {
 	public final static int diamond_hp = 50;
 	public final static int diamond_money = 40 ;
 	
+	//DwarfRenegade
+	public final static int dwarfRenegade_id = 241;
+	public final static int dwarfRenegade_hp = 50;
+	public final static int dwarfRenegade_money = 60;
+	public final static int dwarfRenegade_range = 2;
+	
 	//-------------------------------------------------------------------
 	
 	/*
@@ -94,7 +106,7 @@ public class mRUtil {
 	
 	//DwarfScientist
 	public final static int dwarfScientist_id = 131;
-	public final static int dwarfScientist_hp = 18;
+	public final static int dwarfScientist_hp = 500;
 	public final static int dwarfScientist_range = 5;
 	public final static int dwarfScientist_price = 30;
 	
@@ -120,6 +132,10 @@ public class mRUtil {
 	//Potion
 	public final static int potion_id = 331;
 	public final static int potion_damage = 3;
+	
+	//RevengefulPickaxe
+	public final static int revengefulPickaxe_id = 341;
+	public final static int revengefulPickaxe_damage = 10;
 	
 	//-------------------------------------------------------------------
 	

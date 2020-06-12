@@ -71,4 +71,9 @@ public abstract class Projectile {
 	public TargetedTurret getParent() {
 		return this.parent;
 	}
+	
+	public void resetProjectile() {
+		this.x.setValue(parent.getX());
+    	this.y.setValue(parent.getY());
+	}
 }
