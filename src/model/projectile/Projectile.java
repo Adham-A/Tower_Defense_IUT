@@ -1,3 +1,8 @@
+/*
+ * Abstract Class Projectile
+ * which grants to all projectiles their main attributes and the method shoot().
+ */
+
 package model.projectile;
 
 import javafx.beans.property.DoubleProperty;
@@ -23,7 +28,7 @@ public abstract class Projectile {
 		ids++;
 	}
 
-
+	// Returns true if the projectile has an enemy that exists.
 	public boolean shoot(Enemy e) {
 		if(e!=null) {
 			e.removeHp(this);
