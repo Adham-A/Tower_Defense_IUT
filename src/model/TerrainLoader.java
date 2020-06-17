@@ -1,8 +1,9 @@
 // This class loads the JSON and provide getters on width,height and data.
 package model;
 
-import java.io.FileReader;
+import java.io.InputStream;
 import java.util.Iterator;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,7 +17,13 @@ public class TerrainLoader {
 	public TerrainLoader(String path) {
 		Object obj = null;
 		try {
-			obj = new JSONParser().parse(new FileReader(path)); //Creates the JSON object
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream(path);
+			int read;
+			String json = "";
+			while ((read = is.read()) != -1)
+				json += (char) read;
+			
+			obj = new JSONParser().parse(json); //Creates the JSON object
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

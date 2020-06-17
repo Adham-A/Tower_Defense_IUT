@@ -2,17 +2,12 @@
 package view;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,15 +19,33 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import mineralsRevenge.mRUtil;
 import model.Battlefield;
-import model.enemy.*;
-import model.projectile.*;
-import model.turret.*;
+import model.enemy.Diamond;
+import model.enemy.DwarfRenegade;
+import model.enemy.Emerald;
+import model.enemy.Enemy;
+import model.enemy.Quartz;
+import model.enemy.Saphir;
+import model.projectile.Dynamite;
+import model.projectile.Pickaxe;
+import model.projectile.Potion;
+import model.projectile.Projectile;
+import model.projectile.RevengefulPickaxe;
+import model.projectile.Rocket;
+import model.turret.DwarfDemolitionist;
+import model.turret.DwarfMiner;
+import model.turret.DwarfScientist;
+import model.turret.DwarfSoldier;
+import model.turret.Mine;
+import model.turret.TargetedTurret;
+import model.turret.Turret;
 
 public class BattlefieldView {
 	
@@ -53,7 +66,7 @@ public class BattlefieldView {
 		this.pane = pane;
 		this.boardBox = boardBox;
 		try {
-			this.tileset = ImageIO.read(new File("tileset/tileset.png"));
+			this.tileset = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("tileset/tileset.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
